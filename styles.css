@@ -1,0 +1,1136 @@
+/* ==========================================================================
+   LELP · LiNK English Language Program — Fall 2026
+   ========================================================================== */
+
+:root {
+  /* LiNK brand red — matches libertyinnorthkorea.or.kr / .org exactly (rgb(221,57,40)) */
+  --red: #DD3928;
+  --red-dark: #C22E1F;
+  --red-darker: #98230F;
+  --red-tint: #FCEBE8;
+  --red-tint-2: #FBDAD5;
+  --ink: #333333;
+  --ink-soft: #5C5C5C;
+  --footer-muted: #767676;
+  --gray-600: #767676;
+  --gray-300: #E4E1DD;
+  --gray-100: #F5F3F1;
+  --bg: #FFFFFF;
+  --cream: #FDFBFA;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-card: none;
+  --shadow-pop: 0 8px 20px rgba(221, 57, 40, 0.18);
+  --maxw: 1120px;
+  /* Korean copy follows libertyinnorthkorea.or.kr's stack (Lato -> Pretendard) */
+  --font-ko: "Lato", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic",
+    "Noto Sans KR", Roboto, sans-serif;
+  /* English copy follows libertyinnorthkorea.org's geometric-sans tone (Futura PT) —
+     Poppins is the closest freely-licensable match */
+  --font-en: "Poppins", "Lato", -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font: var(--font-ko);
+}
+
+* { box-sizing: border-box; }
+html {
+  scroll-behavior: smooth;
+  /* Safety net only — overflow-x is NOT set on <body> because that would
+     turn body into a scroll container and break position:sticky on the
+     header (a direct child) in some browsers. The real fix for the mobile
+     overflow is making the header content fit (see @media rules below). */
+  overflow-x: hidden;
+  max-width: 100%;
+}
+body {
+  margin: 0;
+  font-family: var(--font-ko);
+  color: var(--ink);
+  background: var(--bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+/* Ink tone follows each brand site's own measured text color, not one
+   shared gray — libertyinnorthkorea.or.kr sits darker/denser (Pretendard),
+   libertyinnorthkorea.org sits lighter/airier (Futura PT). */
+body[data-role="student"] {
+  font-family: var(--font-ko);
+  --ink: #3C3C3C;
+  --ink-soft: #5C5C5C;
+  --footer-muted: #6B6B6B;
+}
+body[data-role="volunteer"] {
+  font-family: var(--font-en);
+  --ink: #4D4D4D;
+  --ink-soft: #767676;
+  --footer-muted: #999999;
+}
+img, svg { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3, h4, p { margin: 0; }
+/* Prevent awkward line breaks (a lone orphaned word, a phrase split at a bad
+   point, or — critically for Korean — a word split mid-syllable) without
+   touching any actual copy. word-break:keep-all restricts where a line CAN
+   break (word boundaries only, never inside a 결합한-style compound);
+   text-wrap balances/prettifies WHICH of those allowed points it uses.
+   Modern browsers get both; older browsers just wrap normally — no
+   regression either way. */
+h1, h2, h3, h4, p { word-break: keep-all; overflow-wrap: break-word; }
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+.container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- role visibility switch ---------- */
+[data-r-student], [data-r-volunteer] { transition: none; }
+body[data-role="student"] [data-r-volunteer] { display: none !important; }
+body[data-role="volunteer"] [data-r-student] { display: none !important; }
+body[data-role="student"] .lang-en { display: none !important; }
+body[data-role="volunteer"] .lang-ko { display: none !important; }
+
+/* ---------- header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid var(--gray-300);
+}
+.header-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: auto;
+}
+/* Official lockup: red "LELP" wordmark — divider — LiNK square mark.
+   The icon is sized DOWN to match the wordmark's height (not the other way
+   round), and kept as the original square asset — no rounded corners, no
+   cropping, no distortion. */
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 0;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+.brand-divider {
+  width: 2px;
+  height: 28px;
+  background: var(--ink);
+  flex-shrink: 0;
+}
+.brand-lockup {
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* tagline starts flush against the bottom of the row above it */
+}
+.brand-word {
+  font-family: var(--font-en);
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 28px;
+  letter-spacing: -0.5px;
+  color: var(--red);
+  white-space: nowrap;
+}
+.footer-brand .brand-word { font-size: 20px; line-height: 20px; }
+.footer-brand .brand-mark { width: 20px; height: 20px; }
+.footer-brand .brand-divider { height: 20px; }
+.main-nav {
+  display: flex;
+  gap: 22px;
+}
+.main-nav a {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--ink);
+  padding: 6px 0;
+}
+.main-nav a:hover { color: var(--red); }
+.main-nav a.active { color: var(--red); font-weight: 600; }
+
+/* ---------- sub-nav (in-page section tabs, index.html only) ----------
+   Same segmented-control language as the role switch: one oval capsule,
+   with a sliding thumb behind whichever tab is active — not loose pills
+   floating on a bare strip. */
+.subnav {
+  position: sticky;
+  top: var(--header-h, 65px);
+  z-index: 90;
+  background: #fff;
+  border-bottom: 1px solid var(--gray-300);
+  padding: 8px 0;
+}
+.subnav .subnav-inner {
+  position: relative;
+  display: flex;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  /* Fallback before JS runs (and on mobile, where the "About" nav link isn't
+     visible to align against): centered on the page. script.js overrides
+     margin-left with a computed px value to center this tab group under the
+     "About" link in the main nav instead, whenever that link is visible. */
+  margin: 0 auto;
+  background: var(--gray-100);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.subnav-inner::-webkit-scrollbar { display: none; }
+.subnav-thumb {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: calc(100% - 6px);
+  width: 0;
+  border-radius: 999px;
+  background: var(--red);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 0;
+  pointer-events: none;
+}
+.subnav-link {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-600);
+  white-space: nowrap;
+  background: transparent;
+  transition: color 0.2s;
+}
+.subnav-link:hover { color: var(--ink); }
+.subnav-link.active { color: #fff; }
+
+/* Anchor targets for the sub-nav (and any direct #hash link/reload) scroll to
+   stop below the sticky header + sub-nav, instead of having their top few
+   lines hidden underneath those sticky bars. --sticky-offset is measured and
+   set by script.js; the pixel value here is just a pre-JS/no-JS fallback. */
+#about, #activities, #participants, #testimonials {
+  scroll-margin-top: var(--sticky-offset, 120px);
+}
+
+/* Sliding toggle switch: a colored "thumb" slides between the two labels
+   (JS measures each button's real width/position, since "학생 · Student" and
+   "봉사자 · Volunteer" aren't the same width) instead of each button just
+   flipping its own background on click. */
+.role-switch {
+  position: relative;
+  display: inline-flex;
+  background: var(--gray-100);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.role-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: calc(100% - 6px);
+  width: 0;
+  border-radius: 999px;
+  background: var(--red);
+  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.28s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+.role-switch-thumb.is-volunteer { background: var(--ink); }
+.role-btn {
+  position: relative;
+  z-index: 1;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--gray-600);
+  white-space: nowrap;
+  background: transparent;
+  transition: color 0.2s;
+}
+.role-btn.active { color: #fff; }
+
+.header-cta {
+  flex-shrink: 0;
+}
+.nav-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--gray-300);
+  flex-shrink: 0;
+  /* stack the 3 bars */
+  flex-direction: column;
+  gap: 4px;
+}
+.nav-toggle span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--ink);
+}
+.mobile-nav {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 16px 16px;
+  border-top: 1px solid var(--gray-300);
+  background: #fff;
+}
+.mobile-nav.open { display: flex; }
+.mobile-nav a {
+  padding: 10px 4px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom: 1px solid var(--gray-100);
+}
+.mobile-nav a.active { color: var(--red); font-weight: 600; }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 32px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  white-space: nowrap;
+}
+.btn-primary {
+  background: var(--red);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--red-dark); }
+.btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--gray-300);
+}
+.btn-ghost:hover { border-color: var(--ink); }
+.btn-sm { padding: 9px 18px; font-size: 13px; }
+
+/* ---------- hero: full-bleed photo with a fade-to-content overlay ---------- */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 104px 0 88px;
+  background: var(--cream); /* shows while the photo loads */
+  border-bottom: 1px solid var(--gray-300);
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    100deg,
+    var(--cream) 0%,
+    rgba(253, 251, 250, 0.94) 32%,
+    rgba(253, 251, 250, 0.6) 55%,
+    rgba(253, 251, 250, 0.12) 78%,
+    rgba(253, 251, 250, 0) 95%
+  );
+}
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+.hero-text { display: grid; gap: 28px; max-width: 620px; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--red);
+  background: var(--red-tint);
+  padding: 6px 14px;
+  border-radius: 999px;
+  width: fit-content;
+}
+.eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--red);
+}
+.hero h1 {
+  font-size: clamp(30px, 4.4vw, 50px);
+  line-height: 1.25;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  max-width: 780px;
+}
+.hero .lede {
+  font-size: 17px;
+  color: var(--ink-soft);
+  max-width: 620px;
+}
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.hero-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+/* ---------- page hero (secondary pages) ---------- */
+.page-hero {
+  padding: 56px 0 44px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--gray-300);
+}
+.page-hero h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+  margin-top: 14px;
+  max-width: 760px;
+}
+.page-hero .lede {
+  margin-top: 12px;
+  font-size: 16px;
+  color: var(--ink-soft);
+  max-width: 640px;
+}
+
+/* ---------- section shell ---------- */
+section { padding: 72px 0; }
+.section-head {
+  max-width: 680px;
+  margin-bottom: 40px;
+}
+.kicker {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 10px;
+  display: block;
+}
+.section-head h2 {
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+.section-head p {
+  margin-top: 12px;
+  color: var(--ink-soft);
+  font-size: 16px;
+}
+.alt-bg { background: var(--gray-100); }
+
+/* ---------- about cards (01/02/03) ---------- */
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.about-card {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+}
+.about-card .num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+.about-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  line-height: 1.35;
+}
+.about-card p {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------- stats ---------- */
+.stats-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--gray-300);
+  text-align: center;
+}
+.stat {
+  text-align: center;
+  padding: 4px 12px;
+}
+.stat .num {
+  font-size: clamp(30px, 3.8vw, 42px);
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+.stat .label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-top: 8px;
+}
+
+/* ---------- intro banner (fall 2026) ---------- */
+.intro-banner {
+  text-align: center;
+  padding: 8px 0 4px;
+  display: grid;
+  gap: 14px;
+  justify-content: center;
+  justify-items: center;
+}
+.intro-banner .kicker { color: var(--red); }
+.intro-banner h2 {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 700;
+  color: var(--ink);
+}
+.intro-banner p { color: var(--ink-soft); font-size: 16px; max-width: 640px; }
+
+/* ---------- who / how-to-apply ---------- */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.criteria-list {
+  display: grid;
+  gap: 12px;
+}
+.criteria-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+}
+.criteria-item .mark {
+  flex-shrink: 0;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.criteria-item p { font-size: 14.5px; color: var(--ink); }
+.note-box {
+  margin-top: 14px;
+  font-size: 13px;
+  color: var(--gray-600);
+  padding: 12px 16px;
+  border-left: 3px solid var(--gray-300);
+  background: var(--gray-100);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.timeline-list { display: grid; gap: 10px; }
+.timeline-list-full { max-width: 820px; }
+.timeline-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 16px;
+  padding: 16px;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-md);
+}
+.timeline-row .when {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  line-height: 1.35;
+}
+.timeline-row .what strong {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+.timeline-row .what span.tag {
+  display: inline-block;
+  margin-bottom: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--gray-600);
+  background: var(--gray-100);
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+.timeline-row .what p.desc {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+
+/* ---------- curriculum ---------- */
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.curr-card {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  padding: 24px 20px;
+}
+.curr-card .icon {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.curr-card .tag2 {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+  display: block;
+}
+.curr-card h4 {
+  font-size: 15.5px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.curr-card p {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+/* ---------- events ---------- */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.event-card {
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  position: relative;
+  overflow: hidden;
+}
+.event-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--red);
+}
+.event-card .date {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--red);
+  letter-spacing: 0.3px;
+}
+.event-card h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 8px 0 8px;
+}
+.event-card .badge {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gray-600);
+  background: var(--gray-100);
+  padding: 3px 9px;
+  border-radius: 999px;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+.event-card p { font-size: 13px; color: var(--ink-soft); }
+
+/* ---------- benefits ---------- */
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+.benefit-card {
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: var(--radius-md);
+  background: #fff;
+  border: 1px solid var(--gray-300);
+}
+.benefit-card .icon { font-size: 26px; margin-bottom: 12px; }
+.benefit-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.benefit-card p { font-size: 12.5px; color: var(--ink-soft); }
+
+.benefits-list-simple {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.benefit-line {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  background: var(--gray-100);
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.benefit-line .icon { font-size: 20px; }
+
+/* ---------- apply CTA ---------- */
+.apply-cta {
+  margin-top: 40px;
+  padding: 40px 20px 4px;
+  text-align: center;
+  border-top: 1px solid var(--gray-300);
+}
+.apply-cta .badge-date {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--red-tint);
+  color: var(--red-dark);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 22px;
+}
+.apply-cta h2 {
+  font-size: clamp(24px, 3.2vw, 34px);
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.apply-cta p.sub {
+  color: var(--ink-soft);
+  font-size: 16px;
+  margin-bottom: 28px;
+}
+.apply-note {
+  margin-top: 18px;
+  font-size: 12.5px;
+  color: var(--gray-600);
+}
+
+/* ---------- footer ---------- */
+.site-footer {
+  border-top: 1px solid var(--gray-300);
+  padding: 40px 0 28px;
+  background: var(--cream);
+}
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.footer-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.footer-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--gray-300);
+  background: #fff;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.footer-action-btn:hover {
+  border-color: var(--red);
+  color: var(--red-dark);
+}
+.footer-email {
+  margin-top: 20px;
+}
+.footer-email a {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--footer-muted);
+}
+.footer-email a:hover { color: var(--red); }
+.footer-meta {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--gray-300);
+  font-size: 12.5px;
+  font-weight: 400;
+  color: var(--footer-muted);
+  line-height: 1.7;
+}
+
+/* ---------- section photo ---------- */
+.section-photo {
+  margin: 44px 0 0;
+}
+.section-photo img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-300);
+  display: block;
+}
+.section-photo figcaption {
+  margin-top: 12px;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  text-align: center;
+}
+.stats-bar-secondary {
+  margin-top: 28px;
+  padding-top: 28px;
+}
+
+/* ---------- sub headings (within a section, above a sub-grid) ---------- */
+.sub-head {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 18px;
+}
+.sub-head-spaced { margin-top: 40px; }
+
+/* ---------- age distribution bar ---------- */
+.age-block { margin-bottom: 44px; }
+.age-bar {
+  display: flex;
+  width: 100%;
+  height: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--gray-100);
+}
+.age-seg { display: block; height: 100%; }
+.age-seg-1 { background: var(--red); }
+.age-seg-2 { background: #EF8A7C; }
+.age-seg-3 { background: var(--gray-300); }
+.age-legend {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.age-legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.age-legend i.age-seg-1 { background: var(--red); }
+.age-legend i.age-seg-2 { background: #EF8A7C; }
+.age-legend i.age-seg-3 { background: var(--gray-300); }
+
+/* ---------- motivation cards (participants section) ---------- */
+.motivation-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.motivation-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.motivation-card {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+}
+.motivation-card .icon { font-size: 22px; margin-bottom: 10px; }
+.motivation-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.motivation-card p { font-size: 13.5px; color: var(--ink-soft); }
+
+/* ---------- past-activities photo gallery ---------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.gallery-item {
+  margin: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--gray-300);
+  background: #fff;
+}
+.gallery-item img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+}
+.gallery-item figcaption {
+  padding: 10px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---------- voices / testimonials ---------- */
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 8px;
+}
+.voice-card {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.voice-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.voice-avatar {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--red-tint);
+  color: var(--red-dark);
+  font-weight: 700;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.voice-head strong { display: block; font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.voice-meta { display: block; font-size: 12px; color: var(--gray-600); margin-top: 1px; }
+.voice-quote { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; flex: 1; }
+.voice-tag {
+  align-self: flex-start;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--gray-600);
+  background: var(--gray-100);
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+/* ---------- blog article cards (screenshot-like: photo + title + excerpt + author) ---------- */
+.blog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.blog-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.blog-card:hover {
+  border-color: var(--gray-600);
+  box-shadow: var(--shadow-pop);
+}
+.blog-card img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  display: block;
+}
+.blog-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 8px;
+  padding: 16px;
+}
+.blog-card h4 {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.blog-card p {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  flex: 1;
+}
+.blog-author {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red);
+  margin-top: auto;
+}
+
+/* ---------- blog teaser (points to the standalone blog page) ---------- */
+.blog-teaser {
+  margin-top: 40px;
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.blog-teaser p {
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* ---------- utility ---------- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .about-grid, .curriculum-grid, .events-grid,
+  .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .benefits-grid { grid-template-columns: repeat(3, 1fr); }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .split { grid-template-columns: 1fr; }
+  .main-nav { display: none; }
+  .nav-toggle { display: flex; }
+}
+
+@media (max-width: 720px) {
+  .header-inner { padding: 10px 12px; gap: 8px; }
+  .role-switch { gap: 1px; padding: 2px; }
+  .role-btn { padding: 6px 8px; font-size: 11px; }
+  .header-cta { display: none; }
+  .container { padding: 0 16px; }
+  .hero { padding: 40px 0 44px; }
+  .hero-text { max-width: 100%; }
+  /* Left-to-right fade doesn't leave room for legible text on a narrow
+     screen — fade top-to-bottom instead, with the photo peeking through
+     at the bottom. */
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      var(--cream) 0%,
+      rgba(253, 251, 250, 0.96) 55%,
+      rgba(253, 251, 250, 0.75) 78%,
+      rgba(253, 251, 250, 0.35) 100%
+    );
+  }
+  section { padding: 48px 0; }
+  .about-grid, .curriculum-grid, .events-grid, .benefits-grid,
+  .benefits-list-simple, .grid-2,
+  .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .timeline-row { grid-template-columns: 1fr; }
+  .intro-banner, .apply-cta { padding: 28px 22px; }
+  .footer-inner { flex-direction: column; }
+  .age-legend { gap: 12px; }
+  /* Thinner still on mobile — the sticky sub-nav sits on screen the whole
+     time you scroll the page, so every extra pixel of its height eats into
+     content the visitor actually came to read. */
+  .subnav { padding: 5px 0; }
+  /* Sized so all 4 tabs fit within the viewport with zero horizontal overflow,
+     even in the longer English/volunteer labels ("Participants",
+     "Testimonials") — otherwise the last tab gets sliced off at the edge of
+     the sticky bar with no visual hint that it's scrollable. Measured against
+     a 375px viewport; .subnav-inner's overflow-x:auto stays on as a fallback
+     for larger text-zoom settings. */
+  .subnav .subnav-inner { padding: 2px; gap: 1px; }
+  .subnav-link { padding: 4px 8px; font-size: 11.5px; }
+}
+
+@media (max-width: 380px) {
+  .role-btn { padding: 5px 6px; font-size: 10px; }
+  .brand-word { font-size: 24px; line-height: 24px; }
+  .brand-mark, .brand-divider { height: 24px; }
+  .brand-mark { width: 24px; }
+}
