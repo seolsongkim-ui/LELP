@@ -248,3 +248,42 @@
     });
   }
 })();
+
+(function () {
+  // TODO: replace "#" with each activity's real Google Form URL once provided.
+  var GOOGLE_FORM_LINKS = {
+    "act-penpal": "#",
+    "act-column": "#",
+    "act-gameday": "#",
+    "act-specialweek": "#",
+    "act-walkrun": "#",
+    "act-speech": "#"
+  };
+
+  document.querySelectorAll("[data-apply]").forEach(function (a) {
+    var url = GOOGLE_FORM_LINKS[a.getAttribute("data-apply")];
+    if (url && url !== "#") {
+      a.href = url;
+    } else {
+      a.addEventListener("click", function (e) { e.preventDefault(); });
+    }
+  });
+
+  document.querySelectorAll("[data-dialog]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var dlg = document.getElementById(btn.getAttribute("data-dialog"));
+      if (dlg && dlg.showModal) dlg.showModal();
+    });
+  });
+
+  document.querySelectorAll(".activity-dialog").forEach(function (dlg) {
+    dlg.querySelectorAll("[data-dialog-close]").forEach(function (btn) {
+      btn.addEventListener("click", function () { dlg.close(); });
+    });
+    dlg.addEventListener("click", function (e) {
+      var r = dlg.getBoundingClientRect();
+      var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+      if (!inside) dlg.close();
+    });
+  });
+})();
