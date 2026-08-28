@@ -754,12 +754,21 @@ section { padding: 72px 0; }
   color: var(--ink);
 }
 .spec-bar { flex: none; width: 4px; height: 26px; border-radius: 2px; background: var(--red); }
-.spec-row:nth-child(2) .spec-bar { background: var(--red-darker); }
-.spec-row:nth-child(3) .spec-bar { background: var(--ink); }
-.spec-row:nth-child(4) .spec-bar { background: var(--gray-600); }
+.spec-row:nth-child(2) .spec-bar { background: var(--red-dark); }
+.spec-row:nth-child(3) .spec-bar { background: var(--red-darker); }
+.spec-row:nth-child(4) .spec-bar { background: var(--ink); }
+.spec-row:nth-child(5) .spec-bar { background: var(--gray-600); }
 .spec-value p { margin: 0 0 6px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
 .spec-value p:last-child { margin-bottom: 0; }
 .spec-value strong { color: var(--ink); }
+.textbook-covers { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.textbook-covers img {
+  width: 42px;
+  height: auto;
+  border-radius: 4px;
+  border: 1px solid var(--gray-300);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
 
 /* ---------- semester guide: activity timeline ---------- */
 .activity-timeline { margin-top: 8px; }
