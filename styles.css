@@ -229,10 +229,13 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
 /* Anchor targets for the sub-nav (and any direct #hash link/reload) scroll to
    stop below the sticky header + sub-nav, instead of having their top few
    lines hidden underneath those sticky bars. --sticky-offset is measured and
-   set by script.js; the pixel value here is just a pre-JS/no-JS fallback. */
-#about, #activities, #participants, #testimonials,
+   set by script.js; the pixel value here is just a pre-JS/no-JS fallback.
+   Each of these is a <section> with its own 72px top padding before the
+   heading text — subtract that so the scroll lands on the text itself
+   instead of leaving that padding as empty space below the sticky bars. */
+#about, #activities, #participants, #testimonials, #apply,
 #sg-activities, #sg-curriculum, #sg-guide, #sg-faq {
-  scroll-margin-top: var(--sticky-offset, 120px);
+  scroll-margin-top: max(0px, calc(var(--sticky-offset, 120px) - 72px));
 }
 
 /* Sliding toggle switch: a colored "thumb" slides between the two labels
