@@ -269,21 +269,17 @@
     }
   });
 
-  document.querySelectorAll("[data-dialog]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var dlg = document.getElementById(btn.getAttribute("data-dialog"));
-      if (dlg && dlg.showModal) dlg.showModal();
-    });
-  });
-
-  document.querySelectorAll(".activity-dialog").forEach(function (dlg) {
-    dlg.querySelectorAll("[data-dialog-close]").forEach(function (btn) {
-      btn.addEventListener("click", function () { dlg.close(); });
-    });
-    dlg.addEventListener("click", function (e) {
-      var r = dlg.getBoundingClientRect();
-      var inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-      if (!inside) dlg.close();
-    });
-  });
+  // activity.html shows exactly one of its 6 detail blocks, based on the
+  // "#act-*" hash the "자세히 보기" link on the semester-guide timeline sends it.
+  var detailBlocks = document.querySelectorAll(".activity-detail-block");
+  if (detailBlocks.length) {
+    var showActivityDetail = function () {
+      var id = window.location.hash.replace("#", "") || detailBlocks[0].getAttribute("data-activity");
+      detailBlocks.forEach(function (b) {
+        b.classList.toggle("is-shown", b.getAttribute("data-activity") === id);
+      });
+    };
+    window.addEventListener("hashchange", showActivityDetail);
+    showActivityDetail();
+  }
 })();

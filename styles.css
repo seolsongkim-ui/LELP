@@ -775,35 +775,37 @@ section { padding: 72px 0; }
 .at-btn-apply { background: var(--red); color: #fff; border-color: var(--red); }
 .at-btn-apply:hover { background: var(--red-dark); }
 
-/* ---------- semester guide: activity detail dialogs ---------- */
-.activity-dialog {
-  position: relative;
-  max-width: 440px;
-  width: 90vw;
-  padding: 0;
-  border: none;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-pop);
-}
-.activity-dialog::backdrop { background: rgba(0, 0, 0, 0.45); }
-.activity-dialog .dlg-body { padding: 30px 26px 26px; }
-.activity-dialog h3 { font-size: 17px; font-weight: 700; color: var(--ink); margin-bottom: 12px; padding-right: 24px; }
-.activity-dialog p { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
-.activity-dialog .dlg-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 28px;
-  height: 28px;
-  border: none;
-  background: var(--gray-100);
+/* ---------- activity detail page ---------- */
+.activity-detail-section { padding: 44px 0 64px; }
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 600;
   color: var(--ink-soft);
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 14px;
-  line-height: 1;
+  text-decoration: none;
+  margin-bottom: 32px;
 }
-.activity-dialog .dlg-close:hover { background: var(--gray-300); color: var(--ink); }
+.back-link:hover { color: var(--red); }
+.activity-detail-block { display: none; max-width: 640px; }
+.activity-detail-block.is-shown { display: block; }
+.activity-detail-head { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px; }
+.activity-detail-icon {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--red-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+.activity-detail-date { display: block; font-size: 13px; font-weight: 700; color: var(--red); margin-bottom: 6px; }
+.activity-detail-head h1 { font-size: 24px; font-weight: 800; color: var(--ink); line-height: 1.3; }
+.activity-detail-head h1 em { font-weight: 400; font-style: normal; color: var(--ink-soft); }
+.activity-detail-desc { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 28px; }
 
 /* ---------- events ---------- */
 .events-grid {
