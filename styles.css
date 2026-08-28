@@ -911,7 +911,7 @@ section { padding: 72px 0; }
 }
 .activity-proposal .ap-icon { flex: none; font-size: 22px; line-height: 1; margin-top: 2px; }
 .activity-proposal h4 { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
-.activity-proposal p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+.activity-proposal p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 12px; }
 
 /* ---------- activity detail page ---------- */
 .activity-detail-section { padding: 44px 0 64px; }
