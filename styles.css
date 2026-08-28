@@ -425,6 +425,8 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   font-size: 13.5px;
   font-weight: 500;
   color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
 }
 .hero-actions {
   display: flex;
