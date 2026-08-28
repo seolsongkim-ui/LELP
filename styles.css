@@ -152,9 +152,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   color: var(--red);
   white-space: nowrap;
 }
-.footer-brand .brand-word { font-size: 20px; line-height: 20px; }
 .footer-brand .brand-mark { width: 20px; height: 20px; }
-.footer-brand .brand-divider { height: 20px; }
 .main-nav {
   display: flex;
   gap: 22px;
@@ -967,6 +965,38 @@ section { padding: 72px 0; }
 .motivation-card .icon { font-size: 22px; margin-bottom: 10px; }
 .motivation-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
 .motivation-card p { font-size: 13.5px; color: var(--ink-soft); }
+
+/* ---------- semester guide: F&Q accordion ---------- */
+.faq-acc { display: flex; flex-direction: column; gap: 10px; }
+.faq-acc-item {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  padding: 0 22px;
+}
+.faq-acc-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.faq-acc-item summary::-webkit-details-marker { display: none; }
+.faq-acc-item summary::after {
+  content: "+";
+  flex: none;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--gray-600);
+}
+.faq-acc-item[open] summary::after { content: "\2212"; }
+.faq-acc-item[open] summary { border-bottom: 1px solid var(--gray-300); }
+.faq-acc-item p { margin: 16px 0 20px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
 
 /* ---------- past-activities photo gallery ---------- */
 .gallery-grid {
