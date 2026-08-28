@@ -888,39 +888,6 @@ section { padding: 72px 0; }
 .motivation-card h4 { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
 .motivation-card p { font-size: 13.5px; color: var(--ink-soft); }
 
-/* ---------- F&Q (native <details> accordion) ---------- */
-.faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-.faq-item {
-  background: #fff;
-  border: 1px solid var(--gray-300);
-  border-radius: 16px;
-  padding: 0 22px;
-}
-.faq-item summary {
-  cursor: pointer;
-  list-style: none;
-  padding: 18px 0;
-  font-weight: 700;
-  font-size: 15.5px;
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  word-break: keep-all;
-}
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after {
-  content: "+";
-  font-size: 20px;
-  line-height: 1;
-  color: var(--red);
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-.faq-item[open] summary::after { transform: rotate(45deg); }
-.faq-item p { margin: 0 0 18px; font-size: 14.5px; line-height: 1.7; color: var(--ink-soft); word-break: keep-all; }
-
 /* ---------- past-activities photo gallery ---------- */
 .gallery-grid {
   display: grid;
