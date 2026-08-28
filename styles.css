@@ -233,7 +233,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
    lines hidden underneath those sticky bars. --sticky-offset is measured and
    set by script.js; the pixel value here is just a pre-JS/no-JS fallback. */
 #about, #activities, #participants, #testimonials,
-#sg-activities, #sg-curriculum, #sg-guide {
+#sg-activities, #sg-curriculum, #sg-guide, #sg-faq {
   scroll-margin-top: var(--sticky-offset, 120px);
 }
 
