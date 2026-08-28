@@ -677,6 +677,86 @@ section { padding: 72px 0; }
   color: var(--ink-soft);
 }
 
+/* ---------- semester guide: curriculum spec table ---------- */
+.spec-table { margin-top: 8px; border-top: 1px solid var(--gray-300); }
+.spec-row {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--gray-300);
+}
+.spec-label {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.spec-bar { flex: none; width: 4px; height: 26px; border-radius: 2px; background: var(--red); }
+.spec-row:nth-child(2) .spec-bar { background: var(--red-darker); }
+.spec-row:nth-child(3) .spec-bar { background: var(--ink); }
+.spec-row:nth-child(4) .spec-bar { background: var(--gray-600); }
+.spec-value p { margin: 0 0 6px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+.spec-value p:last-child { margin-bottom: 0; }
+.spec-value strong { color: var(--ink); }
+
+/* ---------- semester guide: activity timeline ---------- */
+.activity-timeline { margin-top: 8px; }
+.at-period {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  padding-bottom: 20px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--gray-300);
+}
+.at-list { position: relative; }
+.at-list::before {
+  content: "";
+  position: absolute;
+  left: 151px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: var(--gray-300);
+  z-index: 0;
+}
+.at-item {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 110px 52px 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+}
+.at-date {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--red);
+  text-align: right;
+  line-height: 1.4;
+}
+.at-dot {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--red-tint);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  margin: 0 auto;
+}
+.at-title { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+.at-title em { font-weight: 400; font-style: normal; color: var(--ink-soft); }
+
 /* ---------- events ---------- */
 .events-grid {
   display: grid;
@@ -1071,6 +1151,11 @@ section { padding: 72px 0; }
   .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: 1fr; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
   .timeline-row { grid-template-columns: 1fr; }
+  .spec-row { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
+  .at-item { grid-template-columns: 40px 1fr; gap: 12px; }
+  .at-date { grid-column: 1 / -1; text-align: left; order: -1; }
+  .at-list::before { left: 19px; }
+  .at-dot { width: 40px; height: 40px; font-size: 17px; margin: 0; }
   .intro-banner { padding: 28px 22px; }
   .footer-inner { flex-direction: column; }
   .age-legend { gap: 12px; }
