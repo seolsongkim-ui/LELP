@@ -756,17 +756,6 @@ section { padding: 72px 0; }
 
 /* ---------- semester guide: activity timeline ---------- */
 .activity-timeline { margin-top: 8px; }
-.at-period {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ink);
-  padding-bottom: 20px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid var(--gray-300);
-}
 .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .ac-card {
   position: relative;
