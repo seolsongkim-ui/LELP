@@ -468,6 +468,14 @@ section { padding: 72px 0; }
   margin-bottom: 10px;
   display: block;
 }
+.hl {
+  background: var(--red-tint);
+  color: var(--red-dark);
+  padding: 0.05em 0.5em;
+  border-radius: 6px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
 .section-head h2 {
   font-size: clamp(24px, 3vw, 34px);
   font-weight: 700;
