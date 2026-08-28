@@ -128,11 +128,12 @@
     updateHeaderOffset();
     window.addEventListener("resize", updateHeaderOffset);
 
-    // Center the tab group under the "About" (소개) link in the main nav —
-    // not under the page. Falls back to page-centered when that link isn't
-    // visible (e.g. on mobile, where .main-nav is hidden behind the burger).
+    // Center the tab group under THIS page's own link in the main nav
+    // (e.g. "학기 안내" on schedule.html, "소개" on index.html) — not always
+    // "About". Falls back to page-centered when that link isn't visible
+    // (e.g. on mobile, where .main-nav is hidden behind the burger).
     var subnavInner = subnav.querySelector(".subnav-inner");
-    var aboutLink = document.querySelector(".main-nav a[href='index.html']");
+    var aboutLink = document.querySelector(".main-nav a[href='" + currentFile + "']");
     var mainNav = document.querySelector(".main-nav");
     function alignSubnavToAbout() {
       var mainNavVisible = mainNav && getComputedStyle(mainNav).display !== "none";
