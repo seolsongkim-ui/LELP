@@ -704,7 +704,29 @@ section { padding: 72px 0; }
 .spec-value p:last-child { margin-bottom: 0; }
 .spec-value strong { color: var(--ink); }
 
-/* ---------- semester guide: activity timeline ---------- */
+/* ---------- semester guide: activity timeline (infographic) ---------- */
+.at-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.at-stat {
+  text-align: center;
+  padding: 20px 12px;
+  background: var(--red-tint);
+  border-radius: var(--radius-lg);
+}
+.at-stat-num {
+  display: block;
+  font-size: clamp(28px, 3.4vw, 36px);
+  font-weight: 800;
+  color: var(--red-dark);
+  letter-spacing: -0.5px;
+  font-variant-numeric: tabular-nums;
+}
+.at-stat-label { display: block; font-size: 12.5px; font-weight: 600; color: var(--ink-soft); margin-top: 4px; }
+
 .activity-timeline { margin-top: 8px; }
 .at-period {
   display: flex;
@@ -721,45 +743,72 @@ section { padding: 72px 0; }
 .at-list::before {
   content: "";
   position: absolute;
-  left: 151px;
-  top: 30px;
-  bottom: 30px;
-  width: 2px;
-  background: var(--gray-300);
+  left: 173px;
+  top: 38px;
+  bottom: 38px;
+  width: 3px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, var(--red-tint-2), var(--gray-300));
   z-index: 0;
 }
 .at-item {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 110px 52px 1fr;
+  grid-template-columns: 110px 62px 1fr;
   align-items: start;
-  gap: 16px;
-  padding: 16px 0;
+  gap: 18px;
+  padding: 18px 14px;
+  border-radius: var(--radius-lg);
+  transition: background-color 0.15s ease;
 }
+.at-item:hover { background: var(--gray-100); }
 .at-date {
-  margin-top: 10px;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--red);
-  text-align: right;
-  line-height: 1.4;
+  margin-top: 14px;
+  display: inline-block;
+  justify-self: end;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid var(--gray-300);
+  border-radius: 999px;
+  padding: 4px 11px;
+  text-align: center;
+  line-height: 1.3;
+  white-space: nowrap;
 }
 .at-dot {
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   background: var(--red-tint);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 19px;
+  font-size: 26px;
   margin: 0 auto;
+  box-shadow: 0 3px 10px rgba(221, 57, 40, 0.12);
 }
-.at-body { display: flex; flex-direction: column; gap: 10px; padding-top: 8px; }
-.at-title { font-size: 14.5px; font-weight: 600; color: var(--ink); }
-.at-title em { font-weight: 400; font-style: normal; color: var(--ink-soft); }
-.at-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.at-cat-online .at-dot { background: var(--gray-100); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06); }
+.at-cat-mixed .at-dot { background: linear-gradient(135deg, var(--red-tint) 50%, var(--gray-100) 50%); }
+.at-body { display: flex; flex-direction: column; gap: 6px; padding-top: 8px; }
+.at-tag {
+  display: inline-block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  margin-bottom: 2px;
+  background: var(--red-tint);
+  color: var(--red-dark);
+}
+.at-cat-online .at-tag { background: var(--gray-100); color: var(--ink-soft); }
+.at-cat-mixed .at-tag { background: linear-gradient(90deg, var(--red-tint), var(--gray-100)); color: var(--ink); }
+.at-title { font-size: 16px; font-weight: 700; color: var(--ink); }
+.at-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
 .at-btn {
   display: inline-flex;
   align-items: center;
@@ -1237,10 +1286,12 @@ section { padding: 72px 0; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
   .timeline-row { grid-template-columns: 1fr; }
   .spec-row { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
-  .at-item { grid-template-columns: 40px 1fr; gap: 12px; }
-  .at-date { grid-column: 1 / -1; text-align: left; order: -1; margin-top: 0; }
-  .at-list::before { left: 19px; }
-  .at-dot { width: 40px; height: 40px; font-size: 17px; margin: 0; }
+  .at-stats { gap: 8px; margin-bottom: 24px; }
+  .at-stat { padding: 14px 6px; }
+  .at-item { grid-template-columns: 48px 1fr; gap: 12px; padding: 14px 10px; }
+  .at-date { grid-column: 1 / -1; justify-self: start; text-align: left; order: -1; margin-top: 0; }
+  .at-list::before { left: 34px; }
+  .at-dot { width: 48px; height: 48px; font-size: 20px; margin: 0; }
   .at-body { padding-top: 0; }
   .intro-banner { padding: 28px 22px; }
   .footer-inner { flex-direction: column; }
