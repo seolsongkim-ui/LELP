@@ -344,6 +344,32 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
 .btn-ghost:hover { border-color: var(--ink); }
 .btn-sm { padding: 9px 18px; font-size: 13px; }
 
+/* ---------- floating activity sign-up button (Semester Guide page) ---------- */
+.floating-apply-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 22px;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(221, 57, 40, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.floating-apply-btn:hover {
+  background: var(--red-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px rgba(221, 57, 40, 0.4);
+}
+.floating-apply-icon { font-size: 15px; line-height: 1; }
+
 /* ---------- hero: full-bleed photo with a fade-to-content overlay ---------- */
 .hero {
   position: relative;
@@ -1446,6 +1472,7 @@ section { padding: 72px 0; }
      for larger text-zoom settings. */
   .subnav .subnav-inner { padding: 2px; gap: 1px; }
   .subnav-link { padding: 4px 8px; font-size: 11.5px; }
+  .floating-apply-btn { right: 14px; bottom: 14px; padding: 11px 18px; font-size: 12.5px; }
 }
 
 @media (max-width: 380px) {
