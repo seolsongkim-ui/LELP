@@ -639,9 +639,6 @@ section { padding: 72px 0; }
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
 }
-/* Semester guide page currently lists 3 curriculum components, not 4 —
-   a dedicated 3-col grid avoids an empty trailing cell on wide screens. */
-.curriculum-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .curr-card {
   background: #fff;
   border: 1px solid var(--gray-300);
@@ -1032,7 +1029,7 @@ section { padding: 72px 0; }
    Responsive
    ========================================================================== */
 @media (max-width: 1024px) {
-  .about-grid, .curriculum-grid, .curriculum-grid-3, .events-grid,
+  .about-grid, .curriculum-grid, .events-grid,
   .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: repeat(2, 1fr); }
   .benefits-grid { grid-template-columns: repeat(3, 1fr); }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
@@ -1061,7 +1058,7 @@ section { padding: 72px 0; }
     );
   }
   section { padding: 48px 0; }
-  .about-grid, .curriculum-grid, .curriculum-grid-3, .events-grid, .benefits-grid,
+  .about-grid, .curriculum-grid, .events-grid, .benefits-grid,
   .benefits-list-simple, .grid-2,
   .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: 1fr; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
