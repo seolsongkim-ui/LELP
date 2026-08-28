@@ -574,6 +574,24 @@ section { padding: 72px 0; }
 }
 .stat-count .count-icon { font-size: 30px; margin-bottom: 10px; }
 
+/* ---------- stats: split rate-group / count-group layout ---------- */
+.stats-bar-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  justify-content: center;
+  gap: 32px;
+}
+.stats-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+}
+.stats-group .stat { flex: 0 1 120px; }
+.stats-divider { width: 1px; background: var(--gray-300); align-self: stretch; min-height: 70px; }
+
 /* ---------- intro banner (fall 2026) ---------- */
 .intro-banner {
   text-align: center;
@@ -1265,6 +1283,9 @@ section { padding: 72px 0; }
   .benefits-list-simple, .grid-2,
   .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: 1fr; }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar-split { gap: 20px; }
+  .stats-divider { display: none; }
+  .stats-group { width: 100%; }
   .timeline-row { grid-template-columns: 1fr; }
   .spec-row { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
   .at-item { grid-template-columns: 40px 1fr; gap: 12px; }
