@@ -535,11 +535,11 @@ section { padding: 72px 0; }
   text-align: center;
   padding: 4px 12px;
 }
-.stat .num {
-  font-size: clamp(30px, 3.8vw, 42px);
-  font-weight: 800;
+.stat-count .num {
+  font-size: clamp(22px, 2.6vw, 26px);
+  font-weight: 700;
   color: var(--ink);
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
 }
 .stat .label {
   font-size: 13.5px;
@@ -1355,7 +1355,7 @@ section { padding: 72px 0; }
   .ac-date { font-size: 11.5px; padding: 4px 12px; margin-bottom: 12px; }
   .benefit-card { padding: 16px 12px; }
   .benefit-card .icon { font-size: 22px; margin-bottom: 8px; }
-  .stat .num { font-size: 24px; }
+  .stat-count .num { font-size: 22px; }
   .stats-bar { margin-top: 28px; padding-top: 24px; }
   .blog-teaser { padding: 18px 16px; margin-top: 28px; }
   .blog-teaser-icon { font-size: 22px; }
