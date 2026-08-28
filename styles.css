@@ -803,7 +803,8 @@ section { padding: 72px 0; }
   text-decoration: none;
   line-height: 1.4;
 }
-.at-btn-detail:hover { border-color: var(--gray-600); }
+.at-btn-detail { background: var(--red); color: #fff; border-color: var(--red); }
+.at-btn-detail:hover { background: var(--red-dark); border-color: var(--red-dark); }
 .at-btn-apply { background: var(--red); color: #fff; border-color: var(--red); }
 .at-btn-apply:hover { background: var(--red-dark); }
 
