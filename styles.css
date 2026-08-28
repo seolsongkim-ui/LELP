@@ -652,6 +652,13 @@ section { padding: 72px 0; }
   background: var(--gray-100);
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
 }
+/* sg-guide's KakaoTalk contact note: same footprint, brand-color emphasis so it stands out */
+#sg-guide .note-box {
+  color: var(--red-dark);
+  font-weight: 700;
+  background: var(--red-tint);
+  border-left-color: var(--red);
+}
 
 .timeline-list { display: grid; gap: 10px; }
 .timeline-list-full { max-width: 820px; }
