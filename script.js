@@ -285,35 +285,96 @@
 })();
 
 (function () {
-  // Past-activities photo carousel: auto-advances every 5s, plus
-  // prev/next buttons, dot navigation, and drag/swipe support.
-  var AUTOPLAY_MS = 5000;
+  // Past-activities photo carousel: seamless infinite loop via cloned
+  // end-slides (wrapping past the last slide animates into a lookalike
+  // clone, then snaps invisibly back to the real first slide — no
+  // visible jump), auto-advance every 3s, prev/next buttons, dot nav,
+  // and drag/swipe. Non-active slides sit faded/blurred, peeking in
+  // from the viewport edges.
+  var AUTOPLAY_MS = 3000;
 
   document.querySelectorAll("[data-carousel]").forEach(function (root) {
     var track = root.querySelector(".carousel-track");
-    var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+    var originalSlides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
     var dots = Array.prototype.slice.call(root.querySelectorAll(".carousel-dot"));
     var prevBtn = root.querySelector(".carousel-arrow-prev");
     var nextBtn = root.querySelector(".carousel-arrow-next");
     var viewport = root.querySelector(".carousel-viewport");
-    if (!track || !slides.length) return;
+    if (!track || !originalSlides.length) return;
 
-    var index = 0;
-    var timer = null;
+    var realCount = originalSlides.length;
 
-    function render() {
-      track.style.transform = "translateX(-" + index * 100 + "%)";
-      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === index); });
+    // Clone the first and last slide onto the opposite ends of the
+    // track so the loop point has a lookalike to animate into.
+    var firstClone = originalSlides[0].cloneNode(true);
+    var lastClone = originalSlides[realCount - 1].cloneNode(true);
+    firstClone.setAttribute("aria-hidden", "true");
+    lastClone.setAttribute("aria-hidden", "true");
+    track.appendChild(firstClone);
+    track.insertBefore(lastClone, originalSlides[0]);
+
+    var slideEls = Array.prototype.slice.call(track.children);
+    var current = 1; // index into slideEls; slideEls[1] is real slide 0
+
+    function setActiveClass() {
+      slideEls.forEach(function (el, i) {
+        el.classList.toggle("is-active", i === current);
+      });
+      var realIndex = (current - 1 + realCount) % realCount;
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === realIndex); });
+    }
+
+    function center(instant) {
+      var activeEl = slideEls[current];
+      var viewportW = viewport.getBoundingClientRect().width;
+      var slideW = activeEl.getBoundingClientRect().width;
+      var shift = (viewportW - slideW) / 2 - activeEl.offsetLeft;
+      if (instant) {
+        track.style.transition = "none";
+        track.style.transform = "translateX(" + shift + "px)";
+        void track.offsetHeight; // force reflow so the transition re-enables cleanly
+        track.style.transition = "";
+      } else {
+        track.style.transform = "translateX(" + shift + "px)";
+      }
+    }
+
+    // After animating into a cloned end-slide, snap invisibly back to the
+    // matching real slide — this is what makes the loop seamless. A timer
+    // (matched to the CSS transition duration) drives this rather than
+    // "transitionend", which can fail to fire on a backgrounded/throttled
+    // tab or get cancelled by an interrupted transition.
+    var wrapTimer = null;
+    function scheduleWrapCheck() {
+      if (wrapTimer) clearTimeout(wrapTimer);
+      wrapTimer = setTimeout(function () {
+        if (current === slideEls.length - 1) {
+          current = 1;
+          render(true);
+        } else if (current === 0) {
+          current = slideEls.length - 2;
+          render(true);
+        }
+      }, 520);
+    }
+
+    function render(instant) {
+      setActiveClass();
+      center(instant);
+      if (!instant) scheduleWrapCheck();
     }
 
     function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      render();
+      // Clamped so rapid clicking past a clone before the wrap check
+      // runs can't push current out of the track's real bounds.
+      current = Math.max(0, Math.min(i, slideEls.length - 1));
+      render(false);
     }
 
-    function next() { goTo(index + 1); }
-    function prev() { goTo(index - 1); }
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
 
+    var timer = null;
     function stopAutoplay() {
       if (timer) { clearInterval(timer); timer = null; }
     }
@@ -331,7 +392,7 @@
     if (nextBtn) nextBtn.addEventListener("click", function () { next(); restartAutoplay(); });
     if (prevBtn) prevBtn.addEventListener("click", function () { prev(); restartAutoplay(); });
     dots.forEach(function (dot, i) {
-      dot.addEventListener("click", function () { goTo(i); restartAutoplay(); });
+      dot.addEventListener("click", function () { goTo(i + 1); restartAutoplay(); });
     });
 
     root.addEventListener("mouseenter", stopAutoplay);
@@ -360,7 +421,10 @@
       if (e.key === "ArrowLeft") { prev(); restartAutoplay(); }
     });
 
-    render();
+    // Re-center on resize since the shift is computed in pixels.
+    window.addEventListener("resize", function () { render(true); });
+
+    render(true);
     startAutoplay();
   });
 })();
