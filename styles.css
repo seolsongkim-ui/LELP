@@ -1326,31 +1326,69 @@ section { padding: 72px 0; }
 .faq-acc-item[open] summary { border-bottom: 1px solid var(--gray-300); }
 .faq-acc-item p { margin: 16px 0 20px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
 
-/* ---------- past-activities photo gallery ---------- */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-.gallery-item {
-  margin: 0;
-  border-radius: var(--radius-md);
+/* ---------- past-activities photo carousel ---------- */
+.gallery-carousel { max-width: 720px; margin: 0 auto; }
+.carousel-viewport {
+  position: relative;
   overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--gray-300);
   background: #fff;
 }
-.gallery-item img {
-  width: 100%;
-  height: 160px;
-  object-fit: cover;
-  display: block;
+.carousel-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  touch-action: pan-y;
 }
-.gallery-item figcaption {
-  padding: 10px 12px;
-  font-size: 13px;
-  font-weight: 500;
+.carousel-slide { flex: 0 0 100%; position: relative; margin: 0; height: 100%; }
+.carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.carousel-slide figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16px 20px 14px;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.55) 100%);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 600;
+}
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--gray-300);
   color: var(--ink);
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+  z-index: 2;
 }
+.carousel-arrow:hover { background: #fff; border-color: var(--red); transform: translateY(-50%) scale(1.06); }
+.carousel-arrow-prev { left: 14px; }
+.carousel-arrow-next { right: 14px; }
+.carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--gray-300);
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+.carousel-dot.is-active { background: var(--red); transform: scale(1.3); }
 
 /* ---------- voices / testimonials ---------- */
 .voices-grid {
@@ -1478,7 +1516,7 @@ section { padding: 72px 0; }
    ========================================================================== */
 @media (max-width: 1024px) {
   .about-grid, .curriculum-grid, .events-grid, .impact-cards,
-  .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid, .activity-grid { grid-template-columns: repeat(2, 1fr); }
+  .motivation-grid, .motivation-grid-4, .voices-grid, .blog-grid, .activity-grid { grid-template-columns: repeat(2, 1fr); }
   .benefits-grid { grid-template-columns: repeat(3, 1fr); }
   .stats-bar { grid-template-columns: repeat(2, 1fr); }
   .split { grid-template-columns: 1fr; }
@@ -1524,14 +1562,18 @@ section { padding: 72px 0; }
   .kicker { font-size: 11.5px; }
   .about-grid, .curriculum-grid, .events-grid, .benefits-grid, .impact-cards,
   .benefits-list-simple, .grid-2,
-  .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid, .faq-acc { grid-template-columns: 1fr; }
-  .about-grid, .motivation-grid, .motivation-grid-4, .voices-grid, .blog-grid, .gallery-grid, .activity-grid, .benefits-grid, .impact-cards { gap: 12px; }
+  .motivation-grid, .motivation-grid-4, .voices-grid, .blog-grid, .faq-acc { grid-template-columns: 1fr; }
+  .about-grid, .motivation-grid, .motivation-grid-4, .voices-grid, .blog-grid, .activity-grid, .benefits-grid, .impact-cards { gap: 12px; }
   .about-card { padding: 18px 16px; }
   .impact-card { padding: 18px 16px; }
   .motivation-card { padding: 16px 14px; }
   .voice-card { padding: 16px 14px; gap: 8px; }
   .blog-card-body { padding: 12px; gap: 6px; }
-  .gallery-item img { height: 110px; }
+  .carousel-viewport { aspect-ratio: 1 / 1; }
+  .carousel-arrow { width: 34px; height: 34px; font-size: 18px; }
+  .carousel-arrow-prev { left: 8px; }
+  .carousel-arrow-next { right: 8px; }
+  .carousel-slide figcaption { font-size: 13px; padding: 12px 14px 10px; }
   .ac-card { padding: 20px 14px 16px; }
   .ac-icon { width: 48px; height: 48px; font-size: 22px; margin-bottom: 10px; }
   .ac-title { font-size: 15px; min-height: 2.4em; margin-bottom: 10px; }

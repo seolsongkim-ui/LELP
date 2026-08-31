@@ -310,3 +310,84 @@
     });
   }
 })();
+
+(function () {
+  // Past-activities photo carousel: auto-advances every 5s, plus
+  // prev/next buttons, dot navigation, and drag/swipe support.
+  var AUTOPLAY_MS = 5000;
+
+  document.querySelectorAll("[data-carousel]").forEach(function (root) {
+    var track = root.querySelector(".carousel-track");
+    var slides = Array.prototype.slice.call(root.querySelectorAll(".carousel-slide"));
+    var dots = Array.prototype.slice.call(root.querySelectorAll(".carousel-dot"));
+    var prevBtn = root.querySelector(".carousel-arrow-prev");
+    var nextBtn = root.querySelector(".carousel-arrow-next");
+    var viewport = root.querySelector(".carousel-viewport");
+    if (!track || !slides.length) return;
+
+    var index = 0;
+    var timer = null;
+
+    function render() {
+      track.style.transform = "translateX(-" + index * 100 + "%)";
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === index); });
+    }
+
+    function goTo(i) {
+      index = (i + slides.length) % slides.length;
+      render();
+    }
+
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+
+    function stopAutoplay() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+
+    function startAutoplay() {
+      stopAutoplay();
+      var reduceMotion = false;
+      try { reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+      if (reduceMotion) return;
+      timer = setInterval(next, AUTOPLAY_MS);
+    }
+
+    function restartAutoplay() { startAutoplay(); }
+
+    if (nextBtn) nextBtn.addEventListener("click", function () { next(); restartAutoplay(); });
+    if (prevBtn) prevBtn.addEventListener("click", function () { prev(); restartAutoplay(); });
+    dots.forEach(function (dot, i) {
+      dot.addEventListener("click", function () { goTo(i); restartAutoplay(); });
+    });
+
+    root.addEventListener("mouseenter", stopAutoplay);
+    root.addEventListener("mouseleave", startAutoplay);
+
+    // Drag/swipe: works for both touch and mouse via pointer events.
+    if (viewport) {
+      var dragStartX = null;
+      viewport.addEventListener("pointerdown", function (e) {
+        dragStartX = e.clientX;
+        stopAutoplay();
+      });
+      viewport.addEventListener("pointerup", function (e) {
+        if (dragStartX === null) return;
+        var dx = e.clientX - dragStartX;
+        if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+        dragStartX = null;
+        startAutoplay();
+      });
+      viewport.addEventListener("pointerleave", function () { dragStartX = null; });
+    }
+
+    root.setAttribute("tabindex", "0");
+    root.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight") { next(); restartAutoplay(); }
+      if (e.key === "ArrowLeft") { prev(); restartAutoplay(); }
+    });
+
+    render();
+    startAutoplay();
+  });
+})();
