@@ -2,17 +2,6 @@
    LELP · LiNK English Language Program — Fall 2026
    ========================================================================== */
 
-/* Pretendard, self-hosted as a single variable font (weight axis 45–920) so
-   the whole site — Korean and English alike — renders in one typeface with no
-   CDN dependency. SIL Open Font License 1.1, © 2021 Kil Hyung-jin. */
-@font-face {
-  font-family: "Pretendard";
-  font-weight: 45 920;
-  font-style: normal;
-  font-display: swap;
-  src: url("assets/fonts/PretendardVariable.woff2") format("woff2-variations");
-}
-
 :root {
   /* LiNK brand red — matches libertyinnorthkorea.or.kr / .org exactly (rgb(221,57,40)) */
   --red: #DD3928;
@@ -34,11 +23,13 @@
   --shadow-card: none;
   --shadow-pop: 0 8px 20px rgba(221, 57, 40, 0.18);
   --maxw: 1120px;
-  /* Pretendard for both Korean and English — it carries Hangul and Latin in one
-     family, so the two roles no longer switch typefaces. The --font-ko/--font-en
-     names are kept so existing rules don't all have to change. */
-  --font-ko: "Pretendard", "Pretendard Variable", "Apple SD Gothic Neo",
-    "Malgun Gothic", -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Noto Sans KR (Google Fonts) for both Korean and English — it carries Hangul
+     and Latin in one family, so the two roles share a single typeface. Chosen
+     over self-hosting Pretendard because Google serves it as unicode-range
+     subsets, which keeps the repo and the artifact bundle small.
+     The --font-ko/--font-en names are kept so existing rules don't all change. */
+  --font-ko: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic",
+    -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-en: var(--font-ko);
   --font: var(--font-ko);
 }
