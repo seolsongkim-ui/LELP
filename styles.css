@@ -1372,13 +1372,15 @@ section { padding: 72px 0; }
 /* Full-bleed: breaks out of .container to span edge-to-edge regardless
    of how deeply nested it is, while the section-head above it stays
    within the normal reading width. */
-.gallery-carousel { max-width: 900px; margin: 0 auto; }
+/* Full-bleed: breaks out of .container to span the page edge to edge. */
+.gallery-carousel { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
 .carousel-viewport {
   position: relative;
   overflow: hidden;
-  /* Explicit clamped height rather than an aspect-ratio: at full width an
-     aspect-ratio made the viewport grow to ~700px tall on a wide screen. */
-  height: clamp(200px, 24vw, 320px);
+  /* Height is derived so the active photo keeps its ~1.84:1 shape at the
+     46% slide width below (46vw / 1.84 / 0.92 slide-height ~= 27vw). The max
+     stops an ultra-wide monitor from scaling this back up to ~700px tall. */
+  height: clamp(200px, 27vw, 460px);
 }
 .carousel-track {
   display: flex;
@@ -1388,14 +1390,12 @@ section { padding: 72px 0; }
   touch-action: pan-y;
   will-change: transform;
 }
-/* Slides are narrower than the viewport on purpose — the previous/next
-   slide peeks in from either edge, faded and blurred, to read as a
-   continuous filmstrip rather than a single boxed photo. */
-/* Active slide is the "main photo"; every other slide sits at 1/3 that
-   width as a preview filling the space to either side, rather than a
-   full-size slide mostly clipped off past the viewport edge. */
+/* The active slide is the main photo; the previous/next slides flank it as
+   wide faded previews. 28% + 46% + 28% slightly overflows the full-bleed
+   viewport, so the previews crop at the page edges — that keeps it reading as
+   a carousel with more to come rather than a static three-up row. */
 .carousel-slide {
-  flex: 0 0 20%;
+  flex: 0 0 28%;
   margin: 0 10px;
   position: relative;
   height: 92%;
@@ -1410,7 +1410,7 @@ section { padding: 72px 0; }
 /* flex-basis is not transitioned: animating a layout-affecting property
    would leave the JS centering math (which reads the post-transition
    layout synchronously) targeting a size the slide hasn't reached yet. */
-.carousel-slide.is-active { flex-basis: 60%; opacity: 1; filter: none; }
+.carousel-slide.is-active { flex-basis: 46%; opacity: 1; filter: none; }
 .carousel-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .carousel-slide:not(.is-active) figcaption { display: none; }
 .carousel-slide figcaption {
@@ -1639,7 +1639,9 @@ section { padding: 72px 0; }
   .motivation-card { padding: 16px 14px; }
   .voice-card { padding: 16px 14px; gap: 8px; }
   .blog-card-body { padding: 12px; gap: 6px; }
-  .carousel-viewport { height: clamp(150px, 44vw, 210px); }
+  /* Mobile keeps the active photo dominant (66%) rather than the desktop 46%,
+     so height is re-derived for that width: 66vw / 1.84 / 0.92 ~= 39vw. */
+  .carousel-viewport { height: clamp(150px, 39vw, 260px); }
   .carousel-slide { flex-basis: 22%; margin: 0 6px; }
   .carousel-slide.is-active { flex-basis: 66%; }
   .carousel-arrow { width: 34px; height: 34px; font-size: 18px; }
