@@ -15,15 +15,8 @@
   --gray-600: #767676;
   --gray-300: #E4E1DD;
   --gray-100: #F5F3F1;
-  /* dominant background: warm cream per the 60-30-10 palette guide */
-  --bg: #FDF3E7;
-  --cream: #FDF3E7;
-  /* Accent, picked from the brand palette for max legibility on cream:
-     #21373A (secondary brand navy) gives white CTA text ~12.7:1 contrast,
-     vs. ~4.6:1 for the existing red and ~1.8:1 for the sage tried earlier.
-     --accent-dark lightens slightly on hover (dark-button convention). */
-  --accent: #21373A;
-  --accent-dark: #35545A;
+  --bg: #FFFFFF;
+  --cream: #FDFBFA;
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 14px;
@@ -105,7 +98,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(253, 243, 231, 0.92);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid var(--gray-300);
 }
@@ -181,7 +174,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   position: sticky;
   top: var(--header-h, 65px);
   z-index: 90;
-  background: var(--cream);
+  background: #fff;
   border-bottom: 1px solid var(--gray-300);
   padding: 8px 0;
 }
@@ -313,7 +306,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 2px;
   padding: 8px 16px 16px;
   border-top: 1px solid var(--gray-300);
-  background: var(--cream);
+  background: #fff;
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
@@ -339,10 +332,10 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   white-space: nowrap;
 }
 .btn-primary {
-  background: var(--accent);
+  background: var(--red);
   color: #fff;
 }
-.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary:hover { background: var(--red-dark); }
 .btn-ghost {
   background: transparent;
   color: var(--ink);
@@ -362,18 +355,18 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 8px;
   padding: 14px 22px;
   border-radius: 999px;
-  background: var(--accent);
+  background: var(--red);
   color: #fff;
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(33, 55, 58, 0.35);
+  box-shadow: 0 8px 20px rgba(221, 57, 40, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 .floating-apply-btn:hover {
-  background: var(--accent-dark);
+  background: var(--red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(33, 55, 58, 0.45);
+  box-shadow: 0 12px 26px rgba(221, 57, 40, 0.4);
 }
 .floating-apply-icon { font-size: 15px; line-height: 1; }
 
@@ -453,7 +446,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 6px;
   padding: 9px 16px;
   border-radius: 999px;
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   font-size: 13.5px;
   font-weight: 500;
@@ -534,7 +527,7 @@ section { padding: 72px 0; }
   gap: 20px;
 }
 .about-card {
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
@@ -564,7 +557,7 @@ section { padding: 72px 0; }
   margin-top: 48px;
 }
 .impact-card {
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-top: 4px solid var(--red);
   border-radius: var(--radius-lg);
@@ -737,7 +730,7 @@ section { padding: 72px 0; }
   gap: 12px;
   align-items: flex-start;
   padding: 16px;
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-md);
 }
@@ -776,7 +769,7 @@ section { padding: 72px 0; }
   grid-template-columns: 100px 1fr;
   gap: 16px;
   padding: 16px;
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-md);
 }
@@ -815,7 +808,7 @@ section { padding: 72px 0; }
   gap: 16px;
 }
 .curr-card {
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 24px 20px;
@@ -884,7 +877,7 @@ section { padding: 72px 0; }
 .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .ac-card {
   position: relative;
-  background: var(--cream);
+  background: #fff;
   border-radius: 20px;
   padding: 32px 20px 22px;
   text-align: center;
@@ -983,15 +976,15 @@ section { padding: 72px 0; }
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
+  border: 1px solid var(--red);
+  background: var(--red);
   color: #fff;
   cursor: pointer;
   text-decoration: none;
   line-height: 1.4;
   white-space: nowrap;
 }
-.ac-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+.ac-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
 /* ---------- required-activity highlight (top of activities section) ---------- */
 .activity-highlight {
@@ -1063,7 +1056,7 @@ section { padding: 72px 0; }
 .event-card {
   border-radius: var(--radius-lg);
   padding: 22px 20px;
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   position: relative;
   overflow: hidden;
@@ -1108,7 +1101,7 @@ section { padding: 72px 0; }
   text-align: center;
   padding: 24px 16px;
   border-radius: var(--radius-md);
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
 }
 .benefit-card .icon { font-size: 26px; margin-bottom: 12px; }
@@ -1161,7 +1154,7 @@ section { padding: 72px 0; }
   padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid var(--gray-300);
-  background: var(--cream);
+  background: #fff;
   font-size: 13.5px;
   font-weight: 500;
   color: var(--ink);
@@ -1256,7 +1249,7 @@ section { padding: 72px 0; }
 }
 .motivation-grid-4 { grid-template-columns: repeat(4, 1fr); }
 .motivation-card {
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 22px 20px;
@@ -1268,7 +1261,7 @@ section { padding: 72px 0; }
 /* ---------- semester guide: F&Q accordion ---------- */
 .faq-acc { display: flex; flex-direction: column; gap: 10px; }
 .faq-acc-item {
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 0 22px;
@@ -1308,7 +1301,7 @@ section { padding: 72px 0; }
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--gray-300);
-  background: var(--cream);
+  background: #fff;
 }
 .gallery-item img {
   width: 100%;
@@ -1331,7 +1324,7 @@ section { padding: 72px 0; }
   margin-bottom: 8px;
 }
 .voice-card {
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 22px 20px;
@@ -1379,7 +1372,7 @@ section { padding: 72px 0; }
 .blog-card {
   display: flex;
   flex-direction: column;
-  background: var(--cream);
+  background: #fff;
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   overflow: hidden;
