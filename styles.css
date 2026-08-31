@@ -534,7 +534,6 @@ section { padding: 72px 0; }
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  margin-top: 48px;
 }
 .impact-card {
   background: #fff;
