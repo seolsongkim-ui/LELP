@@ -443,10 +443,13 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
 
 /* ---------- page hero (secondary pages) ---------- */
 .page-hero {
+  position: relative;
+  overflow: hidden;
   padding: 56px 0 44px;
   background: var(--cream);
   border-bottom: 1px solid var(--gray-300);
 }
+.page-hero .container { position: relative; z-index: 2; }
 .page-hero h1 {
   font-size: clamp(28px, 4vw, 42px);
   font-weight: 700;
@@ -1172,22 +1175,6 @@ section { padding: 72px 0; }
 }
 
 /* ---------- section photo ---------- */
-.section-photo {
-  margin: 44px 0 0;
-}
-.section-photo img {
-  width: 100%;
-  height: auto;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--gray-300);
-  display: block;
-}
-.section-photo figcaption {
-  margin-top: 12px;
-  font-size: 13.5px;
-  color: var(--ink-soft);
-  text-align: center;
-}
 .stats-bar-secondary {
   margin-top: 28px;
   padding-top: 28px;
