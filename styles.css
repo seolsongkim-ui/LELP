@@ -1313,7 +1313,10 @@ section { padding: 72px 0; }
 .faq-acc-item p { margin: 16px 0 20px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
 
 /* ---------- past-activities photo carousel ---------- */
-.gallery-carousel { max-width: 960px; margin: 0 auto; }
+/* Full-bleed: breaks out of .container to span edge-to-edge regardless
+   of how deeply nested it is, while the section-head above it stays
+   within the normal reading width. */
+.gallery-carousel { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
 .carousel-viewport {
   position: relative;
   overflow: hidden;
@@ -1376,8 +1379,8 @@ section { padding: 72px 0; }
   z-index: 2;
 }
 .carousel-arrow:hover { background: #fff; border-color: var(--red); transform: translateY(-50%) scale(1.06); }
-.carousel-arrow-prev { left: 14px; }
-.carousel-arrow-next { right: 14px; }
+.carousel-arrow-prev { left: 28px; }
+.carousel-arrow-next { right: 28px; }
 .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 16px; }
 .carousel-dot {
   width: 8px;
