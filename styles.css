@@ -928,9 +928,14 @@ section { padding: 72px 0; }
   border-radius: var(--radius-md);
   padding: 16px 18px;
 }
-.spec-card-wide { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; }
-.spec-card-wide .spec-card-main { flex: 1; min-width: 0; }
-.spec-card-wide .textbook-covers { flex: none; margin-top: 0; flex-wrap: nowrap; }
+.spec-card-wide { grid-column: 1 / -1; }
+/* Covers sit beside the value line itself (not centered against the whole
+   card), so they read as belonging to "스마트 초이스 시리즈" — the value keeps
+   its intrinsic width so they follow right after it rather than being pushed
+   out to the far edge. */
+.spec-val-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.spec-val-row .spec-val { flex: 0 1 auto; }
+.spec-val-row .textbook-covers { flex: none; margin-top: 0; flex-wrap: nowrap; }
 .spec-key {
   font-size: 11.5px;
   font-weight: 600;
@@ -1692,9 +1697,9 @@ section { padding: 72px 0; }
   .spec-grid { grid-template-columns: 1fr; gap: 10px; }
   .spec-card { padding: 14px 15px; }
   .spec-val { font-size: 15px; }
-  /* Not enough width to sit the textbook covers beside the text here */
-  .spec-card-wide { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .spec-card-wide .textbook-covers { flex-wrap: wrap; }
+  /* Not enough width to sit the textbook covers beside the value here */
+  .spec-val-row { gap: 10px; }
+  .spec-val-row .textbook-covers { flex-wrap: wrap; }
   .activity-grid { grid-template-columns: 1fr; }
   .intro-banner { padding: 28px 22px; }
   .footer-inner { flex-direction: column; }
