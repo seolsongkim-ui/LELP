@@ -101,7 +101,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(253, 243, 231, 0.92);
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid var(--gray-300);
 }
@@ -177,7 +177,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   position: sticky;
   top: var(--header-h, 65px);
   z-index: 90;
-  background: #fff;
+  background: var(--cream);
   border-bottom: 1px solid var(--gray-300);
   padding: 8px 0;
 }
@@ -309,7 +309,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 2px;
   padding: 8px 16px 16px;
   border-top: 1px solid var(--gray-300);
-  background: #fff;
+  background: var(--cream);
 }
 .mobile-nav.open { display: flex; }
 .mobile-nav a {
@@ -449,7 +449,7 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 6px;
   padding: 9px 16px;
   border-radius: 999px;
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   font-size: 13.5px;
   font-weight: 500;
@@ -528,7 +528,7 @@ section { padding: 72px 0; }
   gap: 20px;
 }
 .about-card {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
@@ -558,7 +558,7 @@ section { padding: 72px 0; }
   margin-top: 48px;
 }
 .impact-card {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-top: 4px solid var(--red);
   border-radius: var(--radius-lg);
@@ -731,7 +731,7 @@ section { padding: 72px 0; }
   gap: 12px;
   align-items: flex-start;
   padding: 16px;
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-md);
 }
@@ -770,7 +770,7 @@ section { padding: 72px 0; }
   grid-template-columns: 100px 1fr;
   gap: 16px;
   padding: 16px;
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-md);
 }
@@ -809,7 +809,7 @@ section { padding: 72px 0; }
   gap: 16px;
 }
 .curr-card {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 24px 20px;
@@ -878,7 +878,7 @@ section { padding: 72px 0; }
 .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .ac-card {
   position: relative;
-  background: #fff;
+  background: var(--cream);
   border-radius: 20px;
   padding: 32px 20px 22px;
   text-align: center;
@@ -1057,7 +1057,7 @@ section { padding: 72px 0; }
 .event-card {
   border-radius: var(--radius-lg);
   padding: 22px 20px;
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   position: relative;
   overflow: hidden;
@@ -1102,7 +1102,7 @@ section { padding: 72px 0; }
   text-align: center;
   padding: 24px 16px;
   border-radius: var(--radius-md);
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
 }
 .benefit-card .icon { font-size: 26px; margin-bottom: 12px; }
@@ -1155,7 +1155,7 @@ section { padding: 72px 0; }
   padding: 9px 16px;
   border-radius: 999px;
   border: 1px solid var(--gray-300);
-  background: #fff;
+  background: var(--cream);
   font-size: 13.5px;
   font-weight: 500;
   color: var(--ink);
@@ -1250,7 +1250,7 @@ section { padding: 72px 0; }
 }
 .motivation-grid-4 { grid-template-columns: repeat(4, 1fr); }
 .motivation-card {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 22px 20px;
@@ -1262,7 +1262,7 @@ section { padding: 72px 0; }
 /* ---------- semester guide: F&Q accordion ---------- */
 .faq-acc { display: flex; flex-direction: column; gap: 10px; }
 .faq-acc-item {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 0 22px;
@@ -1302,7 +1302,7 @@ section { padding: 72px 0; }
   border-radius: var(--radius-md);
   overflow: hidden;
   border: 1px solid var(--gray-300);
-  background: #fff;
+  background: var(--cream);
 }
 .gallery-item img {
   width: 100%;
@@ -1325,7 +1325,7 @@ section { padding: 72px 0; }
   margin-bottom: 8px;
 }
 .voice-card {
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   padding: 22px 20px;
@@ -1373,7 +1373,7 @@ section { padding: 72px 0; }
 .blog-card {
   display: flex;
   flex-direction: column;
-  background: #fff;
+  background: var(--cream);
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-lg);
   overflow: hidden;
