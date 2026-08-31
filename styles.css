@@ -616,6 +616,10 @@ section { padding: 72px 0; }
 }
 .impact-card.tone-ink .impact-stat-row strong { color: var(--ink); }
 .impact-card.tone-red-dark .impact-stat-row strong { color: var(--red-dark); }
+.impact-stat-note-label { display: block; font-size: 13px; color: var(--ink-soft); margin-bottom: 6px; }
+.impact-stat-note-value { display: block; font-size: 13px; font-weight: 700; line-height: 1.5; color: var(--red-dark); }
+.impact-card.tone-ink .impact-stat-note-value { color: var(--ink); }
+.impact-card.tone-red-dark .impact-stat-note-value { color: var(--red-dark); }
 
 /* ---------- stats ---------- */
 .stats-bar {
