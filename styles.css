@@ -759,6 +759,9 @@ section { padding: 72px 0; }
   border: 1px solid var(--gray-300);
   border-radius: var(--radius-md);
 }
+/* Already-passed schedule items fade back — dated with data-end via script.js */
+.timeline-row.is-past { opacity: 0.5; filter: grayscale(0.4); }
+.timeline-row.is-past .when { color: var(--gray-600); }
 .timeline-row .when {
   font-size: 15px;
   font-weight: 800;

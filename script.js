@@ -428,3 +428,20 @@
     startAutoplay();
   });
 })();
+
+(function () {
+  // Timeline page: fade out schedule items whose end date (data-end,
+  // an ISO date on each .timeline-row) has already passed.
+  var rows = document.querySelectorAll(".timeline-row[data-end]");
+  if (!rows.length) return;
+
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  rows.forEach(function (row) {
+    var end = new Date(row.getAttribute("data-end") + "T23:59:59");
+    if (end < today) {
+      row.classList.add("is-past");
+    }
+  });
+})();
