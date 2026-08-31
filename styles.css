@@ -18,6 +18,12 @@
   /* dominant background: warm cream per the 60-30-10 palette guide */
   --bg: #FDF3E7;
   --cream: #FDF3E7;
+  /* Accent, picked from the brand palette for max legibility on cream:
+     #21373A (secondary brand navy) gives white CTA text ~12.7:1 contrast,
+     vs. ~4.6:1 for the existing red and ~1.8:1 for the sage tried earlier.
+     --accent-dark lightens slightly on hover (dark-button convention). */
+  --accent: #21373A;
+  --accent-dark: #35545A;
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 14px;
@@ -333,10 +339,10 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   white-space: nowrap;
 }
 .btn-primary {
-  background: var(--red);
+  background: var(--accent);
   color: #fff;
 }
-.btn-primary:hover { background: var(--red-dark); }
+.btn-primary:hover { background: var(--accent-dark); }
 .btn-ghost {
   background: transparent;
   color: var(--ink);
@@ -356,18 +362,18 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 8px;
   padding: 14px 22px;
   border-radius: 999px;
-  background: var(--red);
+  background: var(--accent);
   color: #fff;
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(221, 57, 40, 0.35);
+  box-shadow: 0 8px 20px rgba(33, 55, 58, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 .floating-apply-btn:hover {
-  background: var(--red-dark);
+  background: var(--accent-dark);
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(221, 57, 40, 0.4);
+  box-shadow: 0 12px 26px rgba(33, 55, 58, 0.45);
 }
 .floating-apply-icon { font-size: 15px; line-height: 1; }
 
@@ -975,15 +981,15 @@ section { padding: 72px 0; }
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid var(--red);
-  background: var(--red);
+  border: 1px solid var(--accent);
+  background: var(--accent);
   color: #fff;
   cursor: pointer;
   text-decoration: none;
   line-height: 1.4;
   white-space: nowrap;
 }
-.ac-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
+.ac-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
 
 /* ---------- required-activity highlight (top of activities section) ---------- */
 .activity-highlight {
