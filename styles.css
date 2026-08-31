@@ -1285,7 +1285,7 @@ section { padding: 72px 0; }
 .motivation-card p { font-size: 13.5px; color: var(--ink-soft); }
 
 /* ---------- semester guide: F&Q accordion ---------- */
-.faq-acc { display: flex; flex-direction: column; gap: 10px; }
+.faq-acc { display: grid; grid-template-columns: repeat(2, 1fr); align-items: start; gap: 12px 16px; }
 .faq-acc-item {
   background: #fff;
   border: 1px solid var(--gray-300);
@@ -1514,7 +1514,7 @@ section { padding: 72px 0; }
   .kicker { font-size: 11.5px; }
   .about-grid, .curriculum-grid, .events-grid, .benefits-grid, .impact-cards,
   .benefits-list-simple, .grid-2,
-  .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid { grid-template-columns: 1fr; }
+  .motivation-grid, .motivation-grid-4, .gallery-grid, .voices-grid, .blog-grid, .faq-acc { grid-template-columns: 1fr; }
   .about-grid, .motivation-grid, .motivation-grid-4, .voices-grid, .blog-grid, .gallery-grid, .activity-grid, .benefits-grid, .impact-cards { gap: 12px; }
   .about-card { padding: 18px 16px; }
   .impact-card { padding: 18px 16px; }
