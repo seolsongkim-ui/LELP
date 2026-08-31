@@ -920,13 +920,13 @@ section { padding: 72px 0; }
   padding: 16px 18px;
 }
 .spec-card-wide { grid-column: 1 / -1; }
-/* Covers sit beside the value line itself (not centered against the whole
-   card), so they read as belonging to "스마트 초이스 시리즈" — the value keeps
-   its intrinsic width so they follow right after it rather than being pushed
-   out to the far edge. */
+/* Covers sit on the value line (not centered against the whole card) so they
+   read as belonging to "스마트 초이스 시리즈", but pushed to the card's right
+   edge — following straight after the value text would leave them sitting
+   directly above the level-test note on the line below. */
 .spec-val-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 .spec-val-row .spec-val { flex: 0 1 auto; }
-.spec-val-row .textbook-covers { flex: none; margin-top: 0; flex-wrap: nowrap; }
+.spec-val-row .textbook-covers { flex: none; margin-top: 0; margin-left: auto; flex-wrap: nowrap; }
 .spec-key {
   font-size: 11.5px;
   font-weight: 600;
@@ -1370,11 +1370,13 @@ section { padding: 72px 0; }
 /* Full-bleed: breaks out of .container to span edge-to-edge regardless
    of how deeply nested it is, while the section-head above it stays
    within the normal reading width. */
-.gallery-carousel { width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+.gallery-carousel { max-width: 900px; margin: 0 auto; }
 .carousel-viewport {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 16 / 8;
+  /* Explicit clamped height rather than an aspect-ratio: at full width an
+     aspect-ratio made the viewport grow to ~700px tall on a wide screen. */
+  height: clamp(200px, 24vw, 320px);
 }
 .carousel-track {
   display: flex;
@@ -1635,7 +1637,7 @@ section { padding: 72px 0; }
   .motivation-card { padding: 16px 14px; }
   .voice-card { padding: 16px 14px; gap: 8px; }
   .blog-card-body { padding: 12px; gap: 6px; }
-  .carousel-viewport { aspect-ratio: 4 / 3; }
+  .carousel-viewport { height: clamp(150px, 44vw, 210px); }
   .carousel-slide { flex-basis: 22%; margin: 0 6px; }
   .carousel-slide.is-active { flex-basis: 66%; }
   .carousel-arrow { width: 34px; height: 34px; font-size: 18px; }
@@ -1688,9 +1690,10 @@ section { padding: 72px 0; }
   .spec-grid { grid-template-columns: 1fr; gap: 10px; }
   .spec-card { padding: 14px 15px; }
   .spec-val { font-size: 15px; }
-  /* Not enough width to sit the textbook covers beside the value here */
+  /* Not enough width to sit the textbook covers beside the value here — they
+     wrap onto their own line, so drop the right-edge push and keep them left. */
   .spec-val-row { gap: 10px; }
-  .spec-val-row .textbook-covers { flex-wrap: wrap; }
+  .spec-val-row .textbook-covers { flex-wrap: wrap; margin-left: 0; }
   .activity-grid { grid-template-columns: 1fr; }
   .intro-banner { padding: 28px 22px; }
   .footer-inner { flex-direction: column; }
