@@ -685,10 +685,13 @@ section { padding: 72px 0; }
 .stats-group .stat { flex: 0 1 120px; }
 .stats-divider { width: 1px; background: var(--gray-300); align-self: stretch; min-height: 70px; }
 /* This group's labels ("Cumulative Event Attendance", etc.) run longer than
-   the other stat groups' single-word labels, so it gets a wider column
-   instead of the shared 120px basis — keeps each description on one line. */
-.stats-bar-secondary .stats-group .stat { flex: 1 1 190px; max-width: 220px; }
-.stats-bar-secondary .stat .label { white-space: nowrap; }
+   the other stat groups' single-word labels. Forced onto one row (nowrap)
+   with flexible, shrinkable columns instead of the shared 120px basis, so
+   all 4 stay side by side at any width — the label itself can still wrap
+   to a second line inside its own narrower column rather than force the
+   4 stats to stack 2-by-2. */
+.stats-bar-secondary .stats-group { flex-wrap: nowrap; }
+.stats-bar-secondary .stats-group .stat { flex: 1 1 0; min-width: 0; max-width: none; }
 
 /* ---------- intro banner (fall 2026) ---------- */
 .intro-banner {
@@ -1597,9 +1600,12 @@ section { padding: 72px 0; }
   .stats-bar-split { gap: 20px; }
   .stats-divider { display: none; }
   .stats-group { width: 100%; }
-  /* Not enough width for the secondary group's wider nowrap columns here — back to wrapping, 2 per row */
-  .stats-bar-secondary .stats-group .stat { flex: 1 1 45%; max-width: none; }
-  .stats-bar-secondary .stat .label { white-space: normal; }
+  /* Keeps the same 4-in-a-row layout at mobile width — just tighter, with a smaller label */
+  .stats-bar-secondary .stats-group { gap: 6px; }
+  .stats-bar-secondary .stat { padding: 4px 2px; }
+  .stats-bar-secondary .stat .label { font-size: 11px; line-height: 1.25; }
+  .stats-bar-secondary .stat-count .num { font-size: 18px; }
+  .stats-bar-secondary .stat-count .count-icon { font-size: 22px; margin-bottom: 6px; }
 
   /* About section's donut-ring stats (만족도/향상/재참여율/자신감): keep all 4 on one line */
   .stats-bar-split:not(.stats-bar-secondary) .stats-group {
