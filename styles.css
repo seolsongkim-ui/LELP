@@ -901,6 +901,44 @@ section { padding: 72px 0; }
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 }
 
+/* ---------- curriculum spec cards (2-up grid) ----------
+   Replaces the label-column table layout for the curriculum, which left a
+   wide empty gutter on the right of every short value. Small muted label
+   above, emphasized value below, so the grid can be scanned rather than
+   read row by row. .spec-table above is still used by proposal-guide.html. */
+.spec-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.spec-card {
+  background: var(--gray-100);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+}
+.spec-card-wide { grid-column: 1 / -1; display: flex; align-items: center; gap: 20px; }
+.spec-card-wide .spec-card-main { flex: 1; min-width: 0; }
+.spec-card-wide .textbook-covers { flex: none; margin-top: 0; flex-wrap: nowrap; }
+.spec-key {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: var(--gray-600);
+  margin-bottom: 6px;
+}
+.spec-val {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.2px;
+  line-height: 1.45;
+}
+.spec-val .sub { font-size: 13px; font-weight: 600; color: var(--ink-soft); letter-spacing: 0; }
+.spec-val-accent { color: var(--red); }
+.spec-note { margin: 6px 0 0; font-size: 12.5px; color: var(--ink-soft); line-height: 1.55; }
+
 /* ---------- semester guide: activity timeline ---------- */
 .activity-timeline { margin-top: 8px; }
 .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -1640,6 +1678,12 @@ section { padding: 72px 0; }
   .stats-bar-split:not(.stats-bar-secondary) .stats-group .label { font-size: 10px; margin-top: 4px; line-height: 1.3; }
   .timeline-row { grid-template-columns: 1fr; }
   .spec-row { grid-template-columns: 1fr; gap: 10px; padding: 20px 0; }
+  .spec-grid { grid-template-columns: 1fr; gap: 10px; }
+  .spec-card { padding: 14px 15px; }
+  .spec-val { font-size: 15px; }
+  /* Not enough width to sit the textbook covers beside the text here */
+  .spec-card-wide { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .spec-card-wide .textbook-covers { flex-wrap: wrap; }
   .activity-grid { grid-template-columns: 1fr; }
   .intro-banner { padding: 28px 22px; }
   .footer-inner { flex-direction: column; }
