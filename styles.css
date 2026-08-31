@@ -337,11 +337,11 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
 }
 .btn-primary:hover { background: var(--red-dark); }
 .btn-ghost {
-  background: transparent;
+  background: rgba(255, 255, 255, 0.75);
   color: var(--ink);
-  border: 1.5px solid var(--gray-300);
+  border: 1.5px solid var(--ink);
 }
-.btn-ghost:hover { border-color: var(--ink); }
+.btn-ghost:hover { background: #fff; border-color: var(--red); color: var(--red); }
 .btn-sm { padding: 9px 18px; font-size: 13px; }
 
 /* ---------- floating activity sign-up button (Semester Guide page) ---------- */
