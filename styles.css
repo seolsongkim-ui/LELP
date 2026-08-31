@@ -478,6 +478,10 @@ section { padding: 72px 0; }
   max-width: 680px;
   margin-bottom: 40px;
 }
+/* Tightened so more of the carousel lands in view when the "활동/Activities"
+   sub-nav link scroll-jumps here — no kicker anymore, and less air above it. */
+#activities { padding-top: 40px; }
+#activities .section-head { margin-bottom: 20px; }
 .kicker {
   font-size: 13px;
   font-weight: 600;
