@@ -824,7 +824,7 @@ section { padding: 72px 0; }
   grid-template-columns: 190px 1fr;
   gap: 24px;
   align-items: start;
-  padding: 26px 0;
+  padding: 30px 0;
   border-bottom: 1px solid var(--gray-300);
 }
 .spec-label {
@@ -834,13 +834,31 @@ section { padding: 72px 0; }
   font-size: 16px;
   font-weight: 700;
   color: var(--ink);
+  padding-top: 2px;
 }
 .spec-bar { flex: none; width: 4px; height: 26px; border-radius: 2px; background: var(--red); }
 .spec-row:nth-child(2) .spec-bar { background: var(--red-dark); }
 .spec-row:nth-child(3) .spec-bar { background: var(--red-darker); }
 .spec-row:nth-child(4) .spec-bar { background: var(--ink); }
 .spec-row:nth-child(5) .spec-bar { background: var(--gray-600); }
-.spec-value p { margin: 0 0 6px; font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+.spec-value p {
+  position: relative;
+  margin: 0 0 10px;
+  padding-left: 15px;
+  font-size: 15px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+.spec-value p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.68em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red-tint-2);
+}
 .spec-value p:last-child { margin-bottom: 0; }
 .spec-value strong { color: var(--ink); }
 .textbook-covers { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
