@@ -283,3 +283,30 @@
     showActivityDetail();
   }
 })();
+
+(function () {
+  // Site-wide fixed bottom notice bar (KakaoTalk contact info). Dismissing it
+  // is remembered per-browser so it doesn't keep covering content on repeat visits.
+  var STORAGE_KEY = "lelp_notice_dismissed";
+  var bar = document.querySelector(".site-notice-bar");
+  if (!bar) return;
+
+  var dismissed = false;
+  try { dismissed = localStorage.getItem(STORAGE_KEY) === "1"; } catch (e) {}
+
+  if (dismissed) {
+    bar.remove();
+    document.body.classList.remove("has-notice-bar");
+    return;
+  }
+
+  document.body.classList.add("has-notice-bar");
+  var closeBtn = bar.querySelector(".notice-close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", function () {
+      bar.remove();
+      document.body.classList.remove("has-notice-bar");
+      try { localStorage.setItem(STORAGE_KEY, "1"); } catch (e) {}
+    });
+  }
+})();
