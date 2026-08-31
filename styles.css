@@ -237,8 +237,10 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
    set by script.js; the pixel value here is just a pre-JS/no-JS fallback.
    Each of these is a <section> with its own 72px top padding before the
    heading text — subtract that so the scroll lands on the text itself
-   instead of leaving that padding as empty space below the sticky bars. */
-#about, #activities, #participants, #testimonials, #apply,
+   instead of leaving that padding as empty space below the sticky bars.
+   #activities is excluded here — it sets its own top padding, so it carries
+   its own matching offset further down. */
+#about, #participants, #testimonials, #apply,
 #sg-activities, #sg-curriculum, #sg-guide, #sg-faq {
   scroll-margin-top: max(0px, calc(var(--sticky-offset, 120px) - 72px));
 }
@@ -481,8 +483,16 @@ section { padding: 72px 0; }
   margin-bottom: 40px;
 }
 /* Tightened so more of the carousel lands in view when the "활동/Activities"
-   sub-nav link scroll-jumps here — no kicker anymore, and less air above it. */
-#activities { padding-top: 40px; }
+   sub-nav link scroll-jumps here — no kicker anymore, and less air above it.
+   The anchor offset must subtract THIS padding (40px), not the 72px the shared
+   rule above assumes: subtracting 72 overshot by 32px and tucked the
+   "지난 활동 둘러보기" heading up under the sticky header + sub-nav. This ID
+   selector also outranks the mobile `section` padding, so 40px holds at every
+   width and no mobile counterpart is needed. */
+#activities {
+  padding-top: 40px;
+  scroll-margin-top: max(0px, calc(var(--sticky-offset, 120px) - 40px));
+}
 #activities .section-head { margin-bottom: 20px; }
 .kicker {
   font-size: 13px;
@@ -1601,8 +1611,10 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 @media (max-width: 720px) {
   /* Anchor-scroll fix (mobile): section padding shrinks to 32px below,
      so the scroll-margin-top offset must subtract 32px here instead of
-     the desktop rule's 72px, or the landing heading overshoots/undershoots. */
-  #about, #activities, #participants, #testimonials, #apply,
+     the desktop rule's 72px, or the landing heading overshoots/undershoots.
+     #activities stays out of this list — its own ID padding rule keeps it at
+     40px here too, so it keeps the 40px offset it sets for itself. */
+  #about, #participants, #testimonials, #apply,
   #sg-activities, #sg-curriculum, #sg-guide, #sg-faq {
     scroll-margin-top: max(0px, calc(var(--sticky-offset, 120px) - 32px));
   }
