@@ -470,6 +470,7 @@ body.has-notice-bar .floating-apply-btn { bottom: 74px; }
   letter-spacing: -0.3px;
   max-width: 780px;
 }
+.hero h1 .hero-accent { color: var(--red); font-weight: 800; }
 .hero .lede {
   font-size: 17px;
   color: var(--ink-soft);
