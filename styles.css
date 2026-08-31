@@ -919,18 +919,16 @@ section { padding: 72px 0; }
   border-radius: var(--radius-md);
   padding: 16px 18px;
 }
-.spec-card-wide { grid-column: 1 / -1; }
-/* Covers sit on the value line (not centered against the whole card) so they
-   read as belonging to "스마트 초이스 시리즈", pushed to the card's right edge,
-   with the level-test note directly beneath them rather than off at the left.
-   The block takes its width from the cover strip (width:max-content on the
-   nowrap strip keeps the images from being squeezed); max-width then wraps the
-   note to roughly the strip's width instead of running on one long line. */
-.spec-val-row { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
-.spec-val-row .spec-val { flex: 0 1 auto; }
-.textbook-block { flex: none; margin-left: auto; width: max-content; max-width: 300px; }
-.textbook-block .textbook-covers { margin-top: 0; flex-wrap: nowrap; width: max-content; }
-.textbook-block .spec-note { margin-top: 8px; }
+/* The textbook card keeps the same label/value/note stack as every other card
+   in this grid, so its note stays attached to the value it qualifies (as in
+   수료 기준 / 활동 참여) rather than drifting off beside the images. The covers
+   sit immediately to the right of that text block as its exhibit — the card
+   spans full width only to fill the grid's odd fifth slot, so the extra room
+   goes into showing the covers larger instead of sitting empty. */
+.spec-card-wide { grid-column: 1 / -1; display: flex; align-items: center; gap: 28px; }
+.spec-card-wide .spec-card-main { flex: 0 1 auto; min-width: 0; }
+.spec-card-wide .textbook-covers { flex: none; margin-top: 0; flex-wrap: nowrap; }
+.spec-card-wide .textbook-covers img { width: 52px; }
 .spec-key {
   font-size: 11.5px;
   font-weight: 600;
@@ -1694,12 +1692,11 @@ section { padding: 72px 0; }
   .spec-grid { grid-template-columns: 1fr; gap: 10px; }
   .spec-card { padding: 14px 15px; }
   .spec-val { font-size: 15px; }
-  /* Not enough width to sit the textbook covers beside the value here — the
-     block wraps onto its own line, so drop the right-edge push and let the
-     covers use the full width. */
-  .spec-val-row { gap: 10px; }
-  .textbook-block { margin-left: 0; width: auto; max-width: none; }
-  .textbook-block .textbook-covers { flex-wrap: wrap; width: auto; }
+  /* Not enough width to sit the covers beside the text here — stack them under
+     the text block and go back to the smaller thumbnails. */
+  .spec-card-wide { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .spec-card-wide .textbook-covers { flex-wrap: wrap; }
+  .spec-card-wide .textbook-covers img { width: 42px; }
   .activity-grid { grid-template-columns: 1fr; }
   .intro-banner { padding: 28px 22px; }
   .footer-inner { flex-direction: column; }
