@@ -482,6 +482,14 @@ section { padding: 72px 0; }
   max-width: 680px;
   margin-bottom: 40px;
 }
+/* A one-line "why" note under an h2 — smaller and tighter than the normal
+   .section-head p subtitle (16px/12px), so it doesn't push the content below
+   it further down the page. Used on #sg-activities, where the activity grid
+   needs to keep fitting close to one screen after the "활동 신청" sub-nav
+   link scroll-jumps here; also trims this section-head's own bottom margin
+   by the same amount this note adds, so total height barely moves. */
+#sg-activities .section-head { margin-bottom: 28px; }
+.section-head p.section-head-note { margin-top: 4px; font-size: 13px; color: var(--gray-600); }
 /* Tightened so more of the carousel lands in view when the "활동/Activities"
    sub-nav link scroll-jumps here — no kicker anymore, and less air above it.
    The anchor offset must subtract THIS padding (40px), not the 72px the shared
