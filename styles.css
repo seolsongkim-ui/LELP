@@ -1029,7 +1029,7 @@ section { padding: 72px 0; }
 /* ---------- required-activity highlight (top of activities section) ---------- */
 .activity-highlight {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
   margin-bottom: 20px;
   padding: 16px 20px;
@@ -1037,8 +1037,10 @@ section { padding: 72px 0; }
   border: 1.5px solid var(--red-tint-2);
   border-radius: var(--radius-lg);
 }
-.activity-highlight .ah-icon { flex: none; font-size: 21px; line-height: 1; }
+.activity-highlight .ah-icon { flex: none; font-size: 21px; line-height: 1; margin-top: 2px; }
+.activity-highlight .ah-text { display: flex; flex-direction: column; gap: 6px; }
 .activity-highlight p { font-size: 14.5px; font-weight: 700; color: var(--red-dark); line-height: 1.5; }
+.activity-highlight .ah-note { font-size: 12.5px; font-weight: 600; color: var(--red-dark); opacity: 0.75; }
 
 /* ---------- ongoing activity proposal callout ---------- */
 .activity-proposal {
