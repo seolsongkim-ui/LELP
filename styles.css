@@ -1480,6 +1480,21 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 .faq-callout::before { content: "\24D8"; flex: none; font-weight: 700; color: #B4890F; }
 .faq-callout strong { color: #5C440D; font-weight: 700; }
 
+/* One level up from .faq-block — for an answer broad enough to have its own
+   named sections (each with its own pills/lists inside), separated by a
+   dashed rule rather than the tighter gap between pills in the same section. */
+.faq-section + .faq-section { margin-top: 20px; padding-top: 20px; border-top: 1px dashed var(--gray-300); }
+.faq-section-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.faq-section-head::before { content: ""; flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+
 /* ---------- past-activities photo carousel ---------- */
 /* Full-bleed: breaks out of .container to span edge-to-edge regardless
    of how deeply nested it is, while the section-head above it stays
