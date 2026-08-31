@@ -683,6 +683,11 @@ section { padding: 72px 0; }
 }
 .stats-group .stat { flex: 0 1 120px; }
 .stats-divider { width: 1px; background: var(--gray-300); align-self: stretch; min-height: 70px; }
+/* This group's labels ("Cumulative Event Attendance", etc.) run longer than
+   the other stat groups' single-word labels, so it gets a wider column
+   instead of the shared 120px basis — keeps each description on one line. */
+.stats-bar-secondary .stats-group .stat { flex: 1 1 190px; max-width: 220px; }
+.stats-bar-secondary .stat .label { white-space: nowrap; }
 
 /* ---------- intro banner (fall 2026) ---------- */
 .intro-banner {
@@ -1586,6 +1591,9 @@ section { padding: 72px 0; }
   .stats-bar-split { gap: 20px; }
   .stats-divider { display: none; }
   .stats-group { width: 100%; }
+  /* Not enough width for the secondary group's wider nowrap columns here — back to wrapping, 2 per row */
+  .stats-bar-secondary .stats-group .stat { flex: 1 1 45%; max-width: none; }
+  .stats-bar-secondary .stat .label { white-space: normal; }
 
   /* About section's donut-ring stats (만족도/향상/재참여율/자신감): keep all 4 on one line */
   .stats-bar-split:not(.stats-bar-secondary) .stats-group {
