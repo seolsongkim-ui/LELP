@@ -434,26 +434,6 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   color: var(--ink-soft);
   max-width: 620px;
 }
-.hero-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-.chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 16px;
-  border-radius: 999px;
-  background: #fff;
-  border: 1px solid var(--gray-300);
-  font-size: 13.5px;
-  font-weight: 500;
-  color: var(--ink);
-  text-decoration: none;
-  cursor: pointer;
-}
 .hero-actions {
   display: flex;
   gap: 12px;
@@ -1464,7 +1444,6 @@ section { padding: 72px 0; }
   .role-btn { padding: 6px 8px; font-size: 11px; }
   .container { padding: 0 16px; }
   .btn { padding: 11px 22px; font-size: 13.5px; }
-  .chip { padding: 7px 12px; font-size: 12px; }
   .hero { padding: 28px 0 32px; }
   .hero h1 { font-size: 24px; }
   .hero-text { max-width: 100%; }
