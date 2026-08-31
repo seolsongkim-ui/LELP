@@ -15,11 +15,9 @@
   --gray-600: #767676;
   --gray-300: #E4E1DD;
   --gray-100: #F5F3F1;
-  /* 60-30-10 palette guide: dominant background / secondary (brand red, unchanged) / accent */
+  /* dominant background: warm cream per the 60-30-10 palette guide */
   --bg: #FDF3E7;
   --cream: #FDF3E7;
-  --accent: #ACC6C5;
-  --accent-dark: #8DA2A1;
   --radius-sm: 8px;
   --radius-md: 10px;
   --radius-lg: 14px;
@@ -335,10 +333,10 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   white-space: nowrap;
 }
 .btn-primary {
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--red);
+  color: #fff;
 }
-.btn-primary:hover { background: var(--accent-dark); }
+.btn-primary:hover { background: var(--red-dark); }
 .btn-ghost {
   background: transparent;
   color: var(--ink);
@@ -358,18 +356,18 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   gap: 8px;
   padding: 14px 22px;
   border-radius: 999px;
-  background: var(--accent);
-  color: var(--ink);
+  background: var(--red);
+  color: #fff;
   font-weight: 700;
   font-size: 14px;
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(140, 165, 164, 0.45);
+  box-shadow: 0 8px 20px rgba(221, 57, 40, 0.35);
   transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
 }
 .floating-apply-btn:hover {
-  background: var(--accent-dark);
+  background: var(--red-dark);
   transform: translateY(-2px);
-  box-shadow: 0 12px 26px rgba(140, 165, 164, 0.55);
+  box-shadow: 0 12px 26px rgba(221, 57, 40, 0.4);
 }
 .floating-apply-icon { font-size: 15px; line-height: 1; }
 
@@ -977,15 +975,15 @@ section { padding: 72px 0; }
   font-weight: 600;
   padding: 10px 20px;
   border-radius: 999px;
-  border: 1px solid var(--accent);
-  background: var(--accent);
-  color: var(--ink);
+  border: 1px solid var(--red);
+  background: var(--red);
+  color: #fff;
   cursor: pointer;
   text-decoration: none;
   line-height: 1.4;
   white-space: nowrap;
 }
-.ac-btn:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+.ac-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
 /* ---------- required-activity highlight (top of activities section) ---------- */
 .activity-highlight {
