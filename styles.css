@@ -482,14 +482,9 @@ section { padding: 72px 0; }
   max-width: 680px;
   margin-bottom: 40px;
 }
-/* A one-line "why" note under an h2 — smaller and tighter than the normal
-   .section-head p subtitle (16px/12px), so it doesn't push the content below
-   it further down the page. Used on #sg-activities, where the activity grid
-   needs to keep fitting close to one screen after the "활동 신청" sub-nav
-   link scroll-jumps here; also trims this section-head's own bottom margin
-   by the same amount this note adds, so total height barely moves. */
+/* Tighter head on #sg-activities so the activity grid keeps fitting close to
+   one screen after the "활동 신청" sub-nav link scroll-jumps here. */
 #sg-activities .section-head { margin-bottom: 28px; }
-.section-head p.section-head-note { margin-top: 4px; font-size: 13px; color: var(--gray-600); }
 /* Tightened so more of the carousel lands in view when the "활동/Activities"
    sub-nav link scroll-jumps here — no kicker anymore, and less air above it.
    The anchor offset must subtract THIS padding (40px), not the 72px the shared
@@ -1096,12 +1091,10 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 }
 .ac-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
-/* ---------- required-activity highlight (top of activities section) ---------- */
-/* Toned down from a full red-tint wash + red border + bold red text (read as
-   too strong against the rest of the page) to the same neutral card the
-   page uses for asides elsewhere (.note-box, .activity-proposal) — a thin
-   red left-border is the only accent left, still enough to mark this as the
-   one required-activity note without competing with everything around it. */
+/* ---------- activities intro banner (top of activities section) ---------- */
+/* One plain neutral banner holding both the section's "why" line and the
+   required-activity note — no icon, no accent color, per the request to
+   merge them and strip decoration. */
 .activity-highlight {
   display: flex;
   align-items: flex-start;
@@ -1110,12 +1103,11 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   padding: 16px 20px;
   background: #fff;
   border: 1px solid var(--gray-300);
-  border-left: 3px solid var(--red);
   border-radius: var(--radius-lg);
 }
-.activity-highlight .ah-icon { flex: none; font-size: 21px; line-height: 1; margin-top: 2px; }
 .activity-highlight .ah-text { display: flex; flex-direction: column; gap: 6px; }
 .activity-highlight p { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.5; }
+.activity-highlight p.ah-note { font-size: 13.5px; font-weight: 400; color: var(--ink-soft); }
 
 /* ---------- ongoing activity proposal callout ---------- */
 .activity-proposal {
