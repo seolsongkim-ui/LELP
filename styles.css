@@ -1200,6 +1200,8 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 .detail-fact-wide { grid-column: 1 / -1; }
 
 .link-team-note { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+.link-team-note.activity-detail-note-lead { margin: 0 0 16px; }
+.link-team-note.activity-detail-note-trail { margin: 12px 0 0; }
 
 @media (max-width: 480px) {
   .detail-fact-grid { grid-template-columns: 1fr; }
@@ -1242,6 +1244,15 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 .activity-detail-option-desc { padding: 14px 18px 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
 .activity-detail-option-desc strong { color: var(--ink); }
 .activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
+
+/* A week -> content schedule (columnist curriculum) — a compact two-column
+   list rather than a real <table>, matching the pill/list vocabulary the
+   rest of .activity-detail-extra content already uses. */
+.week-schedule { display: flex; flex-direction: column; gap: 10px; }
+.week-schedule-row { display: flex; align-items: baseline; gap: 14px; }
+.week-schedule-row .week-label { flex: none; width: 68px; font-size: 12.5px; font-weight: 700; color: var(--red); }
+.week-schedule-row .week-content { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }
+.week-schedule-row .week-content strong { color: var(--ink); font-weight: 700; }
 
 /* ---------- events ---------- */
 .events-grid {
@@ -1502,6 +1513,8 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   border-radius: 999px;
   margin-bottom: 10px;
 }
+.faq-block p { margin: 0 0 8px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+.faq-block p:last-child { margin-bottom: 0; }
 .faq-block ul { margin: 0 0 10px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
 .faq-block ul:last-child { margin-bottom: 0; }
 .faq-block li { position: relative; padding-left: 14px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
