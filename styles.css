@@ -571,10 +571,6 @@ section { padding: 72px 0; }
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-/* The "숫자로 보는 렐프의 임팩트" heading is student-only, and its margins were
-   the only thing separating these cards from the About cards above — so the
-   volunteer view has to supply that gap itself. */
-body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 .impact-card {
   background: #fff;
   border: 1px solid var(--gray-300);
