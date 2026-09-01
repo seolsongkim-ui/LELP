@@ -984,21 +984,22 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   transition: box-shadow 0.18s ease, transform 0.18s ease;
 }
 .ac-card:hover { box-shadow: 0 16px 34px rgba(40, 30, 20, 0.13); transform: translateY(-4px); }
-.ac-num {
+/* Recruitment status — starts as "모집 예정" and script.js flips it to
+   "모집 중" the moment a real (non-"#") Google Form URL is set for that
+   card's activity in GOOGLE_FORM_LINKS, so this never needs updating here
+   by hand. */
+.ac-status {
   position: absolute;
   top: 14px;
   right: 14px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  background: var(--gray-100);
-  color: var(--ink-soft);
-  font-size: 12px;
+  font-size: 9.5px;
   font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border-radius: 999px;
 }
+.ac-status-upcoming { color: var(--ink-soft); background: var(--gray-100); }
+.ac-status-open { color: #fff; background: var(--red); }
 .ac-required {
   position: absolute;
   top: 14px;
@@ -1840,7 +1841,7 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   .ac-head { gap: 10px; margin-bottom: 8px; padding: 0 18px; }
   .ac-icon { width: 40px; height: 40px; font-size: 18px; }
   .ac-title { font-size: 15px; }
-  .ac-num { width: 22px; height: 22px; font-size: 10.5px; }
+  .ac-status { font-size: 8.5px; padding: 2px 7px; }
   .ac-date { font-size: 11.5px; padding: 4px 12px; margin-bottom: 8px; }
   .benefit-card { padding: 16px 12px; }
   .benefit-card .icon { font-size: 22px; margin-bottom: 8px; }

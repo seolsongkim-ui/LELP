@@ -270,6 +270,39 @@
     }
   });
 
+  // Each activity card on the semester-guide (#sg-activities) shows a
+  // recruitment-status badge — "모집 예정" until a real form URL exists,
+  // then "모집 중" automatically, so nobody has to remember to flip it by
+  // hand when a form link goes in above. A card's own "자세히 보고 신청"
+  // button already points either straight to a real external form (e.g.
+  // the Walk & Run card) or to "activity.html#<id>"; for the latter this
+  // checks every GOOGLE_FORM_LINKS key for that id (a card can map to more
+  // than one apply button, e.g. Special Week's movie/doc options) and
+  // counts it as open once any one of them is a real, non-"#" URL.
+  document.querySelectorAll(".ac-card").forEach(function (card) {
+    var btn = card.querySelector(".ac-btn");
+    var statusEl = card.querySelector(".ac-status");
+    if (!btn || !statusEl) return;
+    var href = btn.getAttribute("href") || "";
+    var isOpen;
+    if (href.indexOf("activity.html#") === 0) {
+      var actId = href.split("#")[1];
+      isOpen = Object.keys(GOOGLE_FORM_LINKS).some(function (key) {
+        return (key === actId || key.indexOf(actId + "-") === 0) && GOOGLE_FORM_LINKS[key] !== "#";
+      });
+    } else {
+      isOpen = !!href && href !== "#";
+    }
+    if (isOpen) {
+      statusEl.classList.remove("ac-status-upcoming");
+      statusEl.classList.add("ac-status-open");
+      var studentSpan = statusEl.querySelector("[data-r-student]");
+      var volunteerSpan = statusEl.querySelector("[data-r-volunteer]");
+      if (studentSpan) studentSpan.textContent = "모집 중";
+      if (volunteerSpan) volunteerSpan.textContent = "Now Recruiting";
+    }
+  });
+
   // activity.html shows exactly one of its 6 detail blocks, based on the
   // "#act-*" hash the "자세히 보기" link on the semester-guide timeline sends it.
   var detailBlocks = document.querySelectorAll(".activity-detail-block");
