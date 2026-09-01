@@ -1089,19 +1089,25 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
 .ac-btn:hover { background: var(--red-dark); border-color: var(--red-dark); }
 
 /* ---------- required-activity highlight (top of activities section) ---------- */
+/* Toned down from a full red-tint wash + red border + bold red text (read as
+   too strong against the rest of the page) to the same neutral card the
+   page uses for asides elsewhere (.note-box, .activity-proposal) — a thin
+   red left-border is the only accent left, still enough to mark this as the
+   one required-activity note without competing with everything around it. */
 .activity-highlight {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   margin-bottom: 20px;
   padding: 16px 20px;
-  background: var(--red-tint);
-  border: 1.5px solid var(--red-tint-2);
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-left: 3px solid var(--red);
   border-radius: var(--radius-lg);
 }
 .activity-highlight .ah-icon { flex: none; font-size: 21px; line-height: 1; margin-top: 2px; }
 .activity-highlight .ah-text { display: flex; flex-direction: column; gap: 6px; }
-.activity-highlight p { font-size: 14.5px; font-weight: 700; color: var(--red-dark); line-height: 1.5; }
+.activity-highlight p { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.5; }
 
 /* ---------- ongoing activity proposal callout ---------- */
 .activity-proposal {
