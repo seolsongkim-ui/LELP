@@ -1243,19 +1243,23 @@ section { padding: 72px 0; }
 /* Column/essay class tabs (columnist page): guidance note above a pill
    switcher, one panel per class. Panels are toggled by script.js. */
 .class-tab-note { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 14px; }
-.class-tab-btns { display: inline-flex; background: var(--gray-100); border-radius: 999px; padding: 3px; margin-bottom: 16px; }
+.class-tab-btns { display: inline-flex; gap: 8px; margin-bottom: 16px; }
+/* Each tab reads as its own pressable pill (border + hover response), not
+   bare text on a track — so it's clearly a button before you touch it. */
 .class-tab-btn {
   font-size: 13px;
   font-weight: 500;
-  color: var(--gray-600);
+  color: var(--ink-soft);
   padding: 7px 22px;
   border-radius: 999px;
-  border: none;
-  background: none;
+  border: 1px solid var(--gray-300);
+  background: #fff;
   cursor: pointer;
   font-family: inherit;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
 }
-.class-tab-btn.is-active { background: var(--red); color: #fff; }
+.class-tab-btn:hover { border-color: var(--red); color: var(--red); }
+.class-tab-btn.is-active { background: var(--red); border-color: var(--red); color: #fff; }
 .class-tab-panel { display: none; }
 .class-tab-panel.is-shown { display: block; }
 .class-tab-panel .detail-fact-grid { margin-bottom: 16px; }
