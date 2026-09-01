@@ -1099,7 +1099,6 @@ section { padding: 72px 0; }
 }
 .activity-highlight .ah-text { display: flex; flex-direction: column; gap: 6px; }
 .activity-highlight p { font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.5; }
-.activity-highlight p.ah-note { font-size: 13.5px; font-weight: 400; color: var(--ink-soft); }
 
 /* ---------- ongoing activity proposal callout ---------- */
 .activity-proposal {
