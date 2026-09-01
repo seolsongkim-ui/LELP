@@ -511,16 +511,24 @@ section { padding: 72px 0; }
   margin-bottom: 10px;
   display: block;
 }
-.hl { position: relative; color: var(--ink); z-index: 1; }
-.hl::after {
-  content: "";
-  position: absolute;
-  left: -10px; right: -10px;
-  bottom: 0.04em;
-  height: 0.34em;
-  background: linear-gradient(90deg, transparent 0%, var(--red-tint-2) 14%, var(--red-tint-2) 86%, transparent 100%);
-  z-index: -1;
+/* Section headers use the minimal outlined-icon treatment: a red-ringed
+   icon circle beside the title, with the English title as a small muted
+   inline subtitle in the Korean (student) view. Replaces the earlier
+   red-smear underline (.hl) as the section-title accent. */
+.sh-row { display: flex; align-items: center; gap: 14px; }
+.sh-icon {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 1.5px solid var(--red);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
 }
+.sh-sub { font-size: 14px; font-weight: 400; color: var(--gray-600); letter-spacing: 0; white-space: nowrap; }
 .section-head h2 {
   font-size: clamp(24px, 3vw, 34px);
   font-weight: 700;
@@ -1822,6 +1830,9 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   .page-hero h1 { font-size: 22px; }
   section { padding: 32px 0; }
   .section-head { margin-bottom: 24px; }
+  .sh-row { gap: 10px; }
+  .sh-icon { width: 36px; height: 36px; font-size: 15px; }
+  .sh-sub { font-size: 12.5px; }
   .section-head h2 { font-size: 20px; }
   .section-head p { font-size: 14px; margin-top: 8px; }
   .kicker { font-size: 11.5px; }
