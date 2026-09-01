@@ -1240,14 +1240,41 @@ section { padding: 72px 0; }
 .activity-detail-option-desc strong { color: var(--ink); }
 .activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
 
-/* A week -> content schedule (columnist curriculum) — a compact two-column
-   list rather than a real <table>, matching the pill/list vocabulary the
-   rest of .activity-detail-extra content already uses. */
-.week-schedule { display: flex; flex-direction: column; gap: 10px; }
-.week-schedule-row { display: flex; align-items: baseline; gap: 14px; }
-.week-schedule-row .week-label { flex: none; width: 68px; font-size: 12.5px; font-weight: 700; color: var(--red); }
-.week-schedule-row .week-content { font-size: 13.5px; color: var(--ink-soft); line-height: 1.5; }
-.week-schedule-row .week-content strong { color: var(--ink); font-weight: 700; }
+/* Column/essay class tabs (columnist page): guidance note above a pill
+   switcher, one panel per class. Panels are toggled by script.js. */
+.class-tab-note { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 14px; }
+.class-tab-btns { display: inline-flex; background: var(--gray-100); border-radius: 999px; padding: 3px; margin-bottom: 16px; }
+.class-tab-btn {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--gray-600);
+  padding: 7px 22px;
+  border-radius: 999px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.class-tab-btn.is-active { background: var(--red); color: #fff; }
+.class-tab-panel { display: none; }
+.class-tab-panel.is-shown { display: block; }
+.class-tab-panel .detail-fact-grid { margin-bottom: 16px; }
+
+/* Columnist curriculum as a real week/content table (shared by both classes). */
+.curriculum-table-wrap { border: 1px solid var(--gray-300); border-radius: var(--radius-md); overflow: hidden; }
+.curriculum-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.curriculum-table th {
+  background: var(--gray-100);
+  text-align: left;
+  font-weight: 500;
+  color: var(--ink);
+  font-size: 12.5px;
+  padding: 9px 14px;
+}
+.curriculum-table td { padding: 9px 14px; border-top: 1px solid var(--gray-100); color: var(--ink-soft); line-height: 1.5; }
+.curriculum-table td.week { width: 84px; color: var(--red); font-weight: 500; font-size: 12.5px; white-space: nowrap; }
+
+.inline-link { color: var(--red); text-decoration: underline; text-underline-offset: 2px; }
 
 /* ---------- events ---------- */
 .events-grid {
@@ -1519,9 +1546,9 @@ section { padding: 72px 0; }
 /* Amber rather than the brand red or the gray .note-box — a caution aside
    distinct from both the accent color and a plain informational note. */
 .faq-callout {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  /* block + inline ::before, NOT flex: in a flex box the <strong> mid-sentence
+     becomes its own flex item and the sentence wraps in broken columns. */
+  display: block;
   margin-top: 10px;
   padding: 12px 14px;
   background: #FEF9E7;
@@ -1531,7 +1558,7 @@ section { padding: 72px 0; }
   color: #7A5C12;
   line-height: 1.55;
 }
-.faq-callout::before { content: "\24D8"; flex: none; font-weight: 700; color: #B4890F; }
+.faq-callout::before { content: "\24D8"; margin-right: 7px; font-weight: 700; color: #B4890F; }
 .faq-callout strong { color: #5C440D; font-weight: 700; }
 
 /* One level up from .faq-block — for an answer broad enough to have its own

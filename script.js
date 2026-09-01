@@ -479,3 +479,21 @@
     }
   });
 })();
+
+(function () {
+  // Columnist page: 컬럼반/에세이반 tab switcher — each panel carries that
+  // class's own character, level requirement, and themes; everything shared
+  // by both classes lives outside the tabs.
+  document.querySelectorAll("[data-class-tabs]").forEach(function (root) {
+    var btns = root.querySelectorAll(".class-tab-btn");
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var id = btn.getAttribute("data-tab");
+        btns.forEach(function (b) { b.classList.toggle("is-active", b === btn); });
+        root.querySelectorAll("[data-tab-panel]").forEach(function (p) {
+          p.classList.toggle("is-shown", p.getAttribute("data-tab-panel") === id);
+        });
+      });
+    });
+  });
+})();
