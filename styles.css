@@ -1229,6 +1229,20 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   .activity-detail-option .btn { width: 100%; text-align: center; }
 }
 
+/* Movie Night carries a film still + a synopsis, so it stacks vertically
+   instead of the plain icon/title/button row the other options use. */
+.activity-detail-option-with-photo { flex-direction: column; align-items: stretch; gap: 0; padding: 0; overflow: hidden; }
+.activity-detail-option-with-photo .activity-detail-option-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+}
+.activity-detail-option-photo { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: center 20%; display: block; }
+.activity-detail-option-desc { padding: 14px 18px 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.activity-detail-option-desc strong { color: var(--ink); }
+.activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
+
 /* ---------- events ---------- */
 .events-grid {
   display: grid;
