@@ -1306,6 +1306,7 @@ section { padding: 72px 0; }
 }
 .detail-plain .faq-callout::before { content: none; }
 .detail-plain .faq-callout strong { color: var(--ink); }
+.detail-plain .voice-avatar { display: none; }
 
 /* ---------- events ---------- */
 .events-grid {
