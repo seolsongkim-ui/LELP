@@ -976,7 +976,7 @@ section { padding: 72px 0; }
   position: relative;
   background: #fff;
   border-radius: 20px;
-  padding: 32px 20px 18px;
+  padding: 38px 20px 26px;
   text-align: center;
   overflow: hidden;
   box-shadow: 0 10px 24px rgba(40, 30, 20, 0.08);
@@ -1050,14 +1050,18 @@ section { padding: 72px 0; }
   line-height: 1.3;
   letter-spacing: -0.2px;
 }
+/* Block-level and self-centered so the apply button drops to its own
+   centered line underneath, instead of sharing the date's line. */
 .ac-date {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  width: fit-content;
   gap: 5px;
   font-size: 12.5px;
   font-weight: 400;
   color: var(--ink-soft);
-  margin-bottom: 10px;
+  margin: 0 auto 12px;
 }
 .ac-date::before { content: "🗓️"; font-size: 11px; }
 .ac-btn {
