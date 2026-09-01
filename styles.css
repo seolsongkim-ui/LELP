@@ -1205,6 +1205,30 @@ body[data-role="volunteer"] .impact-cards { margin-top: 40px; }
   .detail-fact-grid { grid-template-columns: 1fr; }
 }
 
+/* Two (or more) distinct sign-up choices within one activity — each option
+   gets its own Apply button/Google Form rather than sharing the activity's
+   single top-level one, since a participant only signs up for one. */
+.activity-detail-options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+.activity-detail-option {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 18px;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  background: #fff;
+}
+.activity-detail-option-icon { flex: none; font-size: 22px; line-height: 1; }
+.activity-detail-option-body { flex: 1; min-width: 0; }
+.activity-detail-option-body h3 { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.activity-detail-option-body h3 em { font-weight: 400; font-style: normal; color: var(--ink-soft); }
+.activity-detail-option-body p { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+.activity-detail-option .btn { flex: none; }
+@media (max-width: 480px) {
+  .activity-detail-option { flex-wrap: wrap; }
+  .activity-detail-option .btn { width: 100%; text-align: center; }
+}
+
 /* ---------- events ---------- */
 .events-grid {
   display: grid;
