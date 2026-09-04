@@ -1279,35 +1279,49 @@ section { padding: 72px 0; }
 .activity-detail-option-desc strong { color: var(--ink); }
 .activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
 
-/* Online-documentary library (Special Week): the list a participant picks
-   one title from. Poster thumbnails where a still exists; a platform
-   wordmark tile (.doc-thumb-ph) where the source has no fetchable poster. */
-.doc-list { display: flex; flex-direction: column; gap: 10px; padding: 0 18px 18px; }
-.doc-item { display: flex; gap: 14px; padding: 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); background: #fff; }
-.doc-thumb { flex: none; width: 128px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--gray-300); align-self: flex-start; }
-.doc-thumb-ph { display: flex; align-items: center; justify-content: center; background: var(--gray-100); color: var(--gray-600); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
-.doc-body { flex: 1; min-width: 0; }
-.doc-title { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.4; margin: 0 0 3px; }
-.doc-title-sub { font-weight: 400; font-size: 12.5px; color: var(--gray-600); white-space: nowrap; }
-.doc-meta { font-size: 11.5px; color: var(--gray-600); margin: 0 0 6px; }
-.doc-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 8px; }
-.doc-link {
-  display: inline-flex;
-  align-items: center;
-  font-size: 12px;
+/* Special Weeks: both formats visible on one screen — offline Movie Night on
+   the left, the online documentary library as a tile grid on the right, with
+   the single apply button up top. */
+.activity-detail-block-wide { max-width: none; }
+.sw-apply { margin-bottom: 26px; }
+.sw-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 18px; align-items: start; }
+.sw-col { min-width: 0; }
+.sw-col-label { font-size: 13px; font-weight: 700; color: var(--ink); margin: 0 0 10px; }
+.doc-tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.doc-tile { display: flex; flex-direction: column; border: 1px solid var(--gray-300); border-radius: var(--radius-md); overflow: hidden; background: #fff; }
+.doc-tile-thumb { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+.doc-tile-thumb-ph { display: flex; align-items: center; justify-content: center; background: var(--gray-100); color: var(--gray-600); font-size: 11px; font-weight: 700; letter-spacing: 0.08em; }
+.doc-tile-body { display: flex; flex-direction: column; gap: 4px; flex: 1; padding: 9px 11px 11px; }
+.doc-tile-title { font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.35; margin: 0; }
+.doc-tile-meta { font-size: 10.5px; color: var(--gray-600); margin: 0; }
+.doc-tile-desc {
+  font-size: 11.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.doc-tile-link {
+  margin-top: auto;
+  align-self: flex-start;
+  font-size: 11px;
   font-weight: 500;
   color: var(--red);
   border: 1px solid var(--red);
   border-radius: 999px;
-  padding: 4px 12px;
+  padding: 3px 10px;
   text-decoration: none;
   line-height: 1.4;
 }
-.doc-link:hover { background: var(--red); color: #fff; }
-@media (max-width: 560px) {
-  .doc-item { flex-direction: column; }
-  .doc-thumb { width: 100%; }
-  .doc-thumb-ph { min-height: 64px; }
+.doc-tile-link:hover { background: var(--red); color: #fff; }
+@media (max-width: 860px) {
+  .sw-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .doc-tiles { grid-template-columns: 1fr; }
 }
 
 /* Column/essay class tabs (columnist page): guidance note above a pill
