@@ -1895,22 +1895,21 @@ section { padding: 72px 0; }
   .role-btn { padding: 5px 7px; font-size: 10.5px; }
   .container { padding: 0 16px; }
   .btn { padding: 11px 22px; font-size: 13.5px; }
-  .hero { padding: 28px 0 32px; }
+  .hero { padding: 56px 0 60px; }
   .hero h1 { font-size: 24px; }
   .hero-text { max-width: 100%; }
-  /* Left-to-right fade doesn't leave room for legible text on a narrow
-     screen — fade top-to-bottom instead, with the photo peeking through
-     at the bottom. */
+  /* On a narrow screen the light fade left no room for the photo at all —
+     instead show the photo full-bleed behind a dark scrim and flip the text
+     to white. Scoped to heroes that actually have a photo (.hero-bg), so the
+     plain cream page-heroes (timeline/benefits) keep their dark text. */
   .hero-overlay {
-    background: linear-gradient(
-      180deg,
-      var(--cream) 0%,
-      rgba(253, 251, 250, 0.96) 55%,
-      rgba(253, 251, 250, 0.75) 78%,
-      rgba(253, 251, 250, 0.35) 100%
-    );
+    background: rgba(26, 16, 11, 0.55);
   }
+  .hero-bg ~ .container h1,
+  .hero-bg ~ .container .hero-text h1 { color: #fff; }
+  .hero-bg ~ .container .lede { color: rgba(255, 255, 255, 0.88); }
   .page-hero { padding: 32px 0 24px; }
+  .page-hero:has(.hero-bg) { padding: 48px 0 52px; }
   .page-hero h1 { font-size: 22px; }
   section { padding: 32px 0; }
   .section-head { margin-bottom: 24px; }
