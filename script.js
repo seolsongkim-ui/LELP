@@ -254,7 +254,7 @@
   var GOOGLE_FORM_LINKS = {
     "act-penpal": "#",
     "act-column": "#",
-    "act-gameday": "#",
+    "act-gameday": "https://forms.gle/b7eg8q9X6Q3tGDEs9",
     "act-specialweek-movie": "#",
     "act-specialweek-doc": "#",
     "act-walkrun": "#",
