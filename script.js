@@ -266,6 +266,12 @@
     if (url && url !== "#") {
       a.href = url;
     } else {
+      // Form not posted yet — show a disabled "모집 예정" state instead of
+      // an apply button that goes nowhere. Flips back to 신청하기 on its own
+      // once a real URL replaces "#" in GOOGLE_FORM_LINKS above.
+      a.classList.add("btn-upcoming");
+      a.removeAttribute("target");
+      a.innerHTML = '<span data-r-student>모집 예정</span><span data-r-volunteer>Opening Soon</span>';
       a.addEventListener("click", function (e) { e.preventDefault(); });
     }
   });

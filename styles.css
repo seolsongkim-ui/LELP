@@ -352,6 +352,16 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
 }
 .btn-ghost:hover { background: #fff; border-color: var(--red); color: var(--red); }
 .btn-sm { padding: 9px 18px; font-size: 13px; }
+/* Apply buttons whose Google Form isn't posted yet — script.js swaps them
+   into this muted, non-clickable state while GOOGLE_FORM_LINKS holds "#". */
+.btn.btn-upcoming,
+.btn.btn-upcoming:hover {
+  background: var(--gray-100);
+  color: var(--gray-600);
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
 
 /* ---------- floating activity sign-up button (Semester Guide page) ---------- */
 .floating-apply-btn {
