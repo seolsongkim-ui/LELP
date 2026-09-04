@@ -1897,24 +1897,21 @@ section { padding: 72px 0; }
   .btn { padding: 11px 22px; font-size: 13.5px; }
   .hero h1 { font-size: 24px; }
   .hero-text { max-width: 100%; }
-  /* Dark-hero variant, face-safe: on a narrow screen the photo renders in
-     full (no crop, no scrim) at the top of a dark hero block, with the white
-     text below it — so nobody's face is ever covered by the heading or
-     dimmed by an overlay. Scoped to heroes that actually have a photo
-     (.hero-bg); the plain cream page-heroes (timeline/benefits) keep their
-     light look and dark text. */
-  .hero { padding: 0 0 30px; background: #201510; }
+  /* Face-safe photo hero: on a narrow screen the photo renders in full
+     (no crop, no scrim) at the top of the hero, with the text below it on a
+     pale-blush band (#FFE1DA, from the Canva brand spot palette) — so
+     nobody's face is ever covered by the heading or dimmed by an overlay.
+     Scoped to heroes that actually have a photo (.hero-bg); the plain cream
+     page-heroes (timeline/benefits) are untouched. */
+  .hero { padding: 0 0 30px; background: #FFE1DA; }
   .hero .hero-bg,
   .page-hero .hero-bg { position: relative; inset: auto; }
   .hero .hero-bg img,
   .page-hero .hero-bg img { width: 100%; height: auto; object-fit: contain; object-position: center; }
   .hero-overlay { display: none; }
   .hero .container { margin-top: 22px; }
-  .hero-bg ~ .container h1,
-  .hero-bg ~ .container .hero-text h1 { color: #fff; }
-  .hero-bg ~ .container .lede { color: rgba(255, 255, 255, 0.88); }
   .page-hero { padding: 32px 0 24px; }
-  .page-hero:has(.hero-bg) { padding: 0 0 30px; background: #201510; }
+  .page-hero:has(.hero-bg) { padding: 0 0 30px; background: #FFE1DA; }
   .page-hero:has(.hero-bg) .container { margin-top: 20px; }
   .page-hero:has(.hero-bg) h1 { margin-top: 0; }
   .page-hero h1 { font-size: 22px; }
