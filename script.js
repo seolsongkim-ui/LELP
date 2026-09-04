@@ -255,8 +255,7 @@
     "act-penpal": "#",
     "act-column": "#",
     "act-gameday": "https://forms.gle/b7eg8q9X6Q3tGDEs9",
-    "act-specialweek-movie": "#",
-    "act-specialweek-doc": "#",
+    "act-specialweek": "#",
     "act-walkrun": "#",
     "act-speech": "#"
   };
