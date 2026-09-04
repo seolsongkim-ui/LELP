@@ -1895,21 +1895,28 @@ section { padding: 72px 0; }
   .role-btn { padding: 5px 7px; font-size: 10.5px; }
   .container { padding: 0 16px; }
   .btn { padding: 11px 22px; font-size: 13.5px; }
-  .hero { padding: 56px 0 60px; }
   .hero h1 { font-size: 24px; }
   .hero-text { max-width: 100%; }
-  /* On a narrow screen the light fade left no room for the photo at all —
-     instead show the photo full-bleed behind a dark scrim and flip the text
-     to white. Scoped to heroes that actually have a photo (.hero-bg), so the
-     plain cream page-heroes (timeline/benefits) keep their dark text. */
-  .hero-overlay {
-    background: rgba(26, 16, 11, 0.55);
-  }
+  /* Dark-hero variant, face-safe: on a narrow screen the photo renders in
+     full (no crop, no scrim) at the top of a dark hero block, with the white
+     text below it — so nobody's face is ever covered by the heading or
+     dimmed by an overlay. Scoped to heroes that actually have a photo
+     (.hero-bg); the plain cream page-heroes (timeline/benefits) keep their
+     light look and dark text. */
+  .hero { padding: 0 0 30px; background: #201510; }
+  .hero .hero-bg,
+  .page-hero .hero-bg { position: relative; inset: auto; }
+  .hero .hero-bg img,
+  .page-hero .hero-bg img { width: 100%; height: auto; object-fit: contain; object-position: center; }
+  .hero-overlay { display: none; }
+  .hero .container { margin-top: 22px; }
   .hero-bg ~ .container h1,
   .hero-bg ~ .container .hero-text h1 { color: #fff; }
   .hero-bg ~ .container .lede { color: rgba(255, 255, 255, 0.88); }
   .page-hero { padding: 32px 0 24px; }
-  .page-hero:has(.hero-bg) { padding: 48px 0 52px; }
+  .page-hero:has(.hero-bg) { padding: 0 0 30px; background: #201510; }
+  .page-hero:has(.hero-bg) .container { margin-top: 20px; }
+  .page-hero:has(.hero-bg) h1 { margin-top: 0; }
   .page-hero h1 { font-size: 22px; }
   section { padding: 32px 0; }
   .section-head { margin-bottom: 24px; }
