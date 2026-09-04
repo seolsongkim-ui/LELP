@@ -1279,6 +1279,37 @@ section { padding: 72px 0; }
 .activity-detail-option-desc strong { color: var(--ink); }
 .activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
 
+/* Online-documentary library (Special Week): the list a participant picks
+   one title from. Poster thumbnails where a still exists; a platform
+   wordmark tile (.doc-thumb-ph) where the source has no fetchable poster. */
+.doc-list { display: flex; flex-direction: column; gap: 10px; padding: 0 18px 18px; }
+.doc-item { display: flex; gap: 14px; padding: 12px; border: 1px solid var(--gray-300); border-radius: var(--radius-md); background: #fff; }
+.doc-thumb { flex: none; width: 128px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--gray-300); align-self: flex-start; }
+.doc-thumb-ph { display: flex; align-items: center; justify-content: center; background: var(--gray-100); color: var(--gray-600); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; }
+.doc-body { flex: 1; min-width: 0; }
+.doc-title { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.4; margin: 0 0 3px; }
+.doc-title-sub { font-weight: 400; font-size: 12.5px; color: var(--gray-600); white-space: nowrap; }
+.doc-meta { font-size: 11.5px; color: var(--gray-600); margin: 0 0 6px; }
+.doc-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.55; margin: 0 0 8px; }
+.doc-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--red);
+  border: 1px solid var(--red);
+  border-radius: 999px;
+  padding: 4px 12px;
+  text-decoration: none;
+  line-height: 1.4;
+}
+.doc-link:hover { background: var(--red); color: #fff; }
+@media (max-width: 560px) {
+  .doc-item { flex-direction: column; }
+  .doc-thumb { width: 100%; }
+  .doc-thumb-ph { min-height: 64px; }
+}
+
 /* Column/essay class tabs (columnist page): guidance note above a pill
    switcher, one panel per class. Panels are toggled by script.js. */
 .class-tab-note { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; margin: 0 0 14px; }
