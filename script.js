@@ -261,17 +261,26 @@
     "act-speech": "#"
   };
 
+  // Announced opening dates for forms that aren't live yet — shown on the
+  // detail apply button and the card badge instead of the generic 모집 예정.
+  // Remove an entry once its real form URL goes into GOOGLE_FORM_LINKS.
+  var FORM_OPEN_DATES = {
+    "act-column": { ko: "9.9 모집 시작", en: "Opens Sep 9" }
+  };
+
   document.querySelectorAll("[data-apply]").forEach(function (a) {
-    var url = GOOGLE_FORM_LINKS[a.getAttribute("data-apply")];
+    var key = a.getAttribute("data-apply");
+    var url = GOOGLE_FORM_LINKS[key];
     if (url && url !== "#") {
       a.href = url;
     } else {
       // Form not posted yet — show a disabled "모집 예정" state instead of
       // an apply button that goes nowhere. Flips back to 신청하기 on its own
       // once a real URL replaces "#" in GOOGLE_FORM_LINKS above.
+      var openAt = FORM_OPEN_DATES[key];
       a.classList.add("btn-upcoming");
       a.removeAttribute("target");
-      a.innerHTML = '<span data-r-student>모집 예정</span><span data-r-volunteer>Opening Soon</span>';
+      a.innerHTML = '<span data-r-student>' + (openAt ? openAt.ko : "모집 예정") + '</span><span data-r-volunteer>' + (openAt ? openAt.en : "Opening Soon") + '</span>';
       a.addEventListener("click", function (e) { e.preventDefault(); });
     }
   });
@@ -291,21 +300,33 @@
     if (!btn || !statusEl) return;
     var href = btn.getAttribute("href") || "";
     var isOpen;
+    var actId = null;
     if (href.indexOf("activity.html#") === 0) {
-      var actId = href.split("#")[1];
+      actId = href.split("#")[1];
       isOpen = Object.keys(GOOGLE_FORM_LINKS).some(function (key) {
         return (key === actId || key.indexOf(actId + "-") === 0) && GOOGLE_FORM_LINKS[key] !== "#";
       });
     } else {
       isOpen = !!href && href !== "#";
     }
+    var studentSpan = statusEl.querySelector("[data-r-student]");
+    var volunteerSpan = statusEl.querySelector("[data-r-volunteer]");
     if (isOpen) {
       statusEl.classList.remove("ac-status-upcoming");
       statusEl.classList.add("ac-status-open");
-      var studentSpan = statusEl.querySelector("[data-r-student]");
-      var volunteerSpan = statusEl.querySelector("[data-r-volunteer]");
       if (studentSpan) studentSpan.textContent = "모집 중";
       if (volunteerSpan) volunteerSpan.textContent = "Now Recruiting";
+    } else if (actId) {
+      // Still upcoming, but with an announced opening date: show it.
+      var openAt = null;
+      Object.keys(FORM_OPEN_DATES).some(function (key) {
+        if (key === actId || key.indexOf(actId + "-") === 0) { openAt = FORM_OPEN_DATES[key]; return true; }
+        return false;
+      });
+      if (openAt) {
+        if (studentSpan) studentSpan.textContent = openAt.ko;
+        if (volunteerSpan) volunteerSpan.textContent = openAt.en;
+      }
     }
   });
 
