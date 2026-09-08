@@ -253,7 +253,7 @@
   // TODO: replace "#" with each activity's real Google Form URL once provided.
   var GOOGLE_FORM_LINKS = {
     "act-penpal": "#",
-    "act-column": "#",
+    "act-column": "https://forms.gle/TzREhkxF6MA5W6cC7",
     "act-gameday": "https://forms.gle/b7eg8q9X6Q3tGDEs9",
     "act-specialweek": "#",
     "act-walkrun": "#",
@@ -263,9 +263,7 @@
   // Announced opening dates for forms that aren't live yet — shown on the
   // detail apply button and the card badge instead of the generic 모집 예정.
   // Remove an entry once its real form URL goes into GOOGLE_FORM_LINKS.
-  var FORM_OPEN_DATES = {
-    "act-column": { ko: "9.9 모집 시작", en: "Opens Sep 9" }
-  };
+  var FORM_OPEN_DATES = {};
 
   document.querySelectorAll("[data-apply]").forEach(function (a) {
     var key = a.getAttribute("data-apply");
