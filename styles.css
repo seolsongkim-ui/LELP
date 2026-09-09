@@ -2164,3 +2164,34 @@ section { padding: 72px 0; }
   letter-spacing: 0.05em;
 }
 .theme-tip .inline-link { color: #7A5C12; }
+
+/* ---------- columnist page: section dividers + emphasized lists ---------- */
+/* Thin rules between the page's sections, per the approved proposal mock. */
+.activity-detail-block[data-activity="act-column"] .activity-detail-extra {
+  border-top: 1px solid var(--gray-300);
+  padding-top: 26px;
+  margin-top: 26px;
+  margin-bottom: 26px;
+}
+.faq-answer ul { display: flex; flex-direction: column; gap: 8px; margin: 0 0 10px; }
+.faq-answer ul:last-child { margin-bottom: 0; }
+.faq-answer li { position: relative; padding-left: 14px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+.faq-answer li::before { content: "\2022"; position: absolute; left: 0; color: var(--gray-600); }
+/* Priority-selection note as an indented left-rule quote instead of a box. */
+.activity-detail-block[data-activity="act-column"] .faq-callout {
+  background: none;
+  border: none;
+  border-left: 3px solid var(--gray-300);
+  border-radius: 0;
+  padding: 2px 0 2px 14px;
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.activity-detail-block[data-activity="act-column"] .faq-callout::before { content: none; }
+.activity-detail-block[data-activity="act-column"] .faq-callout strong { color: var(--ink); }
+/* Step numbers in brand red with bold lead phrases. */
+.activity-detail-block[data-activity="act-column"] .steps-list .steps-num {
+  color: var(--red);
+  font-weight: 700;
+}
+.activity-detail-block[data-activity="act-column"] .steps-list strong { color: var(--ink); font-weight: 700; }
