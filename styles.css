@@ -1199,7 +1199,7 @@ section { padding: 72px 0; }
 .review-stack { display: flex; flex-direction: column; gap: 12px; }
 .review-stack .voice-card { padding: 18px 18px; gap: 10px; }
 
-.steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; counter-reset: step; }
+.steps-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; counter-reset: step; }
 .steps-list li {
   display: flex;
   align-items: baseline;
