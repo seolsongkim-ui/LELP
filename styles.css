@@ -2331,3 +2331,61 @@ section { padding: 72px 0; }
   background: var(--red);
   margin-bottom: 14px;
 }
+
+/* ---------- hero: split layout (text panel · photo) ----------
+   학기 안내 hero — kicker, title and a two-line fact list on a cream panel,
+   photo on the right with no text over it. On phones the photo becomes a
+   190px band above the text, fading into the panel. */
+.hero-split { padding: 0; background: var(--cream); border-bottom: 1px solid var(--gray-300); }
+.hero-split .container {
+  max-width: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 11fr 9fr;
+  align-items: stretch;
+}
+.hero-split .hero-text {
+  max-width: none;
+  gap: 14px;
+  align-content: center;
+  padding: 72px 40px 64px max(24px, calc((100vw - var(--maxw)) / 2 + 24px));
+}
+.hero-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.hero-kicker::before { content: ""; width: 28px; height: 3px; border-radius: 2px; background: var(--red); }
+.hero-split h1 { font-size: clamp(28px, 3.4vw, 40px); max-width: 560px; }
+.hero-facts {
+  display: grid;
+  gap: 7px;
+  padding-left: 14px;
+  border-left: 3px solid var(--gray-300);
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+.hero-facts b { color: var(--ink); font-weight: 700; margin-right: 6px; }
+.hero-split .hero-actions { margin-top: 4px; }
+.hero-photo { position: relative; min-height: 420px; }
+.hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
+.hero-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, var(--cream) 0%, rgba(253, 251, 250, 0) 26%);
+}
+@media (max-width: 720px) {
+  .hero-split .container { grid-template-columns: 1fr; }
+  .hero-photo { order: -1; min-height: 0; height: 190px; }
+  .hero-photo::after { background: linear-gradient(180deg, rgba(253, 251, 250, 0) 55%, var(--cream) 100%); }
+  .hero-split .hero-text { padding: 6px 20px 26px; gap: 12px; }
+  .hero-split h1 { font-size: 26px; }
+  .hero-facts { font-size: 13px; }
+  .hero-split .hero-actions .btn { flex: 1 1 140px; }
+}
