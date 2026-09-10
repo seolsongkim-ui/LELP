@@ -1087,7 +1087,15 @@ section { padding: 72px 0; }
   color: var(--ink-soft);
   margin: 0 auto 12px;
 }
-.ac-date::before { content: "🗓️"; font-size: 11px; }
+.ac-date::before {
+  content: "";
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='16' rx='2'/><path d='M3 10h18M8 3v4M16 3v4'/></svg>") center / contain no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'><rect x='3' y='5' width='18' height='16' rx='2'/><path d='M3 10h18M8 3v4M16 3v4'/></svg>") center / contain no-repeat;
+}
 .ac-btn {
   display: inline-flex;
   align-items: center;
@@ -2236,3 +2244,27 @@ section { padding: 72px 0; }
 .motivation-card .icon-line { width: 44px; height: 44px; margin-bottom: 14px; }
 .motivation-card .icon-line svg { width: 22px; height: 22px; }
 .ac-icon svg { width: 17px; height: 17px; }
+
+/* ---------- line-duotone SVG icon set (replaces every emoji on the site) ----------
+   Ink 1.5px strokes; each icon's accent element picks up --ic-accent (brand
+   red) as a stroke only — no fills, no backgrounds. Sizes follow the
+   container's font-size (1em) so the old emoji sizing rules keep working. */
+.ic-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ic {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  flex: none;
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  --ic-accent: var(--red);
+  --ic-accent-fill: none;
+}
+.icon .ic, .count-icon .ic, .activity-detail-icon .ic, .activity-detail-option-icon .ic, .ap-icon .ic { vertical-align: 0; }
+.ac-icon .ic { width: 18px; height: 18px; }
+.floating-apply-btn .ic { stroke: #fff; --ic-accent: #fff; }
+.footer-kakao .ic, .blog-author .ic, .eyebrow .ic, .sub-head .ic { margin-right: 3px; }
