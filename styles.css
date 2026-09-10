@@ -2317,3 +2317,17 @@ section { padding: 72px 0; }
 @media (max-width: 640px) {
   .curr-phases { grid-template-columns: 1fr; }
 }
+
+/* ---------- section title accent: short red overline ----------
+   A 28px brand-red bar above every section heading — the one decoration the
+   section head carries now that the emoji icon rings are gone. Sits above
+   the kicker too, where a section has one. */
+.section-head::before {
+  content: "";
+  display: block;
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--red);
+  margin-bottom: 14px;
+}
