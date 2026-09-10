@@ -2389,3 +2389,19 @@ section { padding: 72px 0; }
   .hero-facts { font-size: 13px; }
   .hero-split .hero-actions .btn { flex: 1 1 140px; }
 }
+
+/* Secondary hero action as a text link: bold label + red arrow, no border —
+   the red button stays the only "button" in the header. */
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 13px 6px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.hero-link i { font-style: normal; color: var(--red); transition: transform 0.15s ease; }
+.hero-link:hover { text-decoration: underline; text-underline-offset: 4px; }
+.hero-link:hover i { transform: translateX(3px); }
