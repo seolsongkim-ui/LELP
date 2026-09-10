@@ -2210,3 +2210,29 @@ section { padding: 72px 0; }
   font-weight: 700;
 }
 .activity-detail-block[data-activity="act-column"] .steps-list strong { color: var(--ink); font-weight: 700; }
+
+/* ---------- line icons (program guide cards + activity cards) ----------
+   Hand-drawn 24px stroke icons replace the emoji: a brand-red 1.6px line on a
+   white circle with a hairline border, the same treatment in both sections.
+   The activity cards' per-category tints are dropped so every icon matches. */
+.icon-line,
+.ac-card .ac-icon {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0;
+}
+.icon-line svg,
+.ac-icon svg {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.motivation-card .icon-line { width: 44px; height: 44px; margin-bottom: 14px; }
+.motivation-card .icon-line svg { width: 22px; height: 22px; }
+.ac-icon svg { width: 17px; height: 17px; }
