@@ -2248,3 +2248,68 @@ section { padding: 72px 0; }
 .ac-icon .ic { width: 20px; height: 20px; }
 .activity-detail-icon { background: none; }
 .activity-detail-icon .ic { width: 30px; height: 30px; }
+
+/* ---------- columnist curriculum: phase cards ----------
+   The week-by-week table regrouped into three phase cards (준비 → 초안 → 완성)
+   with the December wrap-up on its own line beneath; session type moves out
+   of the text into a small tag so shared sessions stand out from solo weeks.
+   (.curriculum-table above stays — the Game Day schedule still uses it.) */
+.curr-phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.curr-phase {
+  background: #fff;
+  border: 1px solid var(--gray-300);
+  border-radius: var(--radius-lg);
+  padding: 14px 14px 12px;
+}
+.curr-phase-head {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  margin-bottom: 10px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--gray-100);
+}
+.curr-phase-step { font-size: 10.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--red); }
+.curr-phase-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+.curr-phase-range { margin-left: auto; font-size: 11px; color: var(--gray-600); white-space: nowrap; }
+.curr-item {
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 8px;
+  align-items: start;
+  margin-bottom: 9px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+.curr-item:last-child { margin-bottom: 0; }
+.curr-week { font-size: 12px; font-weight: 700; color: var(--red); padding-top: 1px; white-space: nowrap; }
+.curr-body b { display: block; font-weight: 600; color: var(--ink); }
+.curr-tag {
+  display: inline-block;
+  margin-top: 3px;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.curr-tag-on { background: var(--red-tint); color: var(--red-dark); }
+.curr-tag-self { background: var(--gray-100); color: var(--ink-soft); }
+.curr-tag-off { background: var(--ink); color: #fff; }
+.curr-final {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  border: 1px dashed var(--gray-300);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.curr-final .curr-tag { margin-top: 0; }
+.curr-final .curr-week { color: var(--ink); }
+@media (max-width: 640px) {
+  .curr-phases { grid-template-columns: 1fr; }
+}
