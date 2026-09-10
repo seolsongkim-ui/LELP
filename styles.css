@@ -2010,7 +2010,11 @@ section { padding: 72px 0; }
   .carousel-arrow-next { right: 8px; }
   .carousel-slide figcaption { font-size: 13px; padding: 12px 14px 10px; }
   .ac-card { padding: 20px 14px 14px; }
-  .ac-head { gap: 10px; margin-bottom: 8px; padding: 0 18px; }
+  /* Stack icon over a centered title so a two-line title (e.g. the speech
+     contest card) centers like the one-line cards instead of filling the row
+     and reading as left-aligned. */
+  .ac-head { flex-direction: column; gap: 8px; margin-bottom: 8px; padding: 0 10px; }
+  .ac-head-text { text-align: center; }
   .ac-icon { width: 30px; height: 30px; font-size: 13px; }
   .ac-title { font-size: 15px; }
   .ac-status { font-size: 8.5px; padding: 2px 7px; }
