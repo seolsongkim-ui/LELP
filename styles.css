@@ -2475,19 +2475,21 @@ section { padding: 72px 0; }
    heading and a translucent band of the three headline figures along the
    bottom edge (option 3 of the hero mockups). On phones the photo already
    sits above the text, so the band simply closes the hero. */
-.page-hero.hero-impact { padding-bottom: 0; }
+/* Taller photo, a thinner veil, and a narrower heading so the faces on the
+   right stay clear; the stat band sits below the photo instead of over it. */
+.page-hero.hero-impact { padding: 72px 0 64px; }
 .hero-impact .hero-overlay {
-  background: linear-gradient(100deg, var(--cream) 0%, rgba(253, 251, 250, 0.94) 34%,
-    rgba(253, 251, 250, 0.55) 58%, rgba(253, 251, 250, 0.08) 82%, rgba(253, 251, 250, 0) 95%);
+  background: linear-gradient(100deg, var(--cream) 0%, rgba(253, 251, 250, 0.9) 24%,
+    rgba(253, 251, 250, 0.45) 44%, rgba(253, 251, 250, 0) 62%);
 }
+.hero-impact h1 { max-width: 560px; font-size: clamp(26px, 3.2vw, 36px); }
+.hero-impact .lede { max-width: 520px; }
 .hero-over { display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--red); margin-bottom: 2px; }
 .hero-band {
   position: relative;
   z-index: 2;
-  margin-top: 44px;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: saturate(180%) blur(6px);
-  border-top: 1px solid var(--gray-300);
+  background: #fff;
+  border-bottom: 1px solid var(--gray-300);
 }
 .hero-band-inner { display: flex; padding-top: 16px; padding-bottom: 16px; }
 .hero-stat { flex: 1; padding: 0 20px; border-left: 1px solid var(--gray-300); white-space: nowrap; }
@@ -2505,10 +2507,26 @@ section { padding: 72px 0; }
 .hero-stat > span { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-soft); }
 .hero-stat-accent b { color: var(--red); }
 @media (max-width: 720px) {
-  .page-hero.hero-impact { padding-bottom: 0; }
-  .hero-band { margin-top: 24px; }
   .hero-band-inner { gap: 8px; padding-top: 12px; padding-bottom: 12px; }
   .hero-stat { padding: 0 10px; }
   .hero-stat b { font-size: 18px; }
   .hero-stat > span { font-size: 10.5px; white-space: normal; }
+}
+
+/* ---------- impact hero: photo band above the text ----------
+   The group photo is shown whole, full-width and uncovered; the title and
+   lede sit below it on the cream ground instead of over the picture. */
+.page-hero-stacked { padding: 0; }
+.page-hero-stacked .hero-bg {
+  position: relative;
+  inset: auto;
+  height: clamp(320px, 44vw, 560px);
+}
+.page-hero-stacked .hero-bg img { object-position: center 42%; }
+.page-hero-stacked .hero-overlay { display: none; }
+.page-hero-stacked .container { padding-top: 40px; padding-bottom: 44px; }
+.page-hero-stacked h1 { margin-top: 0; }
+@media (max-width: 720px) {
+  .page-hero-stacked .hero-bg { height: 230px; }
+  .page-hero-stacked .container { padding-top: 26px; padding-bottom: 30px; }
 }
