@@ -2469,3 +2469,46 @@ section { padding: 72px 0; }
   .subnav { padding: 8px 0 0; margin-bottom: calc(-1 * (8px + 37px)); }
   .hero-split .hero-text { padding-top: 18px; }
 }
+
+/* ---------- impact hero: red overline + stat band under the photo ----------
+   Keeps the full-bleed group photo; adds the section-title overline above the
+   heading and a translucent band of the three headline figures along the
+   bottom edge (option 3 of the hero mockups). On phones the photo already
+   sits above the text, so the band simply closes the hero. */
+.page-hero.hero-impact { padding-bottom: 0; }
+.hero-impact .hero-overlay {
+  background: linear-gradient(100deg, var(--cream) 0%, rgba(253, 251, 250, 0.94) 34%,
+    rgba(253, 251, 250, 0.55) 58%, rgba(253, 251, 250, 0.08) 82%, rgba(253, 251, 250, 0) 95%);
+}
+.hero-over { display: block; width: 28px; height: 3px; border-radius: 2px; background: var(--red); margin-bottom: 2px; }
+.hero-band {
+  position: relative;
+  z-index: 2;
+  margin-top: 44px;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(6px);
+  border-top: 1px solid var(--gray-300);
+}
+.hero-band-inner { display: flex; padding-top: 16px; padding-bottom: 16px; }
+.hero-stat { flex: 1; padding: 0 20px; border-left: 1px solid var(--gray-300); white-space: nowrap; }
+.hero-stat:first-child { border-left: 0; padding-left: 0; }
+.hero-stat b {
+  display: block;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.hero-stat b small { font-size: 12px; font-weight: 700; letter-spacing: 0; margin-left: 3px; }
+.hero-stat > span { display: block; margin-top: 2px; font-size: 12px; color: var(--ink-soft); }
+.hero-stat-accent b { color: var(--red); }
+@media (max-width: 720px) {
+  .page-hero.hero-impact { padding-bottom: 0; }
+  .hero-band { margin-top: 24px; }
+  .hero-band-inner { gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+  .hero-stat { padding: 0 10px; }
+  .hero-stat b { font-size: 18px; }
+  .hero-stat > span { font-size: 10.5px; white-space: normal; }
+}
