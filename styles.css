@@ -600,7 +600,7 @@ section { padding: 72px 0; }
   gap: 16px;
   background: #fff;
   border: 1.5px solid var(--red);
-  border-radius: 0;
+  border-radius: var(--radius-lg);
   padding: 26px 26px 24px;
 }
 .impact-card .impact-badge {
