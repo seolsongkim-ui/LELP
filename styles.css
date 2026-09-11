@@ -184,6 +184,9 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   background: transparent;
   padding: 8px 0;
   pointer-events: none;
+  /* Takes no room in the flow: the section below starts right under the
+     header and the pill floats over it (script.js sets --subnav-h). */
+  margin-bottom: calc(-1 * var(--subnav-h, 48px));
 }
 .subnav .subnav-inner {
   position: relative;
@@ -2440,4 +2443,29 @@ section { padding: 72px 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .ac-status-open::before { animation: none; }
+}
+
+/* ---------- sub-nav: floating pill bar ----------
+   The white band and rule under the section menu are gone; the pill track
+   floats over the top of the hero (photo/cream shows right under the header)
+   and keeps floating as it sticks on scroll. The negative bottom margin
+   removes the band's height from the flow so the hero starts flush under
+   the header; the nav itself keeps its height for the sticky offset math. */
+.subnav {
+  background: transparent;
+  border-bottom: none;
+  padding: 10px 0 0;
+  margin-bottom: calc(-1 * (10px + 37px));
+  pointer-events: none;
+}
+.subnav .subnav-inner {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--gray-300);
+  box-shadow: 0 6px 18px rgba(40, 30, 20, 0.12);
+}
+.hero-split .hero-text { padding-top: 96px; }
+@media (max-width: 720px) {
+  .subnav { padding: 8px 0 0; margin-bottom: calc(-1 * (8px + 37px)); }
+  .hero-split .hero-text { padding-top: 18px; }
 }

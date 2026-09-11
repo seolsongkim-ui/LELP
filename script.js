@@ -124,6 +124,8 @@
       // Extra 16px breathing room so a jumped-to section's heading isn't
       // flush against the sticky bars — this is what fixes "top gets cut off".
       document.documentElement.style.setProperty("--sticky-offset", headerH + subnavH + 16 + "px");
+      // Lets the CSS pull the next section up under the (transparent) bar.
+      document.documentElement.style.setProperty("--subnav-h", subnavH + "px");
     }
     updateHeaderOffset();
     window.addEventListener("resize", updateHeaderOffset);
