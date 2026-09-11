@@ -555,34 +555,34 @@ section { padding: 72px 0; }
 }
 .alt-bg { background: var(--gray-100); }
 
-/* ---------- about cards (01/02/03) ---------- */
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
+/* ---------- about cards ----------
+   "소개 카드 4b" design: square paper-grey panels, a red square number
+   badge, deep-teal title, 14px body. No border or radius (the brand leans
+   square). */
+.about-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .about-card {
-  background: #fff;
-  border: 1px solid var(--gray-300);
-  border-radius: var(--radius-lg);
-  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: #F8F8F8;
+  border: none;
+  border-radius: 0;
+  padding: 26px 26px 28px;
 }
 .about-card .num {
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--red);
+  color: #fff;
+  font-size: 16px;
   font-weight: 700;
-  color: var(--red);
-  margin-bottom: 14px;
+  margin: 0;
 }
-.about-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  line-height: 1.35;
-}
-.about-card p {
-  font-size: 14.5px;
-  color: var(--ink-soft);
-}
+.about-card h3 { font-size: 21px; font-weight: 800; color: #21373A; letter-spacing: -0.01em; line-height: 1.3; margin: 0; }
+.about-card p { font-size: 14px; line-height: 1.7; color: #4D4D4D; margin: 0; }
 
 /* ---------- impact summary cards (About section) ----------
    Stat-card design "3a": a white card framed in 1.5px brand red — red
