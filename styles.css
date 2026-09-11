@@ -2527,6 +2527,8 @@ section { padding: 72px 0; }
 .page-hero-stacked .container { padding-top: 40px; padding-bottom: 44px; }
 .page-hero-stacked h1 { margin-top: 0; }
 @media (max-width: 720px) {
-  .page-hero-stacked .hero-bg { height: 230px; }
+  /* Phones show the whole frame at its natural ratio — nobody is cropped out. */
+  .page-hero-stacked .hero-bg { height: auto; }
+  .page-hero-stacked .hero-bg img { height: auto; object-fit: fill; }
   .page-hero-stacked .container { padding-top: 26px; padding-bottom: 30px; }
 }
