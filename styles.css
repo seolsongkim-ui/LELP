@@ -2534,3 +2534,19 @@ section { padding: 72px 0; }
   .page-hero.page-hero-stacked .container { margin-top: 0; }
   .page-hero.page-hero-stacked { padding: 0; }
 }
+
+/* impact hero, phones: white rounded card rising over the photo edge (approved mock) */
+@media (max-width: 720px) {
+  .page-hero.page-hero-stacked { padding: 0; background: var(--cream); }
+  .page-hero.page-hero-stacked .hero-bg { height: auto; }
+  .page-hero.page-hero-stacked .hero-bg img { height: auto; object-fit: fill; }
+  .page-hero.page-hero-stacked .container {
+    position: relative;
+    margin-top: -18px;
+    background: #fff;
+    border-radius: 22px 22px 0 0;
+    padding: 22px 18px 20px;
+  }
+  .page-hero.page-hero-stacked h1 { font-size: 20px; line-height: 1.3; margin-top: 0; }
+  .page-hero.page-hero-stacked .lede { font-size: 12.5px; margin-top: 8px; }
+}
