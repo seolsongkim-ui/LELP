@@ -179,9 +179,11 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   position: sticky;
   top: var(--header-h, 65px);
   z-index: 90;
-  background: #fff;
-  border-bottom: 1px solid var(--gray-300);
+  /* No full-width band: the bar is transparent and lets clicks through to
+     the page beneath — only the pill track below is drawn. */
+  background: transparent;
   padding: 8px 0;
+  pointer-events: none;
 }
 .subnav .subnav-inner {
   position: relative;
@@ -193,7 +195,11 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
      margin-left with a computed px value to center this tab group under the
      "About" link in the main nav instead, whenever that link is visible. */
   margin: 0 auto;
-  background: var(--gray-100);
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: saturate(180%) blur(6px);
+  border: 1px solid var(--gray-300);
+  box-shadow: 0 6px 18px rgba(40, 30, 20, 0.10);
   border-radius: 999px;
   padding: 3px;
   gap: 2px;
