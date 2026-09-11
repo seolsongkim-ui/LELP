@@ -2418,3 +2418,26 @@ section { padding: 72px 0; }
 @media (prefers-reduced-motion: reduce) {
   .floating-apply-btn { animation: none; }
 }
+
+/* ---------- "모집 중" badge: breathing live dot ----------
+   A small white dot before the label eases in and out every 1.6s — an
+   on-air style "open now" signal. CSS-only via ::before, so the script that
+   flips a card to .ac-status-open when its Google Form goes live needs no
+   change. Stops under the OS reduced-motion setting. */
+.ac-status-open { display: inline-flex; align-items: center; gap: 5px; }
+.ac-status-open::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  flex: none;
+  animation: ac-live 1.6s ease-in-out infinite;
+}
+@keyframes ac-live {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(0.7); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ac-status-open::before { animation: none; }
+}
