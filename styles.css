@@ -2405,3 +2405,16 @@ section { padding: 72px 0; }
 .hero-link i { font-style: normal; color: var(--red); transition: transform 0.15s ease; }
 .hero-link:hover { text-decoration: underline; text-underline-offset: 4px; }
 .hero-link:hover i { transform: translateX(3px); }
+
+/* ---------- floating apply button: neon glow pulse ----------
+   The red halo breathes on a 2.4s cycle so the fixed sign-up button reads
+   like a lit sign (chosen from the neon mockups); off for users who asked
+   for reduced motion. */
+.floating-apply-btn { animation: fab-glow 2.4s ease-in-out infinite; }
+@keyframes fab-glow {
+  0%, 100% { box-shadow: 0 8px 20px rgba(221, 57, 40, 0.35), 0 0 0 0 rgba(221, 57, 40, 0.45); }
+  50% { box-shadow: 0 10px 30px rgba(221, 57, 40, 0.55), 0 0 0 10px rgba(221, 57, 40, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .floating-apply-btn { animation: none; }
+}
