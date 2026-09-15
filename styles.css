@@ -1359,6 +1359,13 @@ section { padding: 72px 0; }
   line-height: 1.4;
 }
 .doc-tile-link:hover { background: var(--red); color: #fff; }
+/* Two labelled groups of tiles (North Korea / human rights & global issues);
+   the free-choice and class-divided tiles carry longer blurbs, so their
+   descriptions are not clamped. */
+.doc-group + .doc-group { margin-top: 18px; }
+.doc-group-label { font-size: 12px; font-weight: 700; color: var(--red); letter-spacing: 0.02em; margin: 0 0 8px; }
+.doc-tile-desc-full { display: block; -webkit-line-clamp: unset; overflow: visible; }
+.doc-tile-note { font-size: 11px; font-weight: 600; color: var(--red-dark); line-height: 1.5; margin: 6px 0 0; }
 @media (max-width: 860px) {
   .sw-grid { grid-template-columns: 1fr; }
 }
