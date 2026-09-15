@@ -1319,6 +1319,31 @@ section { padding: 72px 0; }
 .activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
 /* Movie Night's date / RSVP / film / venue facts under the synopsis */
 .activity-detail-option-desc .sw-facts { margin-top: 14px; }
+/* Movie Night card body follows the Game Day detail layout in miniature:
+   subhead + fact grid, a venue photo slot (dashed placeholder until a 6F
+   photo exists), then directions + the no-parking callout. */
+.mn-section { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
+.mn-section .activity-detail-subhead { font-size: 13.5px; margin-bottom: 10px; }
+.mn-section .detail-fact { padding: 12px 14px; }
+.mn-section .steps-list li { font-size: 13px; }
+.mn-section .faq-callout { font-size: 12px; }
+.venue-figure { margin: 0; }
+.venue-figure img { aspect-ratio: 16 / 9; }
+.venue-photo-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  aspect-ratio: 16 / 9;
+  border: 1.5px dashed var(--gray-300);
+  border-radius: var(--radius-lg);
+  background: var(--gray-100);
+  color: var(--gray-600);
+  font-size: 12px;
+  font-weight: 600;
+}
+.venue-photo-slot .ic { width: 24px; height: 24px; font-size: 24px; }
 
 /* Special Weeks: both formats visible on one screen — offline Movie Night on
    the left, the online documentary library as a tile grid on the right, with
