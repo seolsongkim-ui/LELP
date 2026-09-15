@@ -1328,7 +1328,8 @@ section { padding: 72px 0; }
 .mn-section .steps-list li { font-size: 13px; }
 .mn-section .faq-callout { font-size: 12px; }
 .venue-figure { margin: 0; }
-.venue-figure img { aspect-ratio: 16 / 9; }
+/* Portrait building shot: 4:3 keeps most of the façade, weighted toward the upper floors. */
+.venue-figure img { aspect-ratio: 4 / 3; object-position: center 35%; }
 .venue-photo-slot {
   display: flex;
   flex-direction: column;
