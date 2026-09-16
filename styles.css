@@ -1331,6 +1331,10 @@ section { padding: 72px 0; }
 .mn-section .steps-list li { font-size: 13px; }
 .mn-section .faq-callout { font-size: 12px; }
 .venue-figure { margin: 0; }
+/* Venue name + address sit under the photo, pin icon first */
+.venue-figure .venue-caption { display: flex; align-items: flex-start; gap: 6px; margin-top: 10px; font-size: 13px; line-height: 1.5; color: var(--ink-soft); }
+.venue-figure .venue-caption .ic { width: 15px; height: 15px; margin-top: 2px; }
+.venue-figure .venue-caption strong { display: block; font-size: 14px; font-weight: 700; color: var(--ink); }
 /* Portrait building shot: 4:3 keeps most of the façade, weighted toward the upper floors. */
 .venue-figure img { aspect-ratio: 4 / 3; object-position: center 35%; }
 .venue-photo-slot {
