@@ -1325,6 +1325,9 @@ section { padding: 72px 0; }
 .mn-section { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--gray-100); }
 .mn-section .activity-detail-subhead { font-size: 13.5px; margin-bottom: 10px; }
 .mn-section .detail-fact { padding: 12px 14px; }
+/* Sprite icon beside each fact label (calendar · alert · clapper · pin) */
+.mn-section .detail-fact-key { display: flex; align-items: center; gap: 6px; font-weight: 600; color: var(--ink-soft); }
+.mn-section .detail-fact-key .ic { width: 15px; height: 15px; flex: none; }
 .mn-section .steps-list li { font-size: 13px; }
 .mn-section .faq-callout { font-size: 12px; }
 .venue-figure { margin: 0; }
