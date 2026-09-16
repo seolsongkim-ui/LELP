@@ -1358,6 +1358,10 @@ section { padding: 72px 0; }
    the single apply button up top. */
 .activity-detail-block-wide { max-width: none; }
 .sw-apply { margin-bottom: 26px; }
+/* Every detail block carries its apply button twice: right under the
+   intro paragraph and again after the content. */
+.apply-top { margin-bottom: 28px; }
+.apply-bottom { margin-top: 26px; }
 .sw-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 18px; align-items: start; }
 .sw-col { min-width: 0; }
 .sw-col-label { font-size: 13px; font-weight: 700; color: var(--ink); margin: 0 0 6px; }
