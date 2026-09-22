@@ -1317,6 +1317,21 @@ section { padding: 72px 0; }
 .activity-detail-option-desc { padding: 14px 18px 18px; font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
 .activity-detail-option-desc strong { color: var(--ink); }
 .activity-detail-option-desc .film-credit { display: block; margin-top: 6px; font-size: 12px; color: var(--gray-600); }
+/* What happens after the screening — a buddy free-talk session. */
+.mn-followup {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 11px 13px;
+  background: var(--red-tint);
+  border-radius: var(--radius-md);
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+.mn-followup .ic { width: 16px; height: 16px; flex: none; margin-top: 2px; }
+.mn-followup strong { font-weight: 700; }
 /* Movie Night's date / RSVP / film / venue facts under the synopsis */
 .activity-detail-option-desc .sw-facts { margin-top: 14px; }
 /* Movie Night card body follows the Game Day detail layout in miniature:
