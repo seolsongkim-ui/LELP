@@ -267,9 +267,39 @@
   // Remove an entry once its real form URL goes into GOOGLE_FORM_LINKS.
   var FORM_OPEN_DATES = {};
 
+  // Each activity's last day, inclusive. Once it is past, the semester-guide
+  // card flips to "지난 활동" and the activity's apply buttons close, so nobody
+  // is sent to a form for an event that already happened.
+  var ACTIVITY_END_DATES = {
+    "act-penpal": "2026-11-28",
+    "act-column": "2026-11-30",
+    "act-gameday": "2026-09-19",
+    "act-specialweek": "2026-10-05",
+    "act-walkrun": "2026-10-24",
+    "act-speech": "2026-11-28"
+  };
+
+  function isPastActivity(id) {
+    if (!id) return false;
+    var end = ACTIVITY_END_DATES[id];
+    if (!end) {
+      // Per-option keys look like "act-specialweek-movie" — fall back to the activity.
+      var base = Object.keys(ACTIVITY_END_DATES).filter(function (key) { return id.indexOf(key + "-") === 0; })[0];
+      end = base ? ACTIVITY_END_DATES[base] : null;
+    }
+    return !!end && new Date() > new Date(end + "T23:59:59");
+  }
+
   document.querySelectorAll("[data-apply]").forEach(function (a) {
     var key = a.getAttribute("data-apply");
     var url = GOOGLE_FORM_LINKS[key];
+    if (isPastActivity(key)) {
+      a.classList.add("btn-upcoming");
+      a.removeAttribute("target");
+      a.innerHTML = '<span data-r-student>종료된 활동</span><span data-r-volunteer>Activity Ended</span>';
+      a.addEventListener("click", function (e) { e.preventDefault(); });
+      return;
+    }
     if (url && url !== "#") {
       a.href = url;
     } else {
@@ -299,7 +329,7 @@
     if (!btn || !statusEl) return;
     var href = btn.getAttribute("href") || "";
     var isOpen;
-    var actId = null;
+    var actId = card.getAttribute("data-activity");
     if (href.indexOf("activity.html#") === 0) {
       actId = href.split("#")[1];
       isOpen = Object.keys(GOOGLE_FORM_LINKS).some(function (key) {
@@ -310,6 +340,15 @@
     }
     var studentSpan = statusEl.querySelector("[data-r-student]");
     var volunteerSpan = statusEl.querySelector("[data-r-volunteer]");
+    if (isPastActivity(actId)) {
+      card.classList.add("is-past");
+      statusEl.classList.remove("ac-status-upcoming");
+      statusEl.classList.remove("ac-status-open");
+      statusEl.classList.add("ac-status-past");
+      if (studentSpan) studentSpan.textContent = "지난 활동";
+      if (volunteerSpan) volunteerSpan.textContent = "Past Activity";
+      return;
+    }
     if (isOpen) {
       statusEl.classList.remove("ac-status-upcoming");
       statusEl.classList.add("ac-status-open");
@@ -327,6 +366,19 @@
         if (volunteerSpan) volunteerSpan.textContent = openAt.en;
       }
     }
+  });
+
+  // Detail page: a past activity keeps its page but carries a "지난 활동"
+  // badge beside the date.
+  document.querySelectorAll(".activity-detail-block[data-activity]").forEach(function (block) {
+    if (!isPastActivity(block.getAttribute("data-activity"))) return;
+    block.classList.add("is-past");
+    var dateEl = block.querySelector(".activity-detail-date");
+    if (!dateEl || dateEl.querySelector(".past-badge")) return;
+    var badge = document.createElement("span");
+    badge.className = "past-badge";
+    badge.innerHTML = '<span data-r-student>지난 활동</span><span data-r-volunteer>Past Activity</span>';
+    dateEl.appendChild(badge);
   });
 
   // activity.html shows exactly one of its 6 detail blocks, based on the

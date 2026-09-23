@@ -1040,6 +1040,23 @@ section { padding: 72px 0; }
 }
 .ac-status-upcoming { color: var(--ink-soft); background: var(--gray-100); }
 .ac-status-open { color: #fff; background: var(--red); }
+/* Activities whose last day has passed — script.js flips the badge to
+   "지난 활동" and fades the card back. */
+.ac-status-past { color: #fff; background: var(--gray-600); }
+.ac-card.is-past { opacity: 0.62; filter: grayscale(0.35); }
+.ac-card.is-past:hover { transform: none; box-shadow: 0 10px 24px rgba(40, 30, 20, 0.08); }
+.past-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  vertical-align: 1px;
+}
 .ac-required {
   position: absolute;
   top: 14px;
