@@ -279,16 +279,29 @@
     "act-speech": "2026-11-28"
   };
 
-  function isPastActivity(id) {
-    if (!id) return false;
-    var end = ACTIVITY_END_DATES[id];
-    if (!end) {
-      // Per-option keys look like "act-specialweek-movie" — fall back to the activity.
-      var base = Object.keys(ACTIVITY_END_DATES).filter(function (key) { return id.indexOf(key + "-") === 0; })[0];
-      end = base ? ACTIVITY_END_DATES[base] : null;
-    }
-    return !!end && new Date() > new Date(end + "T23:59:59");
+  // Application deadlines, inclusive. Between the deadline and the activity's
+  // own last day the card reads "모집 마감" instead of "모집 중", and the apply
+  // buttons stop linking to a form that no longer accepts entries.
+  var ACTIVITY_CLOSE_DATES = {
+    "act-gameday": "2026-09-15",
+    "act-column": "2026-09-16",
+    "act-specialweek": "2026-09-23"
+  };
+
+  function activityDate(map, id) {
+    if (!id) return null;
+    if (map[id]) return map[id];
+    // Per-option keys look like "act-specialweek-movie" — fall back to the activity.
+    var base = Object.keys(map).filter(function (key) { return id.indexOf(key + "-") === 0; })[0];
+    return base ? map[base] : null;
   }
+
+  function isAfter(date) {
+    return !!date && new Date() > new Date(date + "T23:59:59");
+  }
+
+  function isPastActivity(id) { return isAfter(activityDate(ACTIVITY_END_DATES, id)); }
+  function isClosedActivity(id) { return isAfter(activityDate(ACTIVITY_CLOSE_DATES, id)); }
 
   document.querySelectorAll("[data-apply]").forEach(function (a) {
     var key = a.getAttribute("data-apply");
@@ -297,6 +310,13 @@
       a.classList.add("btn-upcoming");
       a.removeAttribute("target");
       a.innerHTML = '<span data-r-student>종료된 활동</span><span data-r-volunteer>Activity Ended</span>';
+      a.addEventListener("click", function (e) { e.preventDefault(); });
+      return;
+    }
+    if (isClosedActivity(key)) {
+      a.classList.add("btn-upcoming");
+      a.removeAttribute("target");
+      a.innerHTML = '<span data-r-student>모집 마감</span><span data-r-volunteer>Applications Closed</span>';
       a.addEventListener("click", function (e) { e.preventDefault(); });
       return;
     }
@@ -347,6 +367,14 @@
       statusEl.classList.add("ac-status-past");
       if (studentSpan) studentSpan.textContent = "지난 활동";
       if (volunteerSpan) volunteerSpan.textContent = "Past Activity";
+      return;
+    }
+    if (isClosedActivity(actId)) {
+      statusEl.classList.remove("ac-status-upcoming");
+      statusEl.classList.remove("ac-status-open");
+      statusEl.classList.add("ac-status-closed");
+      if (studentSpan) studentSpan.textContent = "모집 마감";
+      if (volunteerSpan) volunteerSpan.textContent = "Applications Closed";
       return;
     }
     if (isOpen) {
