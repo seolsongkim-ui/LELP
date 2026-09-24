@@ -267,9 +267,8 @@
   // Remove an entry once its real form URL goes into GOOGLE_FORM_LINKS.
   var FORM_OPEN_DATES = {};
 
-  // Each activity's last day, inclusive. Once it is past, the semester-guide
-  // card flips to "지난 활동" and the activity's apply buttons close, so nobody
-  // is sent to a form for an event that already happened.
+  // Each activity's last day, inclusive. Once it is past, sign-ups close even
+  // when no separate application deadline was announced for it.
   var ACTIVITY_END_DATES = {
     "act-penpal": "2026-11-28",
     "act-column": "2026-11-30",
@@ -300,19 +299,16 @@
     return !!date && new Date() > new Date(date + "T23:59:59");
   }
 
-  function isPastActivity(id) { return isAfter(activityDate(ACTIVITY_END_DATES, id)); }
-  function isClosedActivity(id) { return isAfter(activityDate(ACTIVITY_CLOSE_DATES, id)); }
+  // One closed state, not two: sign-ups are shut once either the application
+  // deadline or the activity's own last day has gone by, and the card simply
+  // reads "모집 마감" — no separate faded "past activity" treatment.
+  function isClosedActivity(id) {
+    return isAfter(activityDate(ACTIVITY_CLOSE_DATES, id)) || isAfter(activityDate(ACTIVITY_END_DATES, id));
+  }
 
   document.querySelectorAll("[data-apply]").forEach(function (a) {
     var key = a.getAttribute("data-apply");
     var url = GOOGLE_FORM_LINKS[key];
-    if (isPastActivity(key)) {
-      a.classList.add("btn-upcoming");
-      a.removeAttribute("target");
-      a.innerHTML = '<span data-r-student>종료된 활동</span><span data-r-volunteer>Activity Ended</span>';
-      a.addEventListener("click", function (e) { e.preventDefault(); });
-      return;
-    }
     if (isClosedActivity(key)) {
       a.classList.add("btn-upcoming");
       a.removeAttribute("target");
@@ -360,15 +356,6 @@
     }
     var studentSpan = statusEl.querySelector("[data-r-student]");
     var volunteerSpan = statusEl.querySelector("[data-r-volunteer]");
-    if (isPastActivity(actId)) {
-      card.classList.add("is-past");
-      statusEl.classList.remove("ac-status-upcoming");
-      statusEl.classList.remove("ac-status-open");
-      statusEl.classList.add("ac-status-past");
-      if (studentSpan) studentSpan.textContent = "지난 활동";
-      if (volunteerSpan) volunteerSpan.textContent = "Past Activity";
-      return;
-    }
     if (isClosedActivity(actId)) {
       statusEl.classList.remove("ac-status-upcoming");
       statusEl.classList.remove("ac-status-open");
@@ -396,19 +383,7 @@
     }
   });
 
-  // Detail page: a past activity keeps its page but carries a "지난 활동"
-  // badge beside the date.
-  document.querySelectorAll(".activity-detail-block[data-activity]").forEach(function (block) {
-    if (!isPastActivity(block.getAttribute("data-activity"))) return;
-    block.classList.add("is-past");
-    var dateEl = block.querySelector(".activity-detail-date");
-    if (!dateEl || dateEl.querySelector(".past-badge")) return;
-    var badge = document.createElement("span");
-    badge.className = "past-badge";
-    badge.innerHTML = '<span data-r-student>지난 활동</span><span data-r-volunteer>Past Activity</span>';
-    dateEl.appendChild(badge);
-  });
-
+  
   // activity.html shows exactly one of its 6 detail blocks, based on the
   // "#act-*" hash the "자세히 보기" link on the semester-guide timeline sends it.
   var detailBlocks = document.querySelectorAll(".activity-detail-block");
