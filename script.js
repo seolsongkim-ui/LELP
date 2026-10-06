@@ -265,7 +265,15 @@
   // Announced opening dates for forms that aren't live yet — shown on the
   // detail apply button and the card badge instead of the generic 모집 예정.
   // Remove an entry once its real form URL goes into GOOGLE_FORM_LINKS.
-  var FORM_OPEN_DATES = {};
+  var FORM_OPEN_DATES = {
+    // Pen pal sign-ups never ran through a Google Form — the team sends the
+    // application over KakaoTalk, so the button says so instead of "모집 예정".
+    "act-penpal": { ko: "신청서는 카카오톡으로 전송 예정", en: "Application form will be sent via KakaoTalk" }
+  };
+
+  // Sign-ups closed by hand, whatever the dates say — the roster filled up or
+  // the team stopped taking entries early.
+  var ACTIVITY_CLOSED = ["act-penpal"];
 
   // Each activity's last day, inclusive. Once it is past, sign-ups close even
   // when no separate application deadline was announced for it.
@@ -303,7 +311,9 @@
   // deadline or the activity's own last day has gone by, and the card simply
   // reads "모집 마감" — no separate faded "past activity" treatment.
   function isClosedActivity(id) {
-    return isAfter(activityDate(ACTIVITY_CLOSE_DATES, id)) || isAfter(activityDate(ACTIVITY_END_DATES, id));
+    if (!id) return false;
+    var closedByHand = ACTIVITY_CLOSED.some(function (key) { return id === key || id.indexOf(key + "-") === 0; });
+    return closedByHand || isAfter(activityDate(ACTIVITY_CLOSE_DATES, id)) || isAfter(activityDate(ACTIVITY_END_DATES, id));
   }
 
   document.querySelectorAll("[data-apply]").forEach(function (a) {
