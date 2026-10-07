@@ -588,3 +588,80 @@
     });
   });
 })();
+
+/* ---------- Freedom Walk & Run sign-up modal ----------
+   Every page gets it from here rather than repeating the markup in seven
+   HTML files. Opens shortly after load, closes on the buttons, the backdrop
+   or Esc; the checkbox snoozes it for a day (storage is wrapped because a
+   private window or blocked site data makes it throw); and it stops opening
+   by itself once the activity's date has passed. */
+(function () {
+  var KEY = "lelp-fwr-modal-snoozed-until";
+  var APPLY_END = "2026-10-24";
+  if (new Date() > new Date(APPLY_END + "T23:59:59")) return;
+  try { if (Number(localStorage.getItem(KEY) || 0) > Date.now()) return; } catch (e) { /* storage unavailable */ }
+  if (document.getElementById("fwr-modal")) return;
+
+  var html =
+    '<div class="fwr-modal" id="fwr-modal" role="dialog" aria-modal="true" aria-labelledby="fwr-title" hidden>' +
+    '  <div class="fwr-dialog">' +
+    '    <button type="button" class="fwr-close" data-fwr-close aria-label="닫기 / Close">&times;</button>' +
+    '    <span class="fwr-icon"><svg class="ic" aria-hidden="true"><use href="#ic-sneaker"/></svg></span>' +
+    '    <span class="fwr-eyebrow"><span data-r-student>10.24 (토) · 오프라인</span><span data-r-volunteer>Oct 24 (Sat) · Offline</span></span>' +
+    '    <h2 id="fwr-title"><span data-r-student>프리덤 워크 앤 런<br>참가 신청이 열렸습니다</span><span data-r-volunteer>Freedom Walk &amp; Run<br>sign-ups are open</span></h2>' +
+    '    <p>' +
+    '      <span data-r-student>펀드레이징과 북한 인권 인식 개선을 위한 걷기·달리기 활동입니다. 렐프 참가자라면 누구나 함께할 수 있어요.</span>' +
+    '      <span data-r-volunteer>A walk/run for fundraising and North Korean human rights awareness — open to everyone in LELP.</span>' +
+    '    </p>' +
+    '    <p class="fwr-credit" data-r-student>' +
+    '      <svg class="ic" aria-hidden="true"><use href="#ic-medal"/></svg>' +
+    '      <span>프리덤 워크 앤 런에 참가하시면 <strong>렐프 활동 참여 1회</strong>로 인정됩니다.</span>' +
+    '    </p>' +
+    '    <div class="fwr-actions">' +
+    '      <a class="btn btn-primary" href="https://fwr.libertyinnorthkorea.or.kr/2026/" target="_blank" rel="noopener" data-fwr-apply><span data-r-student>참가 신청하기 ↗</span><span data-r-volunteer>Sign up ↗</span></a>' +
+    '      <button type="button" class="fwr-later" data-fwr-close><span data-r-student>나중에 볼게요</span><span data-r-volunteer>Maybe later</span></button>' +
+    '    </div>' +
+    '    <label class="fwr-snooze">' +
+    '      <input type="checkbox" id="fwr-snooze">' +
+    '      <span data-r-student>오늘 하루 보지 않기</span><span data-r-volunteer>Don\'t show again today</span>' +
+    '    </label>' +
+    '  </div>' +
+    '</div>';
+
+  var holder = document.createElement("div");
+  holder.innerHTML = html;
+  var modal = holder.firstElementChild;
+  document.body.appendChild(modal);
+
+  var lastFocus = null;
+  function close() {
+    var snooze = document.getElementById("fwr-snooze");
+    if (snooze && snooze.checked) {
+      try { localStorage.setItem(KEY, String(Date.now() + 24 * 60 * 60 * 1000)); } catch (e) { /* storage unavailable */ }
+    }
+    modal.classList.remove("is-open");
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function open() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    var apply = modal.querySelector("[data-fwr-apply]");
+    if (apply) apply.focus();
+  }
+
+  modal.querySelectorAll("[data-fwr-close]").forEach(function (btn) {
+    btn.addEventListener("click", close);
+  });
+  modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+  });
+  var apply = modal.querySelector("[data-fwr-apply]");
+  if (apply) apply.addEventListener("click", function () { setTimeout(close, 100); });
+
+  setTimeout(open, 600);
+})();
