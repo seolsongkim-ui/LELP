@@ -694,7 +694,7 @@
    behave the same way; only the checks at the end differ. */
 (function () {
   /* Where the speech-contest sheet listens (a Google Apps Script web app). */
-  var SPEECH_ENDPOINT = "https://script.google.com/macros/s/AKfycbz_zRZqRDbYEPkc2hXIJj2YexG8Rl4AAZoNcd7FaoZ85DZx4S9f8x4Ru1Ty3v6j825-9Q/exec";
+  var SPEECH_ENDPOINT = "https://script.google.com/macros/s/AKfycbzATJE8IhoBFtSW_Ppnj6zVMs7SX3wUfk3RPPL3S0qYMU-4vbS0dwBBLniD1fd-3vhE-g/exec";
 
   function setUp(modalId, href, check, send) {
   var modal = document.getElementById(modalId);
