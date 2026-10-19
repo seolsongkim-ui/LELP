@@ -261,7 +261,8 @@
     "act-walkrun": "#",
     // Points at the in-site application form, not a Google Form. A "#..."
     // value is treated as an in-page link below: same tab, no new window.
-    "act-speech": "#act-speech-apply"
+    "act-speech": "#act-speech-apply",
+    "act-ceremony": "#act-ceremony-apply"
   };
 
   // Announced opening dates for forms that aren't live yet — shown on the
@@ -271,8 +272,10 @@
     // Pen pal sign-ups never ran through a Google Form — the team sends the
     // application over KakaoTalk, so the button says so instead of "모집 예정".
     "act-penpal": { ko: "신청서는 카카오톡으로 전송 예정", en: "Application form will be sent via KakaoTalk" },
-    // Says which sign-up is waiting rather than the generic "모집 예정".
-    "act-speech": { ko: "대회 모집 예정", en: "Contest opening soon" }
+    // The contest and the ceremony are separate pages, so each waiting
+    // label says which one it is rather than both reading "모집 예정".
+    "act-speech": { ko: "대회 모집 예정", en: "Contest opening soon" },
+    "act-ceremony": { ko: "수료식 모집 예정", en: "Ceremony opening soon" }
   };
 
   // Sign-ups closed by hand, whatever the dates say — the roster filled up or
@@ -287,7 +290,8 @@
     "act-gameday": "2026-09-19",
     "act-specialweek": "2026-10-05",
     "act-walkrun": "2026-10-24",
-    "act-speech": "2026-11-28"
+    "act-speech": "2026-11-28",
+    "act-ceremony": "2026-11-28"
   };
 
   // Application deadlines, inclusive. Between the deadline and the activity's
@@ -676,10 +680,11 @@
   setTimeout(open, 600);
 })();
 
-/* Application forms — the speech contest form opens as a dialog from its apply
-   buttons, so nobody leaves the page they were reading. The buttons keep their
-   "#...-apply" href, which also keeps the activity card reading 모집 중; the
-   click is intercepted here. setUp() is written to take more than one form. */
+/* Application forms — the speech contest and the ceremony each open as a
+   dialog from their own apply buttons, so nobody leaves the page they were
+   reading. The buttons keep their "#...-apply" href, which also keeps the
+   activity card reading 모집 중; the click is intercepted here. Both forms
+   behave the same way; only the checks at the end differ. */
 (function () {
   /* Where the speech-contest sheet listens (a Google Apps Script web app). */
   var SPEECH_ENDPOINT = "https://script.google.com/macros/s/AKfycbz_zRZqRDbYEPkc2hXIJj2YexG8Rl4AAZoNcd7FaoZ85DZx4S9f8x4Ru1Ty3v6j825-9Q/exec";
@@ -906,6 +911,21 @@
         dietOther: dietOn && dOther.offsetParent !== null ? dOther.value.trim() : "",
         question: h.modal.querySelector("textarea").value.trim()
       };
+    }
+  });
+
+  setUp("cf-modal", "#act-ceremony-apply", function (h) {
+    var name = h.field("cf-name");
+    var mail = h.field("cf-email");
+    var diet = h.qOf(h.field("cf-diet"));
+    var other = h.modal.querySelector(".sf-free");
+    if (!name.value.trim()) h.bad.push([h.qOf(name), h.EN ? "Please enter your name." : "이름을 입력해 주세요."]);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail.value.trim())) h.bad.push([h.qOf(mail), h.EN ? "Please enter a valid email address." : "메일 주소를 정확히 입력해 주세요."]);
+    if (!h.checked("cf-dinner")) h.bad.push([h.qOf(h.field("cf-dinner")), h.EN ? "Please tell us about dinner." : "저녁 식사 참석 여부를 선택해 주세요."]);
+    /* The meal question is only asked of the people who are staying. */
+    else if (diet.offsetParent !== null) {
+      if (!h.checked("cf-diet")) h.bad.push([diet, h.EN ? "Please tell us what you eat." : "식사 선호를 선택해 주세요."]);
+      else if (other.offsetParent !== null && !other.value.trim()) h.bad.push([diet, h.EN ? "Tell us what to leave out." : "어떤 음식인지 적어 주세요."]);
     }
   });
 })();
