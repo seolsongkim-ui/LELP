@@ -254,6 +254,11 @@ body[data-role="volunteer"] .lang-ko { display: none !important; }
   scroll-margin-top: max(0px, calc(var(--sticky-offset, 120px) - 72px));
 }
 
+/* The role switch lives on the landing page (index.html carries data-page="schedule"),
+   where the choice is made. Every other page keeps the header clean: the
+   choice already applies to the whole site. */
+body:not([data-page="schedule"]) .role-switch { display: none; }
+
 /* Sliding toggle switch: a colored "thumb" slides between the two labels
    (JS measures each button's real width/position, since "학생 · Student" and
    "봉사자 · Volunteer" aren't the same width) instead of each button just
@@ -1134,6 +1139,7 @@ section { padding: 72px 0; }
   white-space: nowrap;
 }
 .ac-btn:hover { background: var(--red); color: #fff; }
+
 
 /* ---------- activities intro banner (top of activities section) ---------- */
 /* One plain neutral banner holding both the section's "why" line and the
@@ -2703,4 +2709,222 @@ section { padding: 72px 0; }
 @media (max-width: 480px) {
   .fwr-dialog { padding: 26px 20px 20px; }
   .fwr-dialog h2 { font-size: 20px; }
+}
+
+/* ---------- speech contest + completion ceremony pages, and their application dialogs ---------- */
+/* ---------- Speech Contest · Completion Ceremony ----------
+   The two sign-ups are separate pages now. Each one repeats the facts
+   that are common to the day, then carries its own call time, its own
+   button and a link across to the other. */
+.sp-lede { margin-top: 18px; font-size: 16.5px; font-weight: 700; color: var(--ink); line-height: 1.6; letter-spacing: -0.3px; }
+.sp-lede em { font-style: normal; color: var(--red); }
+.sp-body { margin-top: 16px; padding-bottom: 14px; border: 1px solid var(--gray-300); border-radius: var(--radius-lg); }
+.sp-xlink { display: inline-block; margin-top: 3px; color: var(--red-dark); font-weight: 700;
+  text-decoration: underline; text-decoration-color: var(--red-tint-2); text-underline-offset: 3px; }
+.sp-xlink::after { content: " \2192"; }
+.sp-auto { margin-top: 14px; padding: 15px 18px; background: var(--red-tint); border-radius: var(--radius-lg); }
+.sp-auto b { display: block; font-size: 14.5px; font-weight: 800; color: var(--red-dark);
+  line-height: 1.5; letter-spacing: -0.2px; }
+.sp-auto p { margin-top: 6px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.7; }
+.sp-date { font-size: 12.5px; font-weight: 700; color: var(--red); }
+.sp-title { margin-top: 6px; font-size: 25px; font-weight: 800; color: var(--ink); letter-spacing: -0.7px; line-height: 1.25; }
+.sp-title em { font-style: normal; font-size: 14.5px; font-weight: 500; color: var(--gray-600); margin-left: 8px; }
+.sp-sub { margin-top: 16px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.75; }
+.sp-facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 24px;
+  background: var(--gray-300); border: 1px solid var(--gray-300); border-radius: var(--radius-lg); overflow: hidden; }
+.sp-facts > div { background: #fff; padding: 14px 17px; }
+/* Speech Contest carries only 일시/장소 since 대상 moved into the body —
+   two even columns instead of a 3-col grid with an empty third cell. */
+.sp-facts-2 { grid-template-columns: repeat(2, 1fr); }
+.sp-facts .k { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; color: var(--red); }
+.sp-facts .v { margin-top: 5px; font-size: 14.5px; font-weight: 700; color: var(--ink); line-height: 1.45; }
+.sp-facts .s { margin-top: 3px; font-size: 11.5px; font-weight: 400; color: var(--gray-600); }
+.sp-facts .s .sp-map { color: var(--ink-soft); text-decoration: underline;
+  text-decoration-color: var(--gray-300); text-underline-offset: 3px; }
+.sp-facts .s .sp-map:hover { color: var(--red-dark); text-decoration-color: var(--red); }
+.sp-facts .s .sp-map::after { content: " \2197"; font-size: 0.9em; }
+/* Directions, with each line in its own operator colour so the badge is
+   recognisable before the text is read. */
+.sp-transit { display: flex; flex-wrap: wrap; align-items: center; gap: 9px 22px; margin-top: 10px;
+  padding: 13px 17px; border: 1px solid var(--gray-300); border-radius: var(--radius-lg); }
+.sp-transit-k { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; color: var(--red); }
+.sp-transit-row { display: flex; align-items: center; gap: 8px; font-size: 13.5px; font-weight: 700; color: var(--ink); }
+.sp-transit-row em { font-style: normal; font-weight: 400; font-size: 12.5px; color: var(--gray-600); }
+.ln { display: inline-flex; align-items: center; justify-content: center; flex: none; height: 20px;
+  min-width: 20px; padding: 0 7px; border-radius: 999px; font-style: normal; font-size: 11px;
+  font-weight: 800; letter-spacing: 0; color: #fff; white-space: nowrap; }
+.ln-2 { background: #00A84D; }
+/* 서울 지하철 2호선 */
+.ln-sb { background: #F5A200; }
+/* 수인분당선 */
+.sp-apply-top { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.sp-apply-top .btn { font-size: 14px; padding: 11px 22px; }
+/* The same button again at the foot of the page, so nobody has to scroll
+   back up after reading. A rule separates it from the content above. */
+.sp-apply-bottom { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px;
+  padding-top: 22px; border-top: 1px solid var(--gray-300); }
+.sp-apply-bottom .btn { font-size: 14px; padding: 11px 22px; }
+/* ---------- Speech Contest application form ----------
+   An in-site version of the Google Form. Every value comes from the contest
+   page above it, so the two never drift apart. The submit button is inert
+   until the form is wired to a backend. */
+/* The application form opens over the contest page as a dialog, so the
+   reader keeps the page they were reading. Only what has to be filled in
+   lives here — the schedule and the notes stay on the page behind. */
+.sfm { position: fixed; inset: 0; z-index: 900; display: none; align-items: center; justify-content: center;
+  padding: 20px; background: rgba(40, 30, 20, 0.55); backdrop-filter: blur(2px); }
+.sfm.is-open { display: flex; }
+.sfm-dialog { position: relative; display: flex; flex-direction: column; width: 100%; max-width: 560px;
+  max-height: calc(100vh - 40px); background: #fff; border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(40, 30, 20, 0.28); overflow: hidden;
+  animation: fwr-pop 0.22s cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (prefers-reduced-motion: reduce) {
+  .sfm-dialog { animation: none; }
+}
+.sfm-head { flex: none; padding: 18px 22px; border-bottom: 1px solid var(--gray-300); background: var(--gray-100); }
+.sfm-eyebrow { display: block; font-size: 11.5px; font-weight: 800; letter-spacing: 0.06em; color: var(--red); }
+.sfm-head h2 { margin-top: 4px; font-size: 19px; font-weight: 800; color: var(--ink); letter-spacing: -0.4px; }
+.sfm-close { position: absolute; top: 12px; right: 14px; width: 30px; height: 30px; border-radius: 50%;
+  font-size: 19px; line-height: 1; color: var(--gray-600); }
+.sfm-close:hover { background: var(--gray-300); color: var(--ink); }
+.sfm-body { flex: 1; min-height: 0; overflow-y: auto; padding: 0 22px; }
+.sfm-foot { flex: none; padding: 16px 22px 18px; border-top: 1px solid var(--gray-300); background: #fff; }
+.sfm-foot .btn { width: 100%; }
+@media (max-width: 480px) {
+  .sfm { padding: 0; }
+  .sfm-dialog { max-width: none; max-height: 100vh; height: 100%; border-radius: 0; }
+  .sfm-body { padding: 0 16px; }
+  .sfm-head, .sfm-foot { padding-left: 16px; padding-right: 16px; }
+}
+.sf-q { padding: 18px 0; border-bottom: 1px solid var(--gray-300); }
+.sf-q:last-of-type { border-bottom: 0; }
+.sf-label { font-size: 14.5px; font-weight: 700; color: var(--ink); letter-spacing: -0.2px; }
+.sf-label i { font-style: normal; color: var(--red); margin-left: 3px; }
+.sf-help { margin-top: 5px; font-size: 12px; color: var(--gray-600); line-height: 1.6; }
+.sf-input { display: block; width: 100%; margin-top: 10px; padding: 11px 14px; font: inherit; font-size: 14px;
+  color: var(--ink); background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius-md); }
+.sf-input::placeholder { color: #B5B0AA; }
+.sf-input:focus { outline: none; border-color: var(--red); box-shadow: 0 0 0 3px var(--red-tint); }
+textarea.sf-input { min-height: 74px; resize: vertical; }
+.sf-opts { margin-top: 10px; display: flex; flex-direction: column; gap: 7px; }
+.sf-opt { position: relative; display: flex; align-items: flex-start; gap: 10px; padding: 11px 14px;
+  border: 1px solid var(--gray-300); border-radius: var(--radius-md); font-size: 14px; color: var(--ink);
+  line-height: 1.5; cursor: pointer; }
+/* The real control is hidden but still focusable. It has to be clipped inside
+   its own label: left loose it lands against the dialog and a label click
+   scrolls the whole dialog away. */
+.sf-opt input { position: absolute; top: 0; left: 0; width: 1px; height: 1px; margin: 0; opacity: 0; pointer-events: none; }
+.sf-opt:has(input:focus-visible) { border-color: var(--red); box-shadow: 0 0 0 3px var(--red-tint); }
+.sf-opt .mark { flex: none; width: 17px; height: 17px; border-radius: 50%; border: 1.5px solid var(--gray-300);
+  margin-top: 1px; position: relative; }
+.sf-opt.is-box .mark { border-radius: 5px; }
+.sf-opt small { display: block; margin-top: 2px; font-size: 12px; color: var(--gray-600); }
+.sf-opt:has(input:checked) { border-color: var(--red); background: var(--red-tint); font-weight: 700; }
+.sf-opt:has(input:checked) .mark { border-color: var(--red); background: var(--red); }
+.sf-opt:has(input:checked) .mark::after { content: ""; position: absolute; inset: 4px; border-radius: 50%; background: #fff; }
+.sf-opt.is-box:has(input:checked) .mark::after { content: ""; inset: auto; top: 3px; left: 4px; width: 8px; height: 4px;
+  border-radius: 0; background: none; border-left: 2px solid #fff; border-bottom: 2px solid #fff; transform: rotate(-45deg); }
+/* The three things to agree to are checkboxes of their own: a small red label over the sentence. */
+.sf-ack .sf-ack-t b { display: block; font-size: 11.5px; font-weight: 800; color: var(--red); }
+.sf-ack .sf-ack-d { display: block; margin-top: 1px; }
+.sf-submit { width: 100%; margin-top: 18px; }
+/* The free-topic box only matters once 자유 주제 is the chosen topic. */
+.sf-free { display: none; }
+.sf-opts:has(.sf-opt:last-child input:checked) + .sf-free { display: block; }
+/* Same for the speech form: the meal question only appears once someone says they are staying. */
+#sf-modal .sf-diet { display: none; }
+#sf-modal:has(.sf-join:checked) .sf-diet { display: block; }
+.sf-err { margin-top: 9px; font-size: 12.5px; font-weight: 700; color: var(--red); line-height: 1.5; }
+.sf-q.is-missing .sf-input { border-color: var(--red); }
+.sf-q.is-missing .sf-label { color: var(--red); }
+.sf-submit:disabled { opacity: 0.6; cursor: default; }
+.sf-done.is-error { color: var(--red); }
+/* After a send the questions and the button give way to a thank-you panel. */
+.sfm-sent { display: none; flex-direction: column; align-items: center; justify-content: center;
+  gap: 8px; padding: 44px 24px 36px; text-align: center; }
+.sfm.is-sent .sfm-body, .sfm.is-sent .sfm-foot { display: none; }
+.sfm.is-sent .sfm-sent { display: flex; }
+.sfm-sent h3 { font-size: 20px; font-weight: 800; letter-spacing: -0.4px; color: var(--ink); }
+.sfm-sent p { font-size: 13.5px; color: var(--gray-600); line-height: 1.7; }
+.sfm-sent .btn { margin-top: 14px; min-width: 140px; }
+.sf-done { margin-top: 9px; font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.5; text-align: center; }
+@media (max-width: 640px) {
+  .sp-apply-bottom .btn { width: 100%; }
+}
+.sp-rows { padding: 6px 18px 0; }
+/* The contest page runs in importance order: what you prepare, how you
+   get ready, then how it is judged. Each step is numbered so the order
+   reads as deliberate, and the first step carries the larger type. */
+.sp-group { display: flex; align-items: center; gap: 9px; padding: 15px 18px 2px;
+  font-size: 12.5px; font-weight: 800; letter-spacing: -0.1px; color: var(--ink); }
+.sp-group i { flex: none; display: inline-flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: 50%; background: var(--red); color: #fff;
+  font-style: normal; font-size: 10px; font-weight: 800; letter-spacing: 0; }
+.sp-rows + .sp-group { margin-top: 10px; border-top: 1px solid var(--gray-300); padding-top: 15px; }
+.sp-rows-lead .v { font-size: 14.5px; }
+.sp-row { padding: 11px 0; border-bottom: 1px solid var(--gray-300); }
+.sp-row:last-child { border-bottom: 0; }
+.sp-row .k { font-size: 10.5px; font-weight: 800; letter-spacing: 0.1em; color: var(--gray-600); }
+.sp-row .v { margin-top: 5px; font-size: 13.5px; color: var(--ink); line-height: 1.65; }
+.sp-row .v b { font-weight: 700; }
+/* The two non-negotiables for speakers, in brand red */
+.sp-row .v .sp-must { color: var(--red); }
+.sp-row .v i { font-style: normal; color: var(--gray-300); margin: 0 5px; }
+.sp-row .v s { text-decoration: none; display: block; margin-top: 3px; font-size: 11.5px; color: var(--gray-600); line-height: 1.55; }
+/* A sub-line the reader has to act on, rather than just read: a size up
+   from the other notes, with the instruction itself in red. */
+.sp-row .v s.sp-note-strong { font-size: 12.5px; color: var(--ink-soft); margin-top: 5px; }
+.sp-row .v s.sp-note-strong b { font-weight: 700; color: var(--red-dark); }
+/* The textbook bonus is a reason to prepare a certain way, so it carries
+   its own chip instead of trailing the scoring line in grey. */
+/* The total closes the score list, so it sits on its own line under the
+   four items rather than trailing the bonus note. */
+.sp-row .v .sp-sum { display: inline-block; margin-top: 4px; font-weight: 800; color: var(--ink); }
+.sp-row .v .sp-bonus { display: inline-block; margin-right: 6px; padding: 2px 8px;
+  border-radius: 999px; background: var(--red-tint); color: var(--red-dark);
+  font-size: 11.5px; font-weight: 800; letter-spacing: 0; }
+.sp-row .v .num { float: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+.sp-row .v .t { display: inline-block; width: 46px; font-weight: 800; color: var(--red); font-variant-numeric: tabular-nums; }
+/* Coach profile: the name reads as the row title, the bio as plain body text. */
+.sp-row .v .sp-coach { font-size: 14.5px; }
+.sp-row .v .sp-bio { display: block; margin-top: 6px; font-size: 13px; line-height: 1.75; color: var(--ink-soft); }
+/* Emphasis in the intro is bold, darker text — no marker band. */
+.sp-sub .sp-hl { font-weight: 700; color: var(--ink); }
+/* The preparation schedule is a real two-column table — dates against
+   steps — so the dates line up and a long step wraps in its own column. */
+.sp-table { width: 100%; border-collapse: collapse; margin-top: 8px; table-layout: fixed; }
+.sp-table th, .sp-table td { text-align: left; vertical-align: top; }
+.sp-table thead th { padding-bottom: 6px; border-bottom: 1.5px solid var(--ink);
+  font-size: 10px; font-weight: 800; letter-spacing: 0.1em; color: var(--gray-600); }
+.sp-table tbody th, .sp-table tbody td { padding: 9px 0; border-top: 1px solid var(--gray-300);
+  font-size: 13px; line-height: 1.5; }
+.sp-table tbody tr:first-child th, .sp-table tbody tr:first-child td { border-top: 0; }
+/* fixed layout takes the column widths from the first row, so only the
+   head cell carries the date column width */
+.sp-table th { padding-right: 10px; }
+.sp-table thead th:first-child { width: 86px; }
+.sp-table tbody th { font-size: 11.5px; font-weight: 800; color: var(--red);
+  font-variant-numeric: tabular-nums; }
+.sp-table td { color: var(--ink); font-weight: 600; }
+.sp-table td em { display: block; font-style: normal; font-weight: 400; font-size: 11.5px;
+  color: var(--gray-600); line-height: 1.55; margin-top: 2px; }
+.sp-row .v em { font-style: normal; font-weight: 600; color: var(--gray-600); }
+/* Awards — the prize is the reason to enter, so it steps out of the list
+   into two cards and the grand prize takes the red one. */
+.aw-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.aw-card { border: 1px solid var(--gray-300); border-radius: var(--radius-md);
+  padding: 13px 14px; text-align: center; }
+.aw-card.is-top { border-color: var(--red); background: var(--red-tint); }
+.aw-rank { font-size: 11px; font-weight: 800; letter-spacing: 0.04em; color: var(--gray-600); }
+.aw-card.is-top .aw-rank { color: var(--red); }
+.aw-prize { margin-top: 6px; font-size: 22px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.15; }
+.aw-card.is-top .aw-prize { color: var(--red); }
+.sp-row .v .aw-prize em { font-size: 11.5px; font-weight: 700; margin-left: 4px; }
+@media (max-width: 480px) {
+  .aw-cards { grid-template-columns: 1fr; }
+}
+.sp-fine { margin-top: 16px; font-size: 12.5px; color: var(--gray-600); line-height: 1.75; }
+@media (max-width: 640px) {
+  .sp-apply-top .btn { width: 100%; }
+  .sp-facts { grid-template-columns: 1fr; }
 }

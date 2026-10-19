@@ -259,7 +259,9 @@
     "act-gameday": "https://forms.gle/b7eg8q9X6Q3tGDEs9",
     "act-specialweek": "https://forms.gle/XbjJxeTN7cMNERNP7",
     "act-walkrun": "#",
-    "act-speech": "#"
+    // Points at the in-site application form, not a Google Form. A "#..."
+    // value is treated as an in-page link below: same tab, no new window.
+    "act-speech": "#act-speech-apply"
   };
 
   // Announced opening dates for forms that aren't live yet — shown on the
@@ -268,7 +270,9 @@
   var FORM_OPEN_DATES = {
     // Pen pal sign-ups never ran through a Google Form — the team sends the
     // application over KakaoTalk, so the button says so instead of "모집 예정".
-    "act-penpal": { ko: "신청서는 카카오톡으로 전송 예정", en: "Application form will be sent via KakaoTalk" }
+    "act-penpal": { ko: "신청서는 카카오톡으로 전송 예정", en: "Application form will be sent via KakaoTalk" },
+    // Says which sign-up is waiting rather than the generic "모집 예정".
+    "act-speech": { ko: "대회 모집 예정", en: "Contest opening soon" }
   };
 
   // Sign-ups closed by hand, whatever the dates say — the roster filled up or
@@ -328,6 +332,12 @@
     }
     if (url && url !== "#") {
       a.href = url;
+      // An in-site destination ("#act-speech-apply") must open in this tab,
+      // so drop the new-window attributes a Google Form link needs.
+      if (url.charAt(0) === "#") {
+        a.removeAttribute("target");
+        a.removeAttribute("rel");
+      }
     } else {
       // Form not posted yet — show a disabled "모집 예정" state instead of
       // an apply button that goes nowhere. Flips back to 신청하기 on its own
@@ -664,4 +674,238 @@
   if (apply) apply.addEventListener("click", function () { setTimeout(close, 100); });
 
   setTimeout(open, 600);
+})();
+
+/* Application forms — the speech contest form opens as a dialog from its apply
+   buttons, so nobody leaves the page they were reading. The buttons keep their
+   "#...-apply" href, which also keeps the activity card reading 모집 중; the
+   click is intercepted here. setUp() is written to take more than one form. */
+(function () {
+  /* Where the speech-contest sheet listens (a Google Apps Script web app). */
+  var SPEECH_ENDPOINT = "https://script.google.com/macros/s/AKfycbz_zRZqRDbYEPkc2hXIJj2YexG8Rl4AAZoNcd7FaoZ85DZx4S9f8x4Ru1Ty3v6j825-9Q/exec";
+
+  function setUp(modalId, href, check, send) {
+  var modal = document.getElementById(modalId);
+  if (!modal) return;
+  var dialog = modal.querySelector(".sfm-dialog");
+  var body = modal.querySelector(".sfm-body");
+  var lastFocus = null;
+
+  function close() {
+    modal.classList.remove("is-open");
+    modal.hidden = true;
+    document.body.style.overflow = "";
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  function open() {
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    modal.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+    dialog.scrollTop = 0;
+    body.scrollTop = 0;
+    clearErrors();
+    unsend();
+    stampRole();
+    dialog.focus();
+  }
+  /* After a send the dialog shows its thank-you panel; the next time it opens
+     the form is blank again and the button works. */
+  function unsend() {
+    var btn = modal.querySelector(".sf-submit");
+    if (btn) btn.disabled = false;
+    if (!modal.classList.contains("is-sent")) return;
+    modal.classList.remove("is-sent");
+    modal.querySelectorAll("input[type=text],input[type=email],textarea").forEach(function (v) { v.value = ""; });
+    modal.querySelectorAll("input[type=radio],input[type=checkbox]").forEach(function (c) { c.checked = false; });
+  }
+  /* The sheet needs to know which side of the site the entry came from, and
+     the page already knows — so nobody is asked to pick their role. */
+  function stampRole() {
+    var f = modal.querySelector("[data-role-field]");
+    if (f) f.value = document.body.getAttribute("data-role") === "volunteer" ? "volunteer" : "student";
+  }
+
+  document.querySelectorAll('a[href="' + href + '"]').forEach(function (a) {
+    a.addEventListener("click", function (e) { e.preventDefault(); open(); });
+  });
+  modal.querySelectorAll("[data-sf-close]").forEach(function (b) { b.addEventListener("click", close); });
+  modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
+  document.addEventListener("keydown", function (e) {
+    if (!modal.classList.contains("is-open")) return;
+    if (e.key === "Escape") { close(); return; }
+    if (e.key !== "Tab") return;
+    /* Keep Tab inside the dialog — behind it the whole page is still there. */
+    var f = modal.querySelectorAll('button, a[href], input, textarea, select, [tabindex="-1"]');
+    var list = [];
+    for (var i = 0; i < f.length; i++) {
+      if (f[i] !== dialog && f[i].offsetParent !== null) list.push(f[i]);
+    }
+    if (!list.length) return;
+    var first = list[0], last = list[list.length - 1];
+    if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    else if (e.shiftKey && (document.activeElement === first || document.activeElement === dialog)) { e.preventDefault(); last.focus(); }
+  });
+
+  /* Checks before anything is sent. The submit itself is not wired to a
+     spreadsheet yet, so a filled-in form says so instead of pretending. */
+  function clearErrors() {
+    modal.querySelectorAll(".sf-q").forEach(function (q) { q.classList.remove("is-missing"); });
+    modal.querySelectorAll(".sf-err").forEach(function (p) { p.remove(); });
+    var done = modal.querySelector(".sf-done");
+    if (done) done.remove();
+  }
+  function fail(q, msg) {
+    q.classList.add("is-missing");
+    var p = document.createElement("p");
+    p.className = "sf-err";
+    p.textContent = msg;
+    q.appendChild(p);
+  }
+  function qOf(el) { return el ? el.closest(".sf-q") : null; }
+  function field(n) { return modal.querySelector('[name="' + n + '"]'); }
+  function checked(name) { return modal.querySelector('input[name="' + name + '"]:checked'); }
+
+  /* Placeholders cannot hold the two language spans the rest of the page uses,
+     so they are swapped here whenever the role switch moves. */
+  function placeholders() {
+    var en = document.body.getAttribute("data-role") === "volunteer";
+    modal.querySelectorAll("[data-ph-en]").forEach(function (el) {
+      if (!el.getAttribute("data-ph-ko")) el.setAttribute("data-ph-ko", el.placeholder);
+      el.placeholder = en ? el.getAttribute("data-ph-en") : el.getAttribute("data-ph-ko");
+    });
+  }
+  placeholders();
+  new MutationObserver(function () {
+    placeholders();
+    clearErrors();  /* messages already on screen would be in the old language */
+  }).observe(document.body, { attributes: true, attributeFilter: ["data-role"] });
+
+  /* A question stops complaining as soon as it is answered. */
+  function unflag(e) {
+    var q = e.target.closest ? e.target.closest(".sf-q") : null;
+    if (!q || !q.classList.contains("is-missing")) return;
+    q.classList.remove("is-missing");
+    var p = q.querySelector(".sf-err");
+    if (p) p.remove();
+  }
+  modal.addEventListener("input", unflag, true);
+  modal.addEventListener("change", unflag, true);
+
+  var submit = modal.querySelector(".sf-submit");
+  if (submit) submit.addEventListener("click", function () {
+    clearErrors();
+    var EN = document.body.getAttribute("data-role") === "volunteer";
+    var bad = [];
+    check({ EN: EN, bad: bad, qOf: qOf, field: field, checked: checked, modal: modal });
+
+    if (bad.length) {
+      bad.forEach(function (b) { fail(b[0], b[1]); });
+      var top = bad[0][0].getBoundingClientRect().top - body.getBoundingClientRect().top;
+      body.scrollTop += top - 12;
+      return;
+    }
+    var done = modal.querySelector(".sf-done");
+    if (!done) {
+      done = document.createElement("p");
+      done.className = "sf-done";
+      modal.querySelector(".sfm-foot").appendChild(done);
+    }
+    done.classList.remove("is-error");
+    stampRole();
+    if (!send) {
+      done.textContent = EN
+        ? "Everything is filled in. Sending is not connected yet, so nothing has been submitted."
+        : "작성은 모두 끝났습니다. 아직 접수 연결 전이라 제출되지는 않았습니다.";
+      return;
+    }
+    /* Apps Script answers from another origin, so the reply is opaque: all the
+       page can know is that the request left. It fails loudly only when the
+       network does, which is when the person needs to try again. */
+    submit.disabled = true;
+    done.textContent = EN ? "Sending…" : "전송하는 중…";
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+    var params = new URLSearchParams(send.build({ field: field, checked: checked, modal: modal }));
+    fetch(send.url, { method: "POST", mode: "no-cors", body: params, signal: ctrl.signal })
+      .then(function () {
+        clearTimeout(timer);
+        done.remove();
+        modal.classList.add("is-sent");
+        dialog.scrollTop = 0;
+      })
+      .catch(function () {
+        clearTimeout(timer);
+        submit.disabled = false;
+        done.classList.add("is-error");
+        done.textContent = EN
+          ? "Could not send. Check your connection and try again."
+          : "전송하지 못했습니다. 네트워크를 확인하고 다시 시도해 주세요.";
+      });
+  });
+  }
+
+  setUp("sf-modal", "#act-speech-apply", function (h) {
+    var name = h.field("sf-name");
+    var nameEn = h.field("sf-name-en");
+    var mail = h.field("sf-email");
+    var free = h.modal.querySelector(".sf-free");
+    if (!name.value.trim()) h.bad.push([h.qOf(name), h.EN ? "Please enter your name." : "이름을 입력해 주세요."]);
+    if (!nameEn.value.trim()) h.bad.push([h.qOf(nameEn), h.EN ? "Please enter your name in English." : "영어 이름을 입력해 주세요."]);
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(mail.value.trim())) h.bad.push([h.qOf(mail), h.EN ? "Please enter a valid email address." : "메일 주소를 정확히 입력해 주세요."]);
+    /* A Korean mobile number, typed with or without hyphens. */
+    var phone = h.field("sf-phone");
+    if (!/^01[016789]\d{7,8}$/.test(phone.value.replace(/\D/g, ""))) h.bad.push([h.qOf(phone), h.EN ? "Please enter a valid mobile number, e.g. 010-1234-5678." : "휴대폰 번호를 정확히 입력해 주세요. (예: 010-1234-5678)"]);
+    if (!h.checked("sf-level")) h.bad.push([h.qOf(h.field("sf-level")), h.EN ? "Please pick your current book." : "현재 교재 레벨을 선택해 주세요."]);
+    var topicQ = h.qOf(h.field("sf-topic"));
+    if (!h.checked("sf-topic")) h.bad.push([topicQ, h.EN ? "Please pick a topic." : "스피치 주제를 선택해 주세요."]);
+    else if (free.offsetParent !== null && !free.value.trim()) h.bad.push([topicQ, h.EN ? "Tell us what your own topic is about." : "자유 주제의 내용을 적어 주세요."]);
+    if (!h.checked("sf-dinner")) h.bad.push([h.qOf(h.field("sf-dinner")), h.EN ? "Please tell us about dinner." : "저녁 식사 참석 여부를 선택해 주세요."]);
+    else {
+      /* The meal question is only asked of the people who are staying. */
+      var dq = h.qOf(h.field("sf-diet"));
+      var dOther = h.field("sf-diet-other");
+      if (dq.offsetParent !== null) {
+        if (!h.checked("sf-diet")) h.bad.push([dq, h.EN ? "Please tell us what you eat." : "식사 선호를 선택해 주세요."]);
+        else if (dOther.offsetParent !== null && !dOther.value.trim()) h.bad.push([dq, h.EN ? "Tell us what to leave out." : "어떤 음식인지 적어 주세요."]);
+      }
+    }
+    if (h.modal.querySelectorAll('input[name="sf-ack"]:checked').length < 3) h.bad.push([h.qOf(h.field("sf-ack")), h.EN ? "Please tick each of the three items." : "세 항목을 모두 확인하고 체크해 주세요."]);
+  }, {
+    url: SPEECH_ENDPOINT,
+    build: function (h) {
+      /* The sheet always gets the Korean wording, whichever side of the site
+         the page was showing, so every row reads the same. */
+      function ko(el) {
+        var s = el && el.querySelector("[data-r-student]");
+        return s ? s.textContent.trim() : "";
+      }
+      function label(input) { return ko(input && input.closest("label")); }
+      /* Always sent hyphenated: a bare run of digits would be read as a number by the
+         sheet and lose its leading zero. */
+      function hyphenate(v) {
+        var d = v.replace(/\D/g, "");
+        return d.length === 11 ? d.slice(0, 3) + "-" + d.slice(3, 7) + "-" + d.slice(7)
+                               : d.slice(0, 3) + "-" + d.slice(3, 6) + "-" + d.slice(6);
+      }
+      var free = h.modal.querySelector(".sf-free");
+      var dq = h.field("sf-diet").closest(".sf-q");
+      var dietOn = !!dq && dq.offsetParent !== null;
+      var dOther = h.field("sf-diet-other");
+      return {
+        form: "speech",
+        name: h.field("sf-name").value.trim(),
+        nameEn: h.field("sf-name-en").value.trim(),
+        email: h.field("sf-email").value.trim(),
+        phone: hyphenate(h.field("sf-phone").value),
+        level: label(h.checked("sf-level")),
+        topic: label(h.checked("sf-topic")),
+        topicFree: free && free.offsetParent !== null ? free.value.trim() : "",
+        dinner: label(h.checked("sf-dinner")),
+        diet: dietOn ? label(h.checked("sf-diet")) : "",
+        dietOther: dietOn && dOther.offsetParent !== null ? dOther.value.trim() : "",
+        question: h.modal.querySelector("textarea").value.trim()
+      };
+    }
+  });
 })();
