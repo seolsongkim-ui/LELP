@@ -262,7 +262,8 @@
     // Points at the in-site application form, not a Google Form. A "#..."
     // value is treated as an in-page link below: same tab, no new window.
     "act-speech": "#act-speech-apply",
-    "act-ceremony": "#act-ceremony-apply"
+    // Not open yet: the ceremony's apply buttons stay in the muted "모집 예정" state.
+    "act-ceremony": "#"
   };
 
   // Announced opening dates for forms that aren't live yet — shown on the
@@ -414,6 +415,12 @@
   if (detailBlocks.length) {
     var showActivityDetail = function () {
       var id = window.location.hash.replace("#", "") || detailBlocks[0].getAttribute("data-activity");
+      /* A page that is not published yet (data-unpublished) cannot be entered, not even by its address. */
+      var wanted = Array.prototype.filter.call(detailBlocks, function (b) { return b.getAttribute("data-activity") === id; })[0];
+      if (wanted && wanted.hasAttribute("data-unpublished")) {
+        window.location.replace("index.html#sg-activities");
+        return;
+      }
       detailBlocks.forEach(function (b) {
         b.classList.toggle("is-shown", b.getAttribute("data-activity") === id);
       });
