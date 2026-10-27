@@ -1141,19 +1141,17 @@ section { padding: 72px 0; }
 .ac-btn:hover { background: var(--red); color: #fff; }
 
 /* The ceremony card would otherwise sit alone on the last row of the
-   grid. As a full-width band its parts run in a row instead of stacking,
-   which takes about a third of the height. */
-.ac-card-wide { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px;
-  padding: 16px 22px; text-align: left; }
-.ac-card-wide .ac-head { order: 1; margin-bottom: 0; padding: 0; gap: 12px; }
-.ac-card-wide .ac-head-text { text-align: left; }
-.ac-card-wide .ac-date { order: 2; margin: 0; }
-.ac-card-wide .ac-status { order: 3; position: static; margin-left: auto; }
-.ac-card-wide .ac-btn { order: 4; }
-@media (max-width: 720px) {
-  .ac-card-wide { flex-wrap: wrap; gap: 10px 14px; padding: 18px 20px; }
-  .ac-card-wide .ac-status { order: 0; margin-left: 0; }
-  .ac-card-wide .ac-btn { order: 4; margin-left: auto; }
+   grid. On wide screens it is a full-width band whose parts run in a row,
+   which takes about a third of the height. On a phone the grid is a single
+   column, so there it is left as a regular card like all the others. */
+@media (min-width: 721px) {
+  .ac-card-wide { grid-column: 1 / -1; display: flex; align-items: center; gap: 18px;
+    padding: 16px 22px; text-align: left; }
+  .ac-card-wide .ac-head { order: 1; margin-bottom: 0; padding: 0; gap: 12px; }
+  .ac-card-wide .ac-head-text { text-align: left; }
+  .ac-card-wide .ac-date { order: 2; margin: 0; }
+  .ac-card-wide .ac-status { order: 3; position: static; margin-left: auto; }
+  .ac-card-wide .ac-btn { order: 4; }
 }
 
 /* ---------- activities intro banner (top of activities section) ---------- */
