@@ -49,10 +49,16 @@
     });
   });
 
-  // initial role: URL hash > saved preference > default (student)
+  // initial role: ?role= in the address > URL hash > saved preference > default (student).
+  // The query form exists for deep links such as activity.html?role=volunteer#act-ceremony,
+  // where the hash is already taken by the activity — it gives each side its own address.
   var initial = "student";
   var rawHash = window.location.hash.replace("#", "");
-  if (rawHash === "student" || rawHash === "volunteer") {
+  var queryRole = null;
+  try { queryRole = new URLSearchParams(window.location.search).get("role"); } catch (e) { /* old browser */ }
+  if (queryRole === "student" || queryRole === "volunteer") {
+    initial = queryRole;
+  } else if (rawHash === "student" || rawHash === "volunteer") {
     initial = rawHash;
   } else {
     try {
