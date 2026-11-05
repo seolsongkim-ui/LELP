@@ -301,7 +301,8 @@
   var ACTIVITY_CLOSE_DATES = {
     "act-gameday": "2026-09-15",
     "act-column": "2026-09-16",
-    "act-specialweek": "2026-09-23"
+    "act-specialweek": "2026-09-23",
+    "act-speech": "2026-10-28"
   };
 
   function activityDate(map, id) {
