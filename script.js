@@ -613,7 +613,7 @@
 
 /* ---------- Completion Ceremony sign-up popup ----------
    Every page gets it from here rather than repeating the markup in seven
-   HTML files. Opens shortly after load, closes on the buttons, the backdrop
+   HTML files. Opens shortly after load (home page only, once per visit), closes on the buttons, the backdrop
    or Esc; the checkbox snoozes it for a day (storage is wrapped because a
    private window or blocked site data makes it throw); it speaks to both
    sides of the site, and it stops opening by itself once the ceremony day
@@ -622,8 +622,13 @@
    it was. */
 (function () {
   var KEY = "lelp-ceremony-modal-snoozed-until";
+  var SEEN = "lelp-ceremony-modal-seen";
   var EVENT_END = "2026-11-28";
   if (new Date() > new Date(EVENT_END + "T23:59:59")) return;
+  /* Only the landing page greets people with it, and only once per visit —
+     moving on to another page does not bring it back. */
+  if (document.body.getAttribute("data-page") !== "schedule") return;
+  try { if (sessionStorage.getItem(SEEN)) return; } catch (e) { /* storage unavailable */ }
   try { if (Number(localStorage.getItem(KEY) || 0) > Date.now()) return; } catch (e) { /* storage unavailable */ }
   if (document.getElementById("fwr-modal")) return;
 
@@ -667,6 +672,7 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
   function open() {
+    try { sessionStorage.setItem(SEEN, "1"); } catch (e) { /* storage unavailable */ }
     lastFocus = document.activeElement;
     modal.hidden = false;
     modal.classList.add("is-open");
