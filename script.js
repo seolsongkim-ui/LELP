@@ -611,40 +611,41 @@
   });
 })();
 
-/* ---------- Speech Contest sign-up popup ----------
+/* ---------- Completion Ceremony sign-up popup ----------
    Every page gets it from here rather than repeating the markup in seven
    HTML files. Opens shortly after load, closes on the buttons, the backdrop
    or Esc; the checkbox snoozes it for a day (storage is wrapped because a
-   private window or blocked site data makes it throw); it is for students
-   only, and it stops opening by itself once the application deadline has
-   passed. The fwr-* class names come from the first announcement this slot
-   carried (Freedom Walk & Run); they are kept so the styling stays as it was. */
+   private window or blocked site data makes it throw); it speaks to both
+   sides of the site, and it stops opening by itself once the ceremony day
+   has passed. The fwr-* class names come from the first announcement this
+   slot carried (Freedom Walk & Run); they are kept so the styling stays as
+   it was. */
 (function () {
-  var KEY = "lelp-speech-modal-snoozed-until";
-  var APPLY_END = "2026-10-28";
-  if (new Date() > new Date(APPLY_END + "T23:59:59")) return;
+  var KEY = "lelp-ceremony-modal-snoozed-until";
+  var EVENT_END = "2026-11-28";
+  if (new Date() > new Date(EVENT_END + "T23:59:59")) return;
   try { if (Number(localStorage.getItem(KEY) || 0) > Date.now()) return; } catch (e) { /* storage unavailable */ }
   if (document.getElementById("fwr-modal")) return;
 
   var html =
-    '<div class="fwr-modal" id="fwr-modal" role="dialog" aria-modal="true" aria-labelledby="fwr-title" data-r-student hidden>' +
+    '<div class="fwr-modal" id="fwr-modal" role="dialog" aria-modal="true" aria-labelledby="fwr-title" hidden>' +
     '  <div class="fwr-dialog">' +
     '    <button type="button" class="fwr-close" data-fwr-close aria-label="닫기 / Close">&times;</button>' +
-    '    <span class="fwr-icon"><svg class="ic" aria-hidden="true"><use href="#ic-mic"/></svg></span>' +
-    '    <span class="fwr-eyebrow">11.28 (토) · 오프라인</span>' +
-    '    <h2 id="fwr-title">스피치 콘테스트<br>참가 신청이 열렸습니다</h2>' +
-    '    <p>영어를 잘하는 대회가 아니라, 나의 이야기를 전하는 자리입니다. 전문가와 함께하는 코칭 세션으로 준비하고, 신청은 10월 28일까지입니다.</p>' +
+    '    <span class="fwr-icon"><svg class="ic" aria-hidden="true"><use href="#ic-grad"/></svg></span>' +
+    '    <span class="fwr-eyebrow"><span data-r-student>11.28 (토) · 오프라인</span><span data-r-volunteer>Sat, Nov 28 · Offline</span></span>' +
+    '    <h2 id="fwr-title"><span data-r-student>수료식<br>참가 신청이 열렸습니다</span><span data-r-volunteer>Completion Ceremony<br>Sign-ups are open</span></h2>' +
+    '    <p><span data-r-student>한 학기를 함께한 학생과 버디가 모여 수료를 축하합니다. 오후 2시부터 6시까지, 헤이그라운드 서울숲점 10층에서 열립니다.</span><span data-r-volunteer>Students and buddies who spent the semester together gather to celebrate completion, 2–6 PM at HEYGROUND Seoul Forest, 10F.</span></p>' +
     '    <p class="fwr-credit">' +
     '      <svg class="ic" aria-hidden="true"><use href="#ic-megaphone"/></svg>' +
-    '      <span>이번 학기 필수 활동에 참가하지 않은 학생은 <strong>마지막 기회</strong>이니 꼭 참여하시기 바랍니다.</span>' +
+    '      <span><span data-r-student>이번 학기 마지막으로 함께하는 자리입니다. 버디와 함께 오시면 <strong>베스트 드레서 시상</strong>에 참여할 수 있습니다.</span><span data-r-volunteer>This is our last gathering of the semester. Come with your student to join the <strong>Best Dresser award</strong>.</span></span>' +
     '    </p>' +
     '    <div class="fwr-actions">' +
-    '      <a class="btn btn-primary" href="activity.html#act-speech" data-fwr-apply>스피치 콘테스트 신청하기</a>' +
-    '      <button type="button" class="fwr-later" data-fwr-close>나중에 볼게요</button>' +
+    '      <a class="btn btn-primary" href="activity.html#act-ceremony" data-fwr-apply><span data-r-student>수료식 신청하기</span><span data-r-volunteer>Register for the ceremony</span></a>' +
+    '      <button type="button" class="fwr-later" data-fwr-close><span data-r-student>나중에 볼게요</span><span data-r-volunteer>Maybe later</span></button>' +
     '    </div>' +
     '    <label class="fwr-snooze">' +
     '      <input type="checkbox" id="fwr-snooze">' +
-    '      <span>오늘 하루 보지 않기</span>' +
+    '      <span><span data-r-student>오늘 하루 보지 않기</span><span data-r-volunteer>Don\'t show again today</span></span>' +
     '    </label>' +
     '  </div>' +
     '</div>';
@@ -666,8 +667,6 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
   function open() {
-    /* The contest is for students; on the volunteer side there is nothing to show. */
-    if (document.body.getAttribute("data-role") === "volunteer") return;
     lastFocus = document.activeElement;
     modal.hidden = false;
     modal.classList.add("is-open");
