@@ -697,7 +697,7 @@
 (function () {
   /* Where both sign-up sheets listen: one Google Apps Script web app that
      files each entry on its own tab by the `form` value it is sent. */
-  var FORMS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzATJE8IhoBFtSW_Ppnj6zVMs7SX3wUfk3RPPL3S0qYMU-4vbS0dwBBLniD1fd-3vhE-g/exec";
+  var FORMS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzrJ3WnOBg9BE0C6Y-mFgDJkEvUJv_ORQXuxWAPUuJgcXfGCGAYB9MYvwKv2tv29bkfsQ/exec";
 
   function setUp(modalId, href, check, send) {
   var modal = document.getElementById(modalId);
