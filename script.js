@@ -262,8 +262,8 @@
     // Points at the in-site application form, not a Google Form. A "#..."
     // value is treated as an in-page link below: same tab, no new window.
     "act-speech": "#act-speech-apply",
-    // Not open yet: the ceremony's apply buttons stay in the muted "모집 예정" state.
-    "act-ceremony": "#"
+    // Same in-site dialog approach as the speech contest.
+    "act-ceremony": "#act-ceremony-apply"
   };
 
   // Announced opening dates for forms that aren't live yet — shown on the

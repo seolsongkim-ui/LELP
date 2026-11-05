@@ -2943,6 +2943,47 @@ textarea.sf-input { min-height: 74px; resize: vertical; }
 .sp-row .v .sp-part b { color: var(--red); font-weight: 800; }
 .sp-part .sp-part-time { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--gray-600);
   font-variant-numeric: tabular-nums; }
+/* Completion Ceremony page and its sign-up form: gold and teal from the LiNK brand palette. */
+.activity-detail-block[data-activity="act-ceremony"], #cf-modal {
+  --red: #21373a; --red-dark: #21373a; --red-darker: #21373a; --red-tint: #f8f8f8; --red-tint-2: #acc6c5;
+}
+.activity-detail-block[data-activity="act-ceremony"] .btn-primary, #cf-modal .btn-primary { background: #ffc661; color: #21373a; }
+.activity-detail-block[data-activity="act-ceremony"] .btn-primary:hover, #cf-modal .btn-primary:hover { background: #ffc63d; }
+#cf-modal .sf-q.is-missing .sf-input { border-color: #dd3928; }
+/* Running order: the part 1 awards band is gold, the part 2 speech band is blue-gray. */
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-hi { background: #f8f8f8; border: 1px solid #ffc661; border-left: 4px solid #ffc661; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-hi .sp-hi-rib { background: #ffc661; color: #21373a; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-hi .sp-hi-half + .sp-hi-half { border-left-color: #ffc661; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-hi:not(.sp-hi-duo) { background: #acc6c5; border-color: #acc6c5; border-left-color: #21373a; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-hi:not(.sp-hi-duo) .sp-hi-rib { background: #21373a; color: #fff; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-hi:not(.sp-hi-duo) .sp-hi-l em { color: #21373a; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-part b::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 2px; background: #21373a; vertical-align: 1px; }
+.activity-detail-block[data-activity="act-ceremony"] .sp-row .v .sp-part:first-child b::before { background: #ffc661; }
+/* Best-dresser banner above the sign-up button. */
+.sp-gift { display: flex; align-items: flex-start; gap: 12px; margin: 22px 0 0; padding: 13px 16px;
+  background: #f8f8f8; border: 1px solid #ffc661; border-left: 4px solid #ffc661; line-height: 1.5; }
+.sp-gift .sp-gift-ic { width: 22px; height: 22px; flex: none; margin-top: 1px; color: #21373a; }
+.sp-gift .sp-gift-body { flex: 1; min-width: 0; }
+.sp-gift .sp-gift-body > span { display: block; }
+.sp-gift .sp-gift-head { display: flex; align-items: center; }
+.sp-gift .sp-gift-title { display: inline-block; padding: 2px 10px; background: #ffc661; font-size: 14px; font-weight: 700; color: #21373a; }
+.sp-gift .sp-gift-chip { flex: none; margin-left: auto; padding: 2px 12px; border-radius: 999px; background: #ffc661;
+  color: #21373a; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; }
+.sp-gift .sp-gift-text { margin-top: 3px; font-size: 13px; color: #4d4d4d; }
+.sp-gift .sp-gift-text > span { display: block; }
+.sp-gift .sp-gift-text .s { display: block; text-wrap: balance; }
+.sp-gift .sp-gift-note { margin-top: 2px; font-size: 12.5px; color: #999999; text-wrap: balance; }
+@media (max-width: 560px) { .sp-gift { gap: 10px; padding: 12px; } .sp-gift .sp-gift-title { font-size: 13.5px; } .sp-gift .sp-gift-text { font-size: 12.5px; } }
+/* Two awards share one band: a thin rule between the halves, stacked on phones. */
+.sp-hi-halves { display: flex; flex: 1; min-width: 0; }
+.sp-hi-half { display: flex; flex: 1 1 0; align-items: center; gap: 8px; min-width: 0; padding: 0 12px; }
+.sp-hi-half + .sp-hi-half { border-left: 1px solid #ffc661; }
+.sp-hi-half:first-child { padding-left: 0; }
+@media (max-width: 560px) {
+  .sp-hi-halves { flex-direction: column; gap: 8px; }
+  .sp-hi-half { padding: 0; }
+  .sp-hi-half + .sp-hi-half { border-left: 0; border-top: 1px solid #ffc661; padding-top: 8px; }
+}
 .sp-hi-rib { position: absolute; top: -9px; right: 10px; padding: 1px 8px; border-radius: 4px;
   background: var(--red); color: #fff; font-size: 10px; font-weight: 800;
   letter-spacing: 0.08em; line-height: 1.6; }
