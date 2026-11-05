@@ -2935,6 +2935,14 @@ textarea.sf-input { min-height: 74px; resize: vertical; }
 .sp-hi .sp-hi-l { font-weight: 800; font-size: 14px; color: var(--red-darker); }
 .sp-row .v .sp-hi-l em { display: block; margin-top: 1px; font-size: 11.5px; font-weight: 500; }
 .sp-hi .sp-hi-spark { width: 18px; height: 18px; margin-left: auto; }
+/* The running order splits into three parts with their time spans, so the
+   2-6 PM day reads at a glance. */
+.sp-row .v .sp-part { display: flex; align-items: baseline; gap: 6px; margin: 16px 0 6px;
+  padding-bottom: 5px; border-bottom: 1.5px solid var(--ink); font-size: 13px; font-weight: 800; color: var(--ink); }
+.sp-row .v .sp-part:first-child { margin-top: 2px; }
+.sp-row .v .sp-part b { color: var(--red); font-weight: 800; }
+.sp-part .sp-part-time { margin-left: auto; font-size: 12px; font-weight: 700; color: var(--gray-600);
+  font-variant-numeric: tabular-nums; }
 .sp-hi-rib { position: absolute; top: -9px; right: 10px; padding: 1px 8px; border-radius: 4px;
   background: var(--red); color: #fff; font-size: 10px; font-weight: 800;
   letter-spacing: 0.08em; line-height: 1.6; }
