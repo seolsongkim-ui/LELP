@@ -695,8 +695,9 @@
    activity card reading 모집 중; the click is intercepted here. Both forms
    behave the same way; only the checks at the end differ. */
 (function () {
-  /* Where the speech-contest sheet listens (a Google Apps Script web app). */
-  var SPEECH_ENDPOINT = "https://script.google.com/macros/s/AKfycbzATJE8IhoBFtSW_Ppnj6zVMs7SX3wUfk3RPPL3S0qYMU-4vbS0dwBBLniD1fd-3vhE-g/exec";
+  /* Where both sign-up sheets listen: one Google Apps Script web app that
+     files each entry on its own tab by the `form` value it is sent. */
+  var FORMS_ENDPOINT = "https://script.google.com/macros/s/AKfycbzATJE8IhoBFtSW_Ppnj6zVMs7SX3wUfk3RPPL3S0qYMU-4vbS0dwBBLniD1fd-3vhE-g/exec";
 
   function setUp(modalId, href, check, send) {
   var modal = document.getElementById(modalId);
@@ -886,7 +887,7 @@
     }
     if (h.modal.querySelectorAll('input[name="sf-ack"]:checked').length < 3) h.bad.push([h.qOf(h.field("sf-ack")), h.EN ? "Please tick each of the three items." : "세 항목을 모두 확인하고 체크해 주세요."]);
   }, {
-    url: SPEECH_ENDPOINT,
+    url: FORMS_ENDPOINT,
     build: function (h) {
       /* The sheet always gets the Korean wording, whichever side of the site
          the page was showing, so every row reads the same. */
@@ -935,6 +936,28 @@
     else if (diet.offsetParent !== null) {
       if (!h.checked("cf-diet")) h.bad.push([diet, h.EN ? "Please tell us what you eat." : "식사 선호를 선택해 주세요."]);
       else if (other.offsetParent !== null && !other.value.trim()) h.bad.push([diet, h.EN ? "Tell us what to leave out." : "어떤 음식인지 적어 주세요."]);
+    }
+  }, {
+    url: FORMS_ENDPOINT,
+    build: function (h) {
+      /* Korean wording for the sheet, same as the speech form. */
+      function label(input) {
+        var s = input && input.closest("label") && input.closest("label").querySelector("[data-r-student]");
+        return s ? s.textContent.trim() : "";
+      }
+      var dq = h.field("cf-diet").closest(".sf-q");
+      var dietOn = !!dq && dq.offsetParent !== null;
+      var other = h.field("cf-diet-other");
+      return {
+        form: "ceremony",
+        role: h.field("cf-role").value,
+        name: h.field("cf-name").value.trim(),
+        email: h.field("cf-email").value.trim(),
+        dinner: label(h.checked("cf-dinner")),
+        diet: dietOn ? label(h.checked("cf-diet")) : "",
+        dietOther: dietOn && other.offsetParent !== null ? other.value.trim() : "",
+        question: h.field("cf-ask").value.trim()
+      };
     }
   });
 })();
