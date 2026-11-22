@@ -287,7 +287,7 @@
 
   // Sign-ups closed by hand, whatever the dates say — the roster filled up or
   // the team stopped taking entries early.
-  var ACTIVITY_CLOSED = ["act-penpal"];
+  var ACTIVITY_CLOSED = ["act-penpal", "act-ceremony"];
 
   // Each activity's last day, inclusive. Once it is past, sign-ups close even
   // when no separate application deadline was announced for it.
@@ -630,6 +630,10 @@
   var KEY = "lelp-ceremony-modal-snoozed-until";
   var SEEN = "lelp-ceremony-modal-seen";
   var EVENT_END = "2026-11-28";
+  /* Ceremony sign-ups closed early (2026-11-22), so the popup is switched
+     off. Set POPUP_ON back to true to bring it back for a future event. */
+  var POPUP_ON = false;
+  if (!POPUP_ON) return;
   if (new Date() > new Date(EVENT_END + "T23:59:59")) return;
   /* Only the landing page greets people with it, and only once per visit —
      moving on to another page does not bring it back. */
